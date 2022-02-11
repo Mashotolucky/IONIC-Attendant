@@ -9,6 +9,14 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+
+import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+import { Dialogs } from '@awesome-cordova-plugins/dialogs/ngx';
+
+
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -20,7 +28,7 @@ import { AppComponent } from './app.component';
         TabsModule.forRoot()
       ],
 
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [BarcodeScanner, QRScanner, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, Dialogs],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

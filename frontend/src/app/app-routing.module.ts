@@ -5,7 +5,11 @@ import { ExploreContainerComponent } from './explore-container/explore-container
 const routes: Routes = [
   
   {
-    path: '',component: ExploreContainerComponent
+    path: 'explore',component: ExploreContainerComponent
+  },
+  {
+    path: '',
+    loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
   },
 ];
 @NgModule({
