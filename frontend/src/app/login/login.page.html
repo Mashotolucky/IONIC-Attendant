@@ -4,10 +4,10 @@
     <ion-title>Log In</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content class="position">
   <form [formGroup]="form">
     <ion-item lines="full">
-      <ion-label position="floating">Email</ion-label>
+      <ion-label position="floating" class="lindo">Email</ion-label>
       <ion-input type="text" 
       name = "email"
       formControlName="email"
@@ -20,11 +20,11 @@
     </ion-item>
     
     <ion-item lines="full">
-      <ion-label position="floating">Password</ion-label>
+      <ion-label position="floating" class="color">Password</ion-label>
       <ion-input type="password" name="password" formControlName="password" required></ion-input>
       <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
         <span *ngIf="password.errors?.required">Password is required</span>
-        <span *ngIf="password.errors?.invalid.required">Password is invalid</span>
+        <span *ngIf="password.errors?.required">Password is invalid</span>
       </div>
     </ion-item>
 
