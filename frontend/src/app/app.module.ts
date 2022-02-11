@@ -5,6 +5,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,7 +18,9 @@ import { AppComponent } from './app.component';
         IonicModule.forRoot(),
         AppRoutingModule,
         NgbModule,
-        TabsModule.forRoot()
+        TabsModule.forRoot(),
+        FormsModule,
+        ReactiveFormsModule
       ],
 
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
