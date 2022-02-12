@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormBuilder , FormControl, Validator, Validators} from '@angular/forms';
-
+import { User } from '../model/user.model';
+import { ServicesService } from './services.service';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,17 @@ export class RegisterPage implements OnInit {
 
   myForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  user: User = {
+    Email: '',
+    Name: '',
+    Surname: '',
+    Password: ''
+  };
+
+  submitted = false;
+
+  constructor(private fb: FormBuilder,
+              private userService:ServicesService) {}
 
 
   confirmPasswordMatch(controlName: string, matchingControlName: string) 
@@ -55,29 +66,56 @@ export class RegisterPage implements OnInit {
     console.log('Surname', form.value.Surname);
     console.log('Password', form.value.Password);
 
+    const data = {
+      Email:form.value.Email,
+      Name: form.value.Name,
+      Surname: form.value.Surname,
+      Password: form.value.Password
+    }
+
+    this.userService.create(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.submitted = true;
+        },
+        error: (e) => console.error(e)
+      });
   }
-  get f(){
-    return this.myForm.controls
-  }
-  submit(){
-    console.log(this.myForm.value)
-  }
-  get Email()
-  {
-    return this.myForm.get('Email')
-  }
-  get Name()
-  {
-    return this.myForm.get('Name')
-  }
-  get Surname()
-  {
-    return this.myForm.get('Surname')
-  }
-  get Password()
-  {
-    return this.myForm.get('Password')
-  }
+
+    get f(){
+      return this.myForm.controls
+    }
+    submit(){
+      console.log(this.myForm.value)
+    }
+    get Email()
+    {
+      return this.myForm.get('Email')
+    }
+    get Name()
+    {
+      return this.myForm.get('Name')
+    }
+    get Surname()
+    {
+      return this.myForm.get('Surname')
+    }
+    get Password()
+    {
+      return this.myForm.get('Password')
+    }
+
+    newUser(): void{
+
+      this.submitted = false
+      this.user = {
+        Email: '',
+        Name: '',
+        Surname: '',
+        Password: ''
+      };
+    }
   
   }
   

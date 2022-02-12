@@ -9,6 +9,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +21,8 @@ import { AppComponent } from './app.component';
         NgbModule,
         TabsModule.forRoot(),
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        HttpClientModule
       ],
 
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
