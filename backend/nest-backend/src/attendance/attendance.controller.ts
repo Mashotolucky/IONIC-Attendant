@@ -1,6 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import {AttendanceService} from './attendance.service';
-import { Attendance } from './attendance.entity';
 import { AttendanceDto } from './dto/attendance.dto';
 
 @Controller('attendance')
