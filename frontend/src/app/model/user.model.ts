@@ -4,4 +4,5 @@ export class User {
     Name?: any;
     Surname?: any;
     Password?: any;
+    employeeNo?: any;
   }

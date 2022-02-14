@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormBuilder , FormControl, Validator, Validators} from '@angular/forms';
 import { User } from '../model/user.model';
-import { ServicesService } from './services.service';
+import { ServicesService } from '../services/services.service';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +18,8 @@ export class RegisterPage implements OnInit {
     Email: '',
     Name: '',
     Surname: '',
-    Password: ''
+    Password: '',
+    employeeNo: ''
   };
 
   submitted = false;
@@ -49,7 +50,8 @@ export class RegisterPage implements OnInit {
       Name:new FormControl('',[Validators.required,Validators.minLength(3)]),
       Surname:new FormControl('',[Validators.required,Validators.minLength(3)]),
       Password:new FormControl('',[Validators.required,Validators.minLength(7)]),
-      Confirm:new FormControl('',[Validators.required,Validators.minLength(7)])
+      Confirm:new FormControl('',[Validators.required,Validators.minLength(7)]),
+      employeeNo:new FormControl('',[Validators.required,Validators.minLength(4),Validators.maxLength(9)])
     },
     {
       validator: [this.confirmPasswordMatch('Password','Confirm')]
@@ -60,17 +62,21 @@ export class RegisterPage implements OnInit {
   }
 
   onSubmit(form: FormGroup) {
-    console.log('Valid?', form.valid); // true or false
-    console.log('Email', form.value.Email);
-    console.log('Name', form.value.Name);
-    console.log('Surname', form.value.Surname);
-    console.log('Password', form.value.Password);
+    console.log(form.value);
+    // console.log('Valid?', form.valid); // true or false
+    // console.log('Email', form.value.Email);
+    // console.log('Name', form.value.Name);
+    // console.log('Surname', form.value.Surname);
+    // console.log('Password', form.value.Password);
+    // console.log('employeeNo');
+    
 
     const data = {
       Email:form.value.Email,
       Name: form.value.Name,
       Surname: form.value.Surname,
-      Password: form.value.Password
+      Password: form.value.Password,
+      employeeNo:form.value.employeeNo
     }
 
     this.userService.create(data)
@@ -105,6 +111,10 @@ export class RegisterPage implements OnInit {
     {
       return this.myForm.get('Password')
     }
+    get employeeNo()
+    {
+      return this.myForm.get('employeeNo')
+    }
 
     newUser(): void{
 
@@ -113,7 +123,10 @@ export class RegisterPage implements OnInit {
         Email: '',
         Name: '',
         Surname: '',
-        Password: ''
+       Password:'',
+       employeeNo:''
+
+        
       };
     }
   
