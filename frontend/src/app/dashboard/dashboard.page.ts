@@ -13,8 +13,6 @@ import { Dialogs } from '@awesome-cordova-plugins/dialogs/ngx';
 })
 export class DashboardPage implements OnInit {
 
- 
-
 
   scannedData: any;
   encodedData: '';

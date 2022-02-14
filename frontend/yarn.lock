@@ -2279,8 +2279,6 @@
   "version" "0.4.1"
 
 "@types/cordova@latest":
-  "integrity" "sha1-6nrd907Ow9dimCegw54smt3HPQQ="
-  "resolved" "https://registry.npmjs.org/@types/cordova/-/cordova-0.0.34.tgz"
   "version" "0.0.34"
 
 "@types/cors@^2.8.12":
@@ -2803,6 +2801,13 @@
     "json-schema-traverse" "^1.0.0"
     "require-from-string" "^2.0.2"
     "uri-js" "^4.2.2"
+
+"android-versions@^1.7.0":
+  "integrity" "sha512-TCy4b8Dk8YS6A23ZPfhSKqK66JHFq0D8avGYiwvYpjno6HrrcI0DRgHx9+jtkvWYmrsE2vQWgbHJhvGGhhOb0g=="
+  "resolved" "https://registry.npmjs.org/android-versions/-/android-versions-1.7.0.tgz"
+  "version" "1.7.0"
+  dependencies:
+    "semver" "^5.7.1"
 
 "ansi-align@^3.0.0":
   "integrity" "sha512-IOfwwBF5iczOjp/WeY4YxyjqAFMQoZufdQWDd19SEExbVLNXqvpzSJ/M7Za4/sCPmQ0+GRquoA7bGcINcxew6w=="
@@ -4127,6 +4132,23 @@
     "p-limit" "^3.1.0"
     "schema-utils" "^3.0.0"
     "serialize-javascript" "^6.0.0"
+
+"cordova-android@10.1.1":
+  "integrity" "sha512-eoJp5AcDMHniqmxj0CbUF/rVQfbbp108TWKU6oyJW9rl/ZTJqZxm5ybznl+1/1MBksklxhMeipMn0Iwd0kEzEQ=="
+  "resolved" "https://registry.npmjs.org/cordova-android/-/cordova-android-10.1.1.tgz"
+  "version" "10.1.1"
+  dependencies:
+    "android-versions" "^1.7.0"
+    "cordova-common" "^4.0.2"
+    "execa" "^5.1.1"
+    "fast-glob" "^3.2.7"
+    "fs-extra" "^10.0.0"
+    "is-path-inside" "^3.0.3"
+    "nopt" "^5.0.0"
+    "properties-parser" "^0.3.1"
+    "semver" "^7.3.5"
+    "untildify" "^4.0.0"
+    "which" "^2.0.2"
 
 "cordova-app-hello-world@^6.0.0":
   "integrity" "sha512-wPZsm+fzNUwdiTRODT+fQuPV410RNmd3Buiw63vT8BPxjC+cn6Bu8emrgwrDM4pbmU5sa5Unwu3xPcbQGQ3G3g=="
@@ -7282,7 +7304,7 @@
   dependencies:
     "path-is-inside" "^1.0.2"
 
-"is-path-inside@^3.0.2":
+"is-path-inside@^3.0.2", "is-path-inside@^3.0.3":
   "integrity" "sha512-Fd4gABb+ycGAmKou8eMftCupSir5lRxqf4aD/vd0cD2qc4HL07OjCeuHMr8Ro4CoMaeCKDB0/ECBOVWjTwUvPQ=="
   "resolved" "https://registry.npmjs.org/is-path-inside/-/is-path-inside-3.0.3.tgz"
   "version" "3.0.3"
@@ -10332,6 +10354,13 @@
   dependencies:
     "read" "1"
 
+"properties-parser@^0.3.1":
+  "integrity" "sha1-ExbpU5/7/ZOEXjabIRAiq9R4dxo="
+  "resolved" "https://registry.npmjs.org/properties-parser/-/properties-parser-0.3.1.tgz"
+  "version" "0.3.1"
+  dependencies:
+    "string.prototype.codepointat" "^0.2.0"
+
 "protractor@^7.0.0", "protractor@~7.0.0":
   "integrity" "sha512-UqkFjivi4GcvUQYzqGYNe0mLzfn5jiLmO8w9nMhQoJRLhy2grJonpga2IWhI6yJO30LibWXJJtA4MOIZD2GgZw=="
   "resolved" "https://registry.npmjs.org/protractor/-/protractor-7.0.0.tgz"
@@ -11166,6 +11195,11 @@
   "resolved" "https://registry.npmjs.org/semver/-/semver-5.7.1.tgz"
   "version" "5.7.1"
 
+"semver@^5.7.1":
+  "integrity" "sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ=="
+  "resolved" "https://registry.npmjs.org/semver/-/semver-5.7.1.tgz"
+  "version" "5.7.1"
+
 "semver@^6.0.0":
   "integrity" "sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw=="
   "resolved" "https://registry.npmjs.org/semver/-/semver-6.3.0.tgz"
@@ -11817,6 +11851,11 @@
     "is-fullwidth-code-point" "^2.0.0"
     "strip-ansi" "^5.1.0"
 
+"string.prototype.codepointat@^0.2.0":
+  "integrity" "sha512-2cBVCj6I4IOvEnjgO/hWqXjqBGsY+zwPmHl12Srk9IXSZ56Jwwmy+66XO5Iut/oQVR7t5ihYdLB0GMa4alEUcg=="
+  "resolved" "https://registry.npmjs.org/string.prototype.codepointat/-/string.prototype.codepointat-0.2.1.tgz"
+  "version" "0.2.1"
+
 "string.prototype.trimend@^1.0.4":
   "integrity" "sha512-y9xCjw1P23Awk8EvTpcyL2NIr1j7wJ39f+k6lvRnSMz+mz9CGz9NYPelDk42kOz6+ql8xjfK8oYzy3jAP5QU5A=="
   "resolved" "https://registry.npmjs.org/string.prototype.trimend/-/string.prototype.trimend-1.0.4.tgz"
@@ -12448,12 +12487,7 @@
     "has-symbols" "^1.0.2"
     "which-boxed-primitive" "^1.0.2"
 
-"underscore@^1.8.3":
-  "integrity" "sha512-ekY1NhRzq0B08g4bGuX4wd2jZx5GnKz6mKSqFL4nqBlfyMGiG10gDFhDTMEfYmDL6Jy0FUIZp7wiRB+0BP7J2g=="
-  "resolved" "https://registry.npmjs.org/underscore/-/underscore-1.13.2.tgz"
-  "version" "1.13.2"
-
-"underscore@^1.9.2":
+"underscore@^1.8.3", "underscore@^1.9.2":
   "integrity" "sha512-ekY1NhRzq0B08g4bGuX4wd2jZx5GnKz6mKSqFL4nqBlfyMGiG10gDFhDTMEfYmDL6Jy0FUIZp7wiRB+0BP7J2g=="
   "resolved" "https://registry.npmjs.org/underscore/-/underscore-1.13.2.tgz"
   "version" "1.13.2"
