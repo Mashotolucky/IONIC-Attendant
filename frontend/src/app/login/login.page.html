@@ -1,39 +1,48 @@
 
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Log In</ion-title>
+  <ion-toolbar >
+    <ion-title class="text">Log In</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content class="position">
+<ion-content>
+  <div class="background">
+    <div class="position">
   <form [formGroup]="form">
-    <ion-item lines="full">
+    
       <ion-label position="floating" class="lindo">Email</ion-label>
+      <ion-card lines="full">
       <ion-input type="text" 
       name = "email"
       formControlName="email"
       required></ion-input>
       <div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
-        <span *ngIf="email.errors?.required">Email is required</span>
-        <span *ngIf="email.errors?.email">Email is invalid</span>
+        <span *ngIf="email.errors?.required" class="text_color">Email is required</span>
+        <span *ngIf="email.errors?.email" class="text_color">Email is invalid</span>
       </div>
   
-    </ion-item>
+    </ion-card>
     
-    <ion-item lines="full">
+    
       <ion-label position="floating" class="color">Password</ion-label>
+      <ion-card lines="full">
       <ion-input type="password" name="password" formControlName="password" required></ion-input>
       <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
-        <span *ngIf="password.errors?.required">Password is required</span>
-        <span *ngIf="password.errors?.required">Password is invalid</span>
+        <span *ngIf="password.errors?.required" class="text_color">Password is required</span>
+        <!-- <span *ngIf="password.errors?.required">Password is invalid</span> -->
       </div>
-    </ion-item>
+    </ion-card>
 
     <ion-row>
-      <ion-col>
-        <ion-button type="submit" color="secondary" expand="block">Sign In</ion-button>
+      <ion-col class=" pad">
+        <ion-button class="wrapper" type="submit" color="secondary" expand="block">Sign In</ion-button>
+        <h5>
+          Don't have an account?
         <a class="small-text" routerLink='/register'>Register</a>
+        </h5>
       </ion-col>
     </ion-row>
   </form>
+</div>
+  </div>
 </ion-content>
 

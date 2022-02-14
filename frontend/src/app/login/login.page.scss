@@ -1,13 +1,40 @@
+
 .lindo {
     color: black;
+    padding-inline-start: 5%;
 }
 .color {
     color: black;
+    padding-inline-start: 5%;
 }
 
 .position {
     align-items: center;
     justify-content: center;
     transform: translateY(25%);
-   
+}
+.background {
+    background: url(../../assets/background2.jpeg);
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+
+.pad{
+    padding-top: 10%;
+}
+.wrapper {
+ padding-inline-end: 20%;
+ padding-inline-start: 20%;
+}
+.text_color{
+    color: red;
+}
+.text{
+    color:white;
+}
+h5{
+    padding-top: 10%;
 }
