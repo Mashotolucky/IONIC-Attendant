@@ -20,7 +20,9 @@ export class LoginPage implements OnInit{
     })
   }
 
-  onsubmit(form: FormGroup){
+  onSubmit(form: FormGroup){
+    console.log(form);
+    console.log('hello')
     console.log('valid?',form.valid);
     console.log('password',form.value.password);
     console.log('email',form.value.email);
