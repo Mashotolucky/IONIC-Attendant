@@ -22,11 +22,11 @@ export class User extends Model<User> {
     email: string;
 
     @Column({
-        type: DataType.INTEGER,
+        type: DataType.STRING,
         unique: true,
         allowNull: false,
     })
-    employeenumber: number;
+    employeenumber: string;
 
     @Column({
         type: DataType.STRING,
