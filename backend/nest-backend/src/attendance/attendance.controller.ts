@@ -37,7 +37,7 @@ export class AttendanceController {
     @Put(':id')
     async update(@Param('id') id: number, @Body() attendance: AttendanceDto, @Request() req): Promise<Attendance> {
         // get the number of row affected and the updated post
-        const { numberOfAffectedRows, updatedPost } = await this.attendanceService.update(id, attendance, req.user.id);
+        const { numberOfAffectedRows, updatedAttendance } = await this.attendanceService.update(id, attendance, req.user.id);
 
         // if the number of row affected is zero, 
         // it means the post doesn't exist in our db
@@ -46,7 +46,7 @@ export class AttendanceController {
         }
 
         // return the updated post
-        return updatedPost;
+        return updatedAttendance;
     }
 
     @UseGuards(AuthGuard('jwt'))
