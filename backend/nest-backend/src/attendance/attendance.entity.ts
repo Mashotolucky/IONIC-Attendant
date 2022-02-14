@@ -1,4 +1,5 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { User } from 'src/users/users.entity';
 
 @Table
 export class Attendance extends Model<Attendance> {
@@ -31,5 +32,14 @@ export class Attendance extends Model<Attendance> {
         allowNull: false,
     })
     location: string;
+    @ForeignKey(() => User)
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: false,
+    })
+    userId: number;
+
+    @BelongsTo(() => User)
+    user: User;
 
 }
