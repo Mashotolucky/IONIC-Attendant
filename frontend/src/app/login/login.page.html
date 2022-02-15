@@ -1,18 +1,58 @@
 
+
+
+
+
+
+
+
 <ion-header>
-  <ion-toolbar color="secondary" >
-    <ion-title class="text">Log In</ion-title>
-  </ion-toolbar>
+  <ion-back-button color="black"></ion-back-button>
 </ion-header>
 
 <ion-content>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+  <ion-card>
+    <ion-item id="items">
+      <ion-input type="email" id="input" placeholder="Email" type="text" formControlName="email" required></ion-input>
+      <div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
+        <span *ngIf="email.errors?.required" class="text_color">Email is required</span>
+        <span *ngIf="email.errors?.email" class="text_color">Email is invalid</span>
+      </div>
+      <ion-icon id="icon" slot="end" name="mail-outline"></ion-icon>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-item id="items">
+      <ion-input type="password" id="input" placeholder="Password" formControlName="password" required></ion-input>
+      <div *ngIf="(password.dirty || password.touched ) && password.errors &&  password.invalid" class="errors">
+        <span *ngIf="password.errors?.required" class="text_color">Password is required</span>
+        <span *ngIf="password.invalid?.password" class="text_color">Password is invalid</span>
+      </div>
+      <ion-icon id="icon" slot="end" name="key-outline"></ion-icon>
+    </ion-item>
+  </ion-card>
+  <div id="button">
+    <ion-button type="submit" expand="block">Sign in</ion-button>
+  </div>
+  <div id="text">
+    <h5>Don't have an account? <a routerLink="./dashboard">Sign up</a></h5>
+  </div>
+</form>
   
-    <div class="position">
+</ion-content>
+
+
+
+<!-- <div class="position">
   <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
-    <ion-item lines="full" >
+    <ion-item>
       <ion-label position="floating" class="lindo">Email</ion-label>
       
-      <ion-input type="text" name = "email" formControlName="email" required></ion-input>
+      <ion-input class="boarder"   type="text" name = "email" formControlName="email" required>
+        <ion-icon class ="icon" name="person-circle-outline"></ion-icon>
+      </ion-input>
       <div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
         <span *ngIf="email.errors?.required" class="text_color">Email is required</span>
         <span *ngIf="email.errors?.email" class="text_color">Email is invalid</span>
@@ -25,7 +65,7 @@
       <ion-input type="password" name="password" formControlName="password" required></ion-input>
       <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
         <span *ngIf="password.errors?.required" class="text_color">Password is required</span>
-        <!-- <span *ngIf="password.errors?.required">Password is invalid</span> -->
+        <span *ngIf="password.errors?.required">Password is invalid</span> 
       </div>
     </ion-item>
 
@@ -38,8 +78,8 @@
         </h5>
       </ion-col>
     </ion-row>
-  </form>
-</div>
-  
-</ion-content>
-
+    <ion-item>
+      <ion-input placeholder="lindo">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </ion-input>
+    </ion-item> -->

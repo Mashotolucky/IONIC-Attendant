@@ -1,45 +1,36 @@
 
-.lindo {
-    color: black;
-    padding-inline-start: 5%;
-}
-.color {
-    color: black;
-    padding-inline-start: 5%;
-}
-.text {
-    color: white;
+ion-content {
+    position: absolute;
+    transform: translateY(20%);
+#items {
+    --background: #DDE7FF;
+    --border-style: none;
+    #input {
+        font-size: 1rem;
+        
+    }
+
+    #icon {
+        font-size: 2rem;
+        color: #000000;
+        text-transform: 500;
+    }
 }
 
-.position {
-    align-items: center;
-    justify-content: center;
-    transform: translateY(50%);
-}
-.background {
-    background: url(../../assets/background2.jpeg);
-    height: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    
+#button {
+    margin: 1rem;
+    --background: #50C8FF;
 }
 
-
-.pad{
-    padding-top: 10%;
+#text {
+    margin: 1rem;
+    margin-top: 4rem;
+    h5 {
+        text-align: center;
+    }
+    a {
+        text-decoration: none;
+        color: #5500CC;
+    }
 }
-.wrapper {
- padding-inline-end: 20%;
- padding-inline-start: 20%;
-}
-.text_color{
-    color: red;
-}
-.placeholder{
-    color:black;
-}
-
-h5{
-    padding-top: 10%;
 }
