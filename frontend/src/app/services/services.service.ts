@@ -16,4 +16,7 @@ export class ServicesService {
   create(data: any): Observable<any> {
     return this.http.post(baseUrl, data);
   }
+
+  
+
 }

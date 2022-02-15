@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]= "form" (ngSubmit)="onSubmit(form)">
+  <form [formGroup]= "form" (ngSubmit)= "onSubmit(form)">
     <ion-card>
     <ion-item id="items">
       <ion-input placeholder="First Name" type ="Name" id="input" formControlName="Name" required></ion-input>
@@ -71,7 +71,7 @@
     </ion-card>
 
     <div id="button">
-    <ion-button expand="block" click="confirm()">Sign Up</ion-button>
+    <ion-button type="submit" expand="block" >Sign Up</ion-button>
   </div>
 
 

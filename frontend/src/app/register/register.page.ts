@@ -62,7 +62,7 @@ export class RegisterPage implements OnInit {
     
   }
 
-  onSubmit(form: FormGroup) {
+  onSubmit(form) {
     console.log(form.value);
     console.log("hello");
 
