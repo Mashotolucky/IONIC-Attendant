@@ -14,6 +14,11 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { Dialogs } from '@awesome-cordova-plugins/dialogs/ngx';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+
 
 
 
@@ -25,10 +30,14 @@ import { Dialogs } from '@awesome-cordova-plugins/dialogs/ngx';
         IonicModule.forRoot(),
         AppRoutingModule,
         NgbModule,
-        TabsModule.forRoot()
+        TabsModule.forRoot(),
+        ReactiveFormsModule,
+        FormsModule,
+        HttpClientModule
       ],
 
-  providers: [BarcodeScanner, QRScanner, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, Dialogs],
+  providers: [BarcodeScanner,Geolocation, QRScanner,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, Dialogs],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {};
+

@@ -4,11 +4,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="bg-dark">
 
-  <ion-item class="container-fluid">
-    <ion-input class="mt-4 mx-auto border rounded" placeholder="Temperature"></ion-input>
-  </ion-item>
+    <form class="container-fluid" [formGroup]="formTemp">
+        <ion-item >
+            <ion-input class="mt-4 mx-auto border rounded" type="number" formControlName="temperature" placeholder="Temperature"></ion-input>
+        </ion-item>
+    </form>
+
 
   <div class="container-fluid">
       <ion-card>
@@ -17,18 +20,20 @@
         if Yes, please see Covid compliance <br>
         Officer immediately*
 
-        <ion-list>
-          <ion-item class="d-flex">
-            <ion-checkbox></ion-checkbox>
-            <ion-label>Yes</ion-label>
-          </ion-item>
+        <form >
+            <ion-list>
+              <ion-item class="d-flex">
+                <ion-checkbox ></ion-checkbox>
+                <ion-label>Yes</ion-label>
+              </ion-item>
 
-          <ion-item class="d-flex">
-            <ion-checkbox ></ion-checkbox>
-            <ion-label>No</ion-label>
-          </ion-item>
-        </ion-list>
-      
+              <ion-item class="d-flex">
+                <ion-checkbox></ion-checkbox>
+                <ion-label>No</ion-label>
+              </ion-item>
+            </ion-list>
+          </form>
+
       </ion-card-content>
     </ion-card>
   </div>
@@ -66,17 +71,17 @@
   </div>
   
   <div class="scan ">
-    <ion-button class="btn p-0 ms-4" color="light" (click)="scan()" expand="block" >Scan</ion-button>
+    <ion-button class="btn p-0 ms-4" color="light" routerLink='/scan' expand="block" >Scan</ion-button>
   </div>
 
   <br>
 
-  <ion-card>
+  <!-- <ion-card>
     <div *ngIf="scannedData">
         <ion-item>
-            Scanned code output: <strong>{{ scannedData["format"] }}</strong>
+            Scanned code output: <strong>{{ scannedData}}</strong>
         </ion-item>
     </div>
-</ion-card>
+</ion-card> -->
 
 </ion-content>
