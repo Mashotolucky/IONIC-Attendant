@@ -14,7 +14,7 @@ export class RegisterPage implements OnInit {
 
   myForm: FormGroup;
 
-  user: User = {
+  user = {
     Email: '',
     Name: '',
     Surname: '',
