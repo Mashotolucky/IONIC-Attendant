@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup,FormBuilder , FormControl, Validator, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
+import { FormGroup,FormBuilder , FormControl, Validators} from '@angular/forms';
 import { User } from '../model/user.model';
 import { ServicesService } from '../services/services.service';
 
@@ -12,8 +13,8 @@ import { ServicesService } from '../services/services.service';
 
 export class RegisterPage implements OnInit {
 
-  myForm: FormGroup;
-
+  form: FormGroup;
+  
   user = {
     Email: '',
     Name: '',
@@ -45,7 +46,7 @@ export class RegisterPage implements OnInit {
 
 
   ngOnInit(): void{
-    this.myForm=this.fb.group({
+    this.form=this.fb.group({
       Email:new FormControl('',[Validators.required,Validators.email]),
       Name:new FormControl('',[Validators.required,Validators.minLength(3)]),
       Surname:new FormControl('',[Validators.required,Validators.minLength(3)]),
@@ -63,23 +64,10 @@ export class RegisterPage implements OnInit {
 
   onSubmit(form: FormGroup) {
     console.log(form.value);
-    // console.log('Valid?', form.valid); // true or false
-    // console.log('Email', form.value.Email);
-    // console.log('Name', form.value.Name);
-    // console.log('Surname', form.value.Surname);
-    // console.log('Password', form.value.Password);
-    // console.log('employeeNo');
-    
+    console.log("hello");
 
-    const data = {
-      Email:form.value.Email,
-      Name: form.value.Name,
-      Surname: form.value.Surname,
-      Password: form.value.Password,
-      employeeNo:form.value.employeeNo
-    }
 
-    this.userService.create(data)
+    this.userService.create(form.value)
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -90,30 +78,34 @@ export class RegisterPage implements OnInit {
   }
 
     get f(){
-      return this.myForm.controls
+      return this.form.controls
     }
     submit(){
-      console.log(this.myForm.value)
+      console.log(this.form.value)
     }
     get Email()
     {
-      return this.myForm.get('Email')
+      return this.form.get('Email')
     }
     get Name()
     {
-      return this.myForm.get('Name')
+      return this.form.get('Name')
     }
     get Surname()
     {
-      return this.myForm.get('Surname')
+      return this.form.get('Surname')
     }
     get Password()
     {
-      return this.myForm.get('Password')
+      return this.form.get('Password')
     }
     get employeeNo()
     {
-      return this.myForm.get('employeeNo')
+      return this.form.get('employeeNo')
+    }
+
+    confirm(){
+      alert("You have succefully Registered")
     }
 
     newUser(): void{
