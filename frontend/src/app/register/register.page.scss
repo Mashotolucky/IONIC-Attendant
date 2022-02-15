@@ -3,13 +3,13 @@
   --ion-text-color: #000;
 }
 
-ion-content{
-    --background:url("../../assets/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpeg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    height: 100vh;
-    background-size: cover;
-}
+// ion-content{
+//     --background:url("../../assets/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpeg");
+//     background-repeat: no-repeat;
+//     background-attachment: fixed;
+//     height: 100vh;
+//     background-size: cover;
+// }
 
 
 #container {
@@ -35,9 +35,9 @@ ion-content{
     margin: 0;
   }
   
-  #container a {
-    text-decoration: none;
-  }
+  // #container a {
+  //   text-decoration: none;
+  // }
   
   // .position {
   //   align-items: center;
@@ -46,6 +46,8 @@ ion-content{
   // }
   .label{
     padding-inline-start: 5%;
+    text-decoration-color: black;
+    color: black;
   }
 
   
@@ -53,9 +55,9 @@ ion-input{
   --padding-start: 20px;
 }
 
-.pad{
-  --padding-start: 50px;
-}
+// .pad{
+//   --padding-start: 50px;
+// }
 
 
 
