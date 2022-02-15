@@ -7,6 +7,7 @@ import { DatabaseModule } from './database/database module/database.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { AttendanceModule } from './attendance/attendance.module';
+import { AdminModule } from './admin/admin.module';
 
 
 
@@ -17,6 +18,7 @@ import { AttendanceModule } from './attendance/attendance.module';
     UsersModule,
     AuthModule,
     AttendanceModule,
+    AdminModule,
 
   ],
 
