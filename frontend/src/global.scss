@@ -24,3 +24,38 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+ion-content {
+    position: absolute;
+    transform: translateY(20%);
+#items {
+    --background: #fff;
+    --border-style: none;
+    #input {
+        font-size: 1rem;
+    }
+
+    #icon {
+        font-size: 2rem;
+        color: #000000;
+        text-transform: 500;
+    }
+}
+
+#button {
+    margin: 1rem;
+     --background: #50C8FF;
+}
+
+#text {
+    margin: 1rem;
+    margin-top: 4rem;
+    h5 {
+        text-align: center;
+    }
+    a {
+        text-decoration: none;
+    }
+}
+}

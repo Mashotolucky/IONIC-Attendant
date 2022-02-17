@@ -8,31 +8,29 @@ import { Router } from '@angular/router';
   styleUrls: ['login.page.scss'],
 })
 export class LoginPage implements OnInit{
-  form: FormGroup
+
+  public form: FormGroup
 
   
 
-  constructor(private fb:FormBuilder, private router: Router) {}
+  constructor(private formBuilder:FormBuilder, private router: Router) {}
   ngOnInit(): void{
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       email:  new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     })
+    
   }
 
-  onSubmit(form: FormGroup){
+  onSubmit(form){
     console.log(form);
-    console.log('hello')
-    console.log('valid?',form.valid);
-    console.log('password',form.value.password);
-    console.log('email',form.value.email);
   
   }
 
-  get f(){
-    return this.form.controls;
-  }
-  submit(){
+  // get f(){
+  //   return this.form.controls;
+  // }
+  submit(form){
     console.log(this.form.value);
   }
 
