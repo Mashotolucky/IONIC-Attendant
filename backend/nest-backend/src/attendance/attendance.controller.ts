@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put, Use
 import {AttendanceService} from './attendance.service';
 import { AttendanceDto } from './dto/attendance.dto';
 import { Attendance } from './attendance.entity'; 
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('attendance')
 export class AttendanceController {
@@ -66,7 +67,4 @@ export class AttendanceController {
     }
 }
 
-function AuthGuard(arg0: string): Function | import("@nestjs/common").CanActivate {
-    throw new Error('Function not implemented.');
-}
 
