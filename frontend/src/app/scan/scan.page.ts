@@ -6,9 +6,13 @@ import { LoadingController, Platform, ToastController } from '@ionic/angular';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 
 import jsQR from 'jsqr';
-
-import { Router } from '@angular/router';
 import { LocationService } from '../service/location.service';
+
+import { Attendence } from '../Models/attendece';
+
+import { HttpClient } from '@angular/common/http';
+
+
 
 
 @Component({
@@ -22,13 +26,13 @@ export class ScanPage implements OnInit {
   @ViewChild('canvas', { static: false }) canvas: ElementRef;
   @ViewChild('fileinput', { static: false }) fileinput: ElementRef;
 
- 
+
   canvasElement: any;
   videoElement: any;
   canvasContext: any;
   scanActive = false;
   scanResult = null;
-  private url : any;
+  private url: any;
   loading: HTMLIonLoadingElement = null;
 
 
@@ -38,9 +42,13 @@ export class ScanPage implements OnInit {
   latitude: any;
   logitude: any;
 
+  userIP: any;
+
+  attendence: Attendence;
+
   form: FormGroup
   myDate: FormControl = new FormControl('', Validators.required)
-  
+
 
   constructor(
     private toastCtrl: ToastController,
@@ -48,11 +56,12 @@ export class ScanPage implements OnInit {
     private plt: Platform,
     private fb: FormBuilder,
     private geolocation: Geolocation,
-    private locationApi: LocationService
-  ) { 
+    private locationApi: LocationService,
+    private httpClient: HttpClient
+  ) {
 
     const isInStandaloneMode = () =>
-    'standalone' in window.navigator && window.navigator['standalone'];
+      'standalone' in window.navigator && window.navigator['standalone'];
     if (this.plt.is('ios') && isInStandaloneMode()) {
       console.log('I am a an iOS PWA!');
       // E.g. hide the scan functionality!
@@ -63,7 +72,9 @@ export class ScanPage implements OnInit {
   ngOnInit() {
 
     this.currentLocation();
-    
+
+    this.loadIp();
+
   }
 
   ngAfterViewInit() {
@@ -89,32 +100,39 @@ export class ScanPage implements OnInit {
     });
     toast.present();
   }
- 
+
   reset() {
     this.scanResult = null;
   }
- 
+
   stopScan() {
     this.scanActive = false;
   }
 
 
   async startScan() {
-    // Not working on iOS standalone mode!
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: 'environment' }
-      
-    });
-   
-    this.videoElement.srcObject = stream;
-    // Required for Safari
-    this.videoElement.setAttribute('playsinline', true);
-   
-    this.loading = await this.loadingCtrl.create({});
-    await this.loading.present();
-   
-    this.videoElement.play();
-    requestAnimationFrame(this.scan.bind(this));
+
+    if (this.userIP === '154.0.14.211') {
+      // Not working on iOS standalone mode!
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment' }
+
+      });
+
+      this.videoElement.srcObject = stream;
+      // Required for Safari
+      this.videoElement.setAttribute('playsinline', true);
+
+      this.loading = await this.loadingCtrl.create({});
+      await this.loading.present();
+
+      this.videoElement.play();
+      requestAnimationFrame(this.scan.bind(this));
+    }
+    else{
+      alert('Your Are not in Digital Academy');
+    }
+
   }
 
 
@@ -125,10 +143,10 @@ export class ScanPage implements OnInit {
         this.loading = null;
         this.scanActive = true;
       }
-   
+
       this.canvasElement.height = this.videoElement.videoHeight;
       this.canvasElement.width = this.videoElement.videoWidth;
-   
+
       this.canvasContext.drawImage(
         this.videoElement,
         0,
@@ -145,7 +163,7 @@ export class ScanPage implements OnInit {
       const code = jsQR(imageData.data, imageData.width, imageData.height, {
         inversionAttempts: 'dontInvert'
       });
-   
+
       if (code) {
 
         let currentDate = Date.now();
@@ -156,9 +174,9 @@ export class ScanPage implements OnInit {
         this.url = `"${this.scanResult}"`
         console.log(this.url)
         // window.location = this.scanResult;
-        
+
         // this.AllResults = [this.scanResult];
-        
+
         // this.showQrToast();
       } else {
         if (this.scanActive) {
@@ -172,82 +190,99 @@ export class ScanPage implements OnInit {
   }
 
 
-captureImage() {
-  this.fileinput.nativeElement.click();
-}
- 
-handleFile(files: FileList) {
-  const file = files.item(0);
- 
-  var img = new Image();
-  img.onload = () => {
-    this.canvasContext.drawImage(img, 0, 0, this.canvasElement.width, this.canvasElement.height);
-    const imageData = this.canvasContext.getImageData(
-      0,
-      0,
-      this.canvasElement.width,
-      this.canvasElement.height
-    );
-    const code = jsQR(imageData.data, imageData.width, imageData.height, {
-      inversionAttempts: 'dontInvert'
+  captureImage() {
+    this.fileinput.nativeElement.click();
+  }
+
+  handleFile(files: FileList) {
+    const file = files.item(0);
+
+    var img = new Image();
+    img.onload = () => {
+      this.canvasContext.drawImage(img, 0, 0, this.canvasElement.width, this.canvasElement.height);
+      const imageData = this.canvasContext.getImageData(
+        0,
+        0,
+        this.canvasElement.width,
+        this.canvasElement.height
+      );
+      const code = jsQR(imageData.data, imageData.width, imageData.height, {
+        inversionAttempts: 'dontInvert'
+      });
+
+      if (code) {
+        this.scanResult = code.data;
+        // this.showQrToast();
+      }
+    };
+    img.src = URL.createObjectURL(file);
+  }
+
+  log: any;
+  lat: any;
+
+  currentLocation(): void {
+
+    let timestamp;
+
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.latitude = resp.coords.latitude;
+      this.logitude = resp.coords.longitude;
+
+      timestamp = resp.timestamp;
+
+      let mydate = new Date(timestamp); //Getting date from geolocation
+      console.log(mydate.toDateString());
+
+      console.log(mydate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
+
+      console.log(resp);
+
+      let location;
+      let houseNumber;
+
+      this.locationApi.getLocation(this.latitude, this.logitude)
+        .subscribe(res => {
+          console.log(res);
+
+          location = res.features[0].properties.formatted;
+          houseNumber = res.features[0].properties.housenumber,
+
+            console.log(location);
+          console.log("House number " + houseNumber + " Media Mill");
+          alert(location + "House number " + houseNumber + " Media Mill")
+        })
+
+
+
+    }).catch((error) => {
+      console.log('Error getting location', error);
     });
- 
-    if (code) {
-      this.scanResult = code.data;
-      // this.showQrToast();
-    }
-  };
-  img.src = URL.createObjectURL(file);
-}
 
-log: any;
-lat: any;
+    let watch = this.geolocation.watchPosition();
 
-currentLocation(): void{
+    console.log(watch);
 
+    watch.subscribe((data) => {
+      // data can be a set of coordinates, or an error (if an error occurred).
+      // this.lat = data.coords.latitude
+      // this.log = data.coords.longitude
+    });
+  }
 
-  let timestamp ;
-  this.geolocation.getCurrentPosition().then((resp) => {
-    this.latitude = resp.coords.latitude;
-    this.logitude = resp.coords.longitude;
-    timestamp = resp.timestamp;
+  loadIp() {
+    this.httpClient.get('https://jsonip.com').subscribe(
+      (value: any) => {
+        console.log(value);
+        this.userIP = value.ip;
 
-    let mydate = new Date(timestamp); //Getting date from geolocation
-    console.log(mydate.toDateString());
-
-    console.log(resp);
-
-    let location ;
-    let houseNumber;
-
-    this.locationApi.getLocation(this.latitude, this.logitude)
-    .subscribe(res => {
-      console.log(res);
-
-      location = res.features[0].properties.formatted;
-      houseNumber = res.features[0].properties.housenumber,
-
-      console.log(location);
-      console.log("House number "+houseNumber+ " Media Mill");
-      alert(location + "House number "+houseNumber+ " Media Mill")
-    })
-
-    
-    
-   }).catch((error) => {
-     console.log('Error getting location', error);
-   });
-   
-   let watch = this.geolocation.watchPosition();
-
-   console.log(watch);
-   
-   watch.subscribe((data) => {
-    // data can be a set of coordinates, or an error (if an error occurred).
-    // this.lat = data.coords.latitude
-    // this.log = data.coords.longitude
-   });
-}
+        console.log(this.userIP);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
 
 
