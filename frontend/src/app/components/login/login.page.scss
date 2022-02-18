@@ -7,7 +7,9 @@ ion-content {
     --border-style: none;
     #input {
         font-size: 1rem;
-        
+        #text_color {
+            --color: red;
+        }
     }
 
     #icon {
@@ -33,4 +35,7 @@ ion-content {
         color: #5500CC;
     }
 }
+}
+.errors{
+   color: red;
 }

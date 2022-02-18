@@ -24,8 +24,9 @@ export class SplashPage implements OnInit {
         this.timeLeft--;
         console.log(this.timeLeft);
         
-      } else {
-        this.routing.navigate(['/register'])
+      } if(this.timeLeft) {
+        this.routing.navigate(['/welcome-page'])
+      
       }
     },1000)
   }

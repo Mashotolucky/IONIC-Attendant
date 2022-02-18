@@ -26,10 +26,12 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 // <<<<<<< HEAD
-
+ion-toolbar{
+    --background:#ffff;
+}
 ion-content {
     position: absolute;
-    transform: translateY(20%);
+    // transform: translateY(20%);
 #items {
     --background: #fff;
     --border-style: none;
