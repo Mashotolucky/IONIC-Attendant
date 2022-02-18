@@ -28,7 +28,7 @@ export class ScanPage implements OnInit {
   canvasContext: any;
   scanActive = false;
   scanResult = null;
-  url : any;
+  private url : any;
   loading: HTMLIonLoadingElement = null;
 
 
@@ -154,7 +154,8 @@ export class ScanPage implements OnInit {
         this.scanResult = code.data;
 
         this.url = `"${this.scanResult}"`
-        window.location = this.scanResult;
+        console.log(this.url)
+        // window.location = this.scanResult;
         
         // this.AllResults = [this.scanResult];
         
@@ -203,9 +204,16 @@ log: any;
 lat: any;
 
 currentLocation(): void{
+
+
+  let timestamp ;
   this.geolocation.getCurrentPosition().then((resp) => {
     this.latitude = resp.coords.latitude;
     this.logitude = resp.coords.longitude;
+    timestamp = resp.timestamp;
+
+    let mydate = new Date(timestamp); //Getting date from geolocation
+    console.log(mydate.toDateString());
 
     console.log(resp);
 

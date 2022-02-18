@@ -19,7 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
-
+import { UserAgent } from '@ionic-native/user-agent';
 
 
 @NgModule({
@@ -33,7 +33,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
         TabsModule.forRoot(),
         ReactiveFormsModule,
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        
       ],
 
   providers: [BarcodeScanner,Geolocation, QRScanner,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, Dialogs],
