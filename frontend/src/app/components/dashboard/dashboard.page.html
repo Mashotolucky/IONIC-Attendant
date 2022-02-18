@@ -1,0 +1,131 @@
+
+ <ion-toolbar>
+    
+  <ion-title class="homeFont ms-5" slot="end" [routerLink]="['/home']" ></ion-title>
+  <ion-buttons class="ms-1" slot="start">
+    <div>
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </div>
+  </ion-buttons>
+
+</ion-toolbar>
+  <ion-menu side="start" menuId="first" contentId="main">
+    <ion-header >
+      
+      <ion-buttons>
+        <!-- <ion-searchbar animated></ion-searchbar> -->
+      </ion-buttons>
+    </ion-header>
+    <ion-content>
+      <ion-list >
+
+        <ion-menu-toggle>
+          <ion-item class="nav-link" [routerLink]="['']" >
+            <ion-icon name="person-outline"></ion-icon>Profile</ion-item>
+        </ion-menu-toggle>
+       <ion-menu-toggle>
+         <ion-item class="nav-link" [routerLink]="['']" >
+          <ion-icon name="book-outline"></ion-icon>Attendance</ion-item></ion-menu-toggle>
+        <ion-menu-toggle><ion-item class="nav-link" [routerLink]="['/login']">
+          <ion-icon name="log-out-outline"></ion-icon>Sign out</ion-item> </ion-menu-toggle> 
+
+       
+
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  
+ 
+<ion-content >
+  <div class="container-fluid">
+    <ion-card>
+      <ion-item>
+    <form  [formGroup]="formTemp">
+      <ion-input type="text" formControlName="temperature" placeholder="Temperature">
+      </ion-input>
+    </form>
+  </ion-item>
+  </ion-card>
+</div>
+
+
+  <div class="container-fluid">
+      <ion-card>
+      <ion-card-content >
+        Do you have any COVID symptoms <br>
+        if Yes, please see Covid compliance <br>
+        Officer immediately*
+
+        <form [formGroup]="tempForm">
+            <ion-list>
+                <div class="form-check">
+                  <ion-label >Yes</ion-label>
+                  <input class="form-check-input" type="radio" id="yes" formControlName="checked" [value]="true">
+                </div>
+              
+            
+             
+                <div class="form-check">
+                  <ion-label>No</ion-label>
+                  <input class="form-check-input" type="radio"  id="no" formControlName="checked" [value]="false">
+                </div>
+             
+
+             
+
+            </ion-list>
+        </form>
+
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- <div class="container-fluid">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Attendence History</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        
+        <ion-infinite-scroll>
+          <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="Loading more data…">
+            
+              <p>  Keep close to Nature's heart... and break clear away, once in awhile,
+                          and climb a mountain or spend a week in the woods. Wash your spirit clean.
+              </p>
+
+              <p>  Keep close to Nature's heart... and break clear away, once in awhile,
+                      and climb a mountain or spend a week in the woods. Wash your spirit clean.
+              </p>
+              
+              <p>  Keep close to Nature's heart... and break clear away, once in awhile,
+                and climb a mountain or spend a week in the woods. Wash your spirit clean.
+              </p>
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+        
+        
+      </ion-card-content>
+    </ion-card>
+  </div> -->
+  
+  <div class="scan">
+    <ion-button class="btn p-0 ms-4" color="primary" routerLink='/scan'  expand="block"  (click)="setTemperature()">
+      <ion-icon name="camera-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  <br>
+
+  <!-- <ion-card>
+    <div *ngIf="scannedData">
+        <ion-item>
+            Scanned code output: <strong>{{ scannedData}}</strong>
+        </ion-item>
+    </div>
+</ion-card> -->
+</ion-content>
+
