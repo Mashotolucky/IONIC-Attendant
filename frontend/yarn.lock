@@ -297,6 +297,13 @@
     "@angular-eslint/bundled-angular-compiler" "13.0.1"
     "@typescript-eslint/experimental-utils" "5.3.0"
 
+"@angular/animations@^13.2.3":
+  version "13.2.3"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-13.2.3.tgz#3090c684d0a866d9a88b61cb68293886c3becbbd"
+  integrity sha512-HfNNpDMSf5Var2Ti/vrmy576Uyp68hRaSNdFxxO9OYG3qH/5ZYVAv5ixz8Wu4RE+Lmw9jjzEfpL0BvK6BYWa4g==
+  dependencies:
+    tslib "^2.3.0"
+
 "@angular/cli@~13.0.1":
   version "13.0.4"
   resolved "https://registry.npmjs.org/@angular/cli/-/cli-13.0.4.tgz"
@@ -1686,7 +1693,7 @@
 
 "@ionic-native/user-agent@^5.36.0":
   version "5.36.0"
-  resolved "https://registry.yarnpkg.com/@ionic-native/user-agent/-/user-agent-5.36.0.tgz#e54918fa4a3228c365923ec44c4fe97186371ea5"
+  resolved "https://registry.npmjs.org/@ionic-native/user-agent/-/user-agent-5.36.0.tgz"
   integrity sha512-OLO+UdWT+QBbp4IaVqZU9MBJ4A5DE09MepfyNqNNGGBI+SohPRkbHwNXx2kTCbv2EVqf+DU22cA7XCBIbgiSRg==
   dependencies:
     "@types/cordova" latest
@@ -8673,6 +8680,13 @@ ngx-bootstrap@^8.0.0:
   integrity sha512-UjJ/57Pr7ctdI2L113QX1IqJPYtOMrp5Qq/RLvUT1TOwPQWPi9LXTQ/7BtipkptQjer7Fk9yueITH3Y8vD+Dmg==
   dependencies:
     tslib "^2.0.0"
+
+ngx-toastr@^14.2.1:
+  version "14.2.1"
+  resolved "https://registry.npmjs.org/ngx-toastr/-/ngx-toastr-14.2.1.tgz"
+  integrity sha512-1Kq//y8tTgglUYKHIziZwpo4R7fe4/neidcxfbAXzXtcViSjT4Z21Vgqn/inoBlwoc7E9qXQDuZoJr2lanCgGA==
+  dependencies:
+    tslib "^2.3.0"
 
 nice-napi@^1.0.2:
   version "1.0.2"

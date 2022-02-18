@@ -9,10 +9,9 @@ import jsQR from 'jsqr';
 import { LocationService } from '../service/location.service';
 
 import { Attendence } from '../Models/attendece';
+import { AttendenceService } from '../service/attendence.service';
 
 import { HttpClient } from '@angular/common/http';
-
-
 
 
 @Component({
@@ -44,7 +43,12 @@ export class ScanPage implements OnInit {
 
   userIP: any;
 
-  attendence: Attendence;
+  attendence :Attendence ;
+
+  temp: any;
+  date: any;
+  time: any;
+  location: any;
 
   form: FormGroup
   myDate: FormControl = new FormControl('', Validators.required)
@@ -57,7 +61,10 @@ export class ScanPage implements OnInit {
     private fb: FormBuilder,
     private geolocation: Geolocation,
     private locationApi: LocationService,
-    private httpClient: HttpClient
+    private attendentService: AttendenceService,
+    private httpClient: HttpClient,
+    
+  
   ) {
 
     const isInStandaloneMode = () =>
@@ -71,9 +78,13 @@ export class ScanPage implements OnInit {
 
   ngOnInit() {
 
-    this.currentLocation();
+    // this.currentLocation();
 
     this.loadIp();
+
+    this.getTemperature();
+
+    
 
   }
 
@@ -90,7 +101,6 @@ export class ScanPage implements OnInit {
       position: 'top',
       buttons: [
         {
-
           text: 'Open',
           handler: () => {
             window.open(this.scanResult, '_system', 'location=yes');
@@ -109,7 +119,7 @@ export class ScanPage implements OnInit {
     this.scanActive = false;
   }
 
-
+ //Generate live QR scanner
   async startScan() {
 
     if (this.userIP === '154.0.14.211') {
@@ -128,9 +138,14 @@ export class ScanPage implements OnInit {
 
       this.videoElement.play();
       requestAnimationFrame(this.scan.bind(this));
+
+      this.currentLocation();
+      this.postAttendenceData();
+    
     }
     else{
       alert('Your Are not in Digital Academy');
+
     }
 
   }
@@ -166,18 +181,12 @@ export class ScanPage implements OnInit {
 
       if (code) {
 
-        let currentDate = Date.now();
-
         this.scanActive = false;
         this.scanResult = code.data;
 
         this.url = `"${this.scanResult}"`
-        console.log(this.url)
-        // window.location = this.scanResult;
 
-        // this.AllResults = [this.scanResult];
-
-        // this.showQrToast();
+        this.showQrToast();
       } else {
         if (this.scanActive) {
           requestAnimationFrame(this.scan.bind(this));
@@ -189,7 +198,7 @@ export class ScanPage implements OnInit {
 
   }
 
-
+  //capture qr code
   captureImage() {
     this.fileinput.nativeElement.click();
   }
@@ -234,21 +243,24 @@ export class ScanPage implements OnInit {
       let mydate = new Date(timestamp); //Getting date from geolocation
       console.log(mydate.toDateString());
 
+      this.date = mydate.toDateString();
+      this.time = mydate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+
       console.log(mydate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
 
       console.log(resp);
 
-      let location;
+      
       let houseNumber;
 
       this.locationApi.getLocation(this.latitude, this.logitude)
         .subscribe(res => {
           console.log(res);
 
-          location = res.features[0].properties.formatted;
+          this.location = res.features[0].properties.formatted;
           houseNumber = res.features[0].properties.housenumber,
 
-            console.log(location);
+            console.log(this.location);
           console.log("House number " + houseNumber + " Media Mill");
           alert(location + "House number " + houseNumber + " Media Mill")
         })
@@ -284,7 +296,29 @@ export class ScanPage implements OnInit {
     );
   }
 
+  getTemperature(): number{
+   
+   this.temp = this.attendentService.getTemperature();
 
+    console.log("Temperature = "+ this.temp);
+    return this.temp;
+  }
+
+
+ async postAttendenceData(){
+    console.log("here")
+    
+    const tempe = this.getTemperature()
+    console.log(tempe);
+    this.attendence.temperature = tempe;
+    console.log(this.attendence.temperature);
+    this.attendence.covid_symptoms_status = false;
+    this.attendence.date = ''
+    this.attendence.time = await this.time;
+    this.attendence.location = await this.location;
+
+   
+  }
 
 }
 

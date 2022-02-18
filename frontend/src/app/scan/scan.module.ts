@@ -10,13 +10,14 @@ import { ScanPageRoutingModule } from './scan-routing.module';
 
 import { ScanPage } from './scan.page';
 
+
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ScanPageRoutingModule,
-    
+    ScanPageRoutingModule
   ],
   declarations: [ScanPage]
 })
