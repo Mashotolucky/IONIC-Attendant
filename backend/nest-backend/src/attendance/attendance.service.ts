@@ -4,12 +4,12 @@ import { AttendanceDto } from './dto/attendance.dto';
 import { Attendance } from './attendance.entity';
 
 @Injectable()
-export class AttendanceService {
-    constructor(@Inject(ATTENDANCE_REPOSITORY ) private readonly attendanceRepository: typeof Attendance) { }
+export class AttendanceService  { 
 
     // async create(user:AttendanceDto): Promise<c> {
     //     return await this.attendanceRepository.create<Attendance>(user);
     // }
+    constructor (@Inject( ATTENDANCE_REPOSITORY ) private readonly attendanceRepository: typeof Attendance){}
 
     async findOneById(id: number): Promise<Attendance> {
         return await this.attendanceRepository.findOne<Attendance>({ where: { id } });
