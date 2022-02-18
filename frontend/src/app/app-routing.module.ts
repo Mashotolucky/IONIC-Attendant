@@ -5,7 +5,7 @@ const routes: Routes = [
   
   {
     path: 'splash',
-    loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
+    loadChildren: () => import('./components/splash/splash.module').then( m => m.SplashPageModule)
   },
   {
     path: 'login',
@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
         path: 'register',
-        loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+        loadChildren: () => import('./components/register/register.module').then( m => m.RegisterPageModule)
       }
      
   

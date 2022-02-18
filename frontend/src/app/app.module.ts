@@ -31,7 +31,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
             ReactiveFormsModule, 
             FormsModule,
             HttpClientModule,
-            NgModule,
+          
             TabsModule.forRoot(),
           ],
   providers: [

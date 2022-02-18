@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup,FormBuilder , FormControl, Validators} from '@angular/forms';
-import { User } from '../model/user.model';
-import { ServicesService } from '../services/services.service';
+import { User } from '../../model/user.model';
+import { ServicesService } from '../../services/services.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -24,9 +25,11 @@ export class RegisterPage implements OnInit {
   };
 
   submitted = false;
+  ipAddress: any;
 
   constructor(private fb: FormBuilder,
-              private userService:ServicesService) {}
+              private userService:ServicesService,
+              private http:HttpClient) {}
 
 
   confirmPasswordMatch(controlName: string, matchingControlName: string) 
@@ -58,8 +61,18 @@ export class RegisterPage implements OnInit {
       validator: [this.confirmPasswordMatch('Password','Confirm')]
     }
     )
+    const userAgent = window.navigator.userAgent;
+      console.log(userAgent);
+      this.getIPAddress();
 
     
+  }
+  getIPAddress()
+  {
+    this.http.get("http://api.ipify.org/?format=json").subscribe((res:any)=>{
+      this.ipAddress = res.ip;
+      console.log(this.ipAddress)
+    });
   }
 
   onSubmit(form) {
