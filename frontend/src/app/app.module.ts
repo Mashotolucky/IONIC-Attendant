@@ -12,7 +12,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 // =======
 // import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+//
 // import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 // import { AppRoutingModule } from './app-routing.module';
