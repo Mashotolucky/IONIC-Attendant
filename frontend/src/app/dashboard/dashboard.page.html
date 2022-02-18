@@ -1,44 +1,86 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>dashboard</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content class="bg-dark">
+ <ion-toolbar>
+    
+  <ion-title class="homeFont ms-5" slot="end" [routerLink]="['/home']" ></ion-title>
+  <ion-buttons class="ms-1" slot="start">
+    <div>
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </div>
+  </ion-buttons>
 
-    <form class="container-fluid" [formGroup]="formTemp">
-        <ion-item >
-            <ion-input class="mt-4 mx-auto border rounded" type="number" formControlName="temperature" placeholder="Temperature"></ion-input>
-        </ion-item>
+</ion-toolbar>
+  <ion-menu side="start" menuId="first" contentId="main">
+    <ion-header >
+      
+      <ion-buttons>
+        <!-- <ion-searchbar animated></ion-searchbar> -->
+      </ion-buttons>
+    </ion-header>
+    <ion-content>
+      <ion-list >
+
+        <ion-menu-toggle>
+          <ion-item class="nav-link" [routerLink]="['']" >
+            <ion-icon name="person-outline"></ion-icon>Profile</ion-item>
+        </ion-menu-toggle>
+       <ion-menu-toggle>
+         <ion-item class="nav-link" [routerLink]="['']" >
+          <ion-icon name="book-outline"></ion-icon>Attendance</ion-item></ion-menu-toggle>
+        <ion-menu-toggle><ion-item class="nav-link" [routerLink]="['/login']">
+          <ion-icon name="log-out-outline"></ion-icon>Sign out</ion-item> </ion-menu-toggle> 
+
+       
+
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  
+ 
+<ion-content >
+  <div class="container-fluid">
+    <ion-card>
+      <ion-item>
+    <form  [formGroup]="formTemp">
+      <ion-input type="number" formControlName="temperature" placeholder="Temperature">
+      </ion-input>
     </form>
+  </ion-item>
+  </ion-card>
+</div>
 
 
   <div class="container-fluid">
       <ion-card>
-      <ion-card-content>
+      <ion-card-content >
         Do you have any COVID symptoms <br>
         if Yes, please see Covid compliance <br>
         Officer immediately*
 
-        <form >
+        <form [formGroup]="tempForm">
             <ion-list>
-              <ion-item class="d-flex">
-                <ion-checkbox ></ion-checkbox>
-                <ion-label>Yes</ion-label>
-              </ion-item>
+                <div class="form-check">
+                  <ion-label >Yes</ion-label>
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                </div>
+              
+            
+             
+                <div class="form-check">
+                  <ion-label>No</ion-label>
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                </div>
+             
 
-              <ion-item class="d-flex">
-                <ion-checkbox></ion-checkbox>
-                <ion-label>No</ion-label>
-              </ion-item>
+             
+
             </ion-list>
-          </form>
+        </form>
 
       </ion-card-content>
     </ion-card>
   </div>
 
-  <div class="container-fluid">
+  <!-- <div class="container-fluid">
     <ion-card>
       <ion-card-header>
         <ion-card-title>Attendence History</ion-card-title>
@@ -68,10 +110,12 @@
         
       </ion-card-content>
     </ion-card>
-  </div>
+  </div> -->
   
-  <div class="scan ">
-    <ion-button class="btn p-0 ms-4" color="light" routerLink='/scan' expand="block" >Scan</ion-button>
+  <div class="scan">
+    <ion-button class="btn p-0 ms-4" color="primary" routerLink='/scan'  expand="block" >
+      <ion-icon name="camera-outline"></ion-icon>
+    </ion-button>
   </div>
 
   <br>
@@ -83,5 +127,5 @@
         </ion-item>
     </div>
 </ion-card> -->
-
 </ion-content>
+

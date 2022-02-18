@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validator,FormControl, Validators} from '@angular/forms';
+import { MenuController } from '@ionic/angular';
 
 
 @Component({
@@ -9,17 +10,33 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class DashboardPage implements OnInit {
 
-  private formTemp : FormGroup;
+   formTemp : FormGroup;
+   tempForm : FormGroup;
+ 
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, menu:MenuController) {
     this.formTemp = this.formBuilder.group({
       temperature: ['', Validators.required]})
+     
+
+    this.tempForm = this.formBuilder.group({
+      yes_checkbox: [false],
+      no_checkbox:[false]
+    })  
+    
   }
 
   ngOnInit() {
-  
+
+    this.onSubmit()
   }
 
 
+  onSubmit(){
+      this.tempForm.valueChanges;
+
+      console.log(this.tempForm.valueChanges);
+      
+  }
 
 }
