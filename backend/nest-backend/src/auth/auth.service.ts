@@ -2,16 +2,20 @@ import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
+import { LocalStrategy } from './local.strategy';
 
 @Injectable()
 export class AuthService {
     constructor(
         private readonly userService: UsersService,
         private readonly jwtService: JwtService,
+        private readonly localStrategy: LocalStrategy,
     ) { }
 
     async validateUser(username: string, pass: string) {
         // find if user exist with this email
+        console.log("m here");
+        
         const user = await this.userService.findOneByEmail(username);
         if (!user) {
             return null;
@@ -29,6 +33,7 @@ export class AuthService {
     }
 
     public async login(user) {
+        user = this.localStrategy.validate()
         const token = await this.generateToken(user);
         return { user, token };
     }
