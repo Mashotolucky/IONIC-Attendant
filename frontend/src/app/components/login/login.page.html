@@ -5,10 +5,13 @@
 
 
 
-
-<ion-header>
-  <ion-back-button color="black"></ion-back-button>
-</ion-header>
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> -->
 
 <ion-content>
 
@@ -17,8 +20,8 @@
     <ion-item id="items">
       <ion-input type="email" id="input" placeholder="Email" type="text" formControlName="email" required></ion-input>
       <div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
-        <span *ngIf="email.errors?.required" class="text_color">Email is required</span>
-        <span *ngIf="email.errors?.email" class="text_color">Email is invalid</span>
+        <span *ngIf="email.errors?.required" id="text_color">Email is required</span>
+        <span *ngIf="email.errors?.email" id="text_color">Email is invalid</span>
       </div>
       <ion-icon id="icon" slot="end" name="mail-outline"></ion-icon>
     </ion-item>
@@ -27,8 +30,8 @@
     <ion-item id="items">
       <ion-input type="password" id="input" placeholder="Password" formControlName="password" required></ion-input>
       <div *ngIf="(password.dirty || password.touched ) && password.errors &&  password.invalid" class="errors">
-        <span *ngIf="password.errors?.required" class="text_color">Password is required</span>
-        <span *ngIf="password.invalid?.password" class="text_color">Password is invalid</span>
+        <span *ngIf="password.errors?.required" id="text_color">Password is required</span>
+        <span *ngIf="password.invalid?.password" id="text_color">Password is invalid</span>
       </div>
       <ion-icon id="icon" slot="end" name="key-outline"></ion-icon>
     </ion-item>

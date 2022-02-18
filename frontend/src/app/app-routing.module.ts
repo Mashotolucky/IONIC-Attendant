@@ -8,6 +8,14 @@ const routes: Routes = [
     loadChildren: () => import('./components/splash/splash.module').then( m => m.SplashPageModule)
   },
   {
+    path: '',
+    loadChildren: () => import('./components/splash/splash.module').then( m => m.SplashPageModule)
+  },
+  {
+    path: 'welcome-page',
+    loadChildren: () => import('./components/welcome-page/welcome-page.module').then( m => m.WelcomePagePageModule)
+  },
+  {
     path: 'login',
     loadChildren: () => import('./components/login/login.module').then( m => m.LoginPageModule)
   },
@@ -15,6 +23,7 @@ const routes: Routes = [
         path: 'register',
         loadChildren: () => import('./components/register/register.module').then( m => m.RegisterPageModule)
       }
+  
      
   
 ];
