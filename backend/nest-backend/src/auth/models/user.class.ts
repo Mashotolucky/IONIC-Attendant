@@ -4,12 +4,13 @@ import { Role } from './role.enum';
 export class User {
   id?: number;
   firstName?: string;
+  employeeNumber?: string;
   lastName?: string;
   @IsEmail()
   email?: string;
   @IsString()
   password?: string;
-  imagePath?: string;
+  
   role?: Role;
   
 }

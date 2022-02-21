@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   registerAccount(user: User): Observable<User> {
-    const { firstName, lastName, email, password } = user;
+    const { firstName, lastName, email, password,employeeNumber } = user;
 
     return this.doesUserExist(email).pipe(
       tap((doesUserExist: boolean) => {
@@ -48,6 +48,7 @@ export class AuthService {
                 firstName,
                 lastName,
                 email,
+                employeeNumber,
                 password: hashedPassword,
               }),
             ).pipe(

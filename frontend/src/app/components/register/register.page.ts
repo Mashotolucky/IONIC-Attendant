@@ -17,13 +17,7 @@ export class RegisterPage implements OnInit {
 
   form: FormGroup;
   
-  user = {
-    Email: '',
-    Name: '',
-    Surname: '',
-    Password: '',
-    employeeNo: ''
-  };
+  user: NewUser;
 
   submitted = false;
   ipAddress: any;
@@ -54,15 +48,15 @@ export class RegisterPage implements OnInit {
 
   ngOnInit(): void{
     this.form=this.fb.group({
-      Email:new FormControl('',[Validators.required,Validators.email]),
-      Name:new FormControl('',[Validators.required,Validators.minLength(3)]),
-      Surname:new FormControl('',[Validators.required,Validators.minLength(3)]),
-      Password:new FormControl('',[Validators.required,Validators.minLength(7)]),
+      email:new FormControl('',[Validators.required,Validators.email]),
+      firstName:new FormControl('',[Validators.required,Validators.minLength(3)]),
+      lastName:new FormControl('',[Validators.required,Validators.minLength(3)]),
+      password:new FormControl('',[Validators.required,Validators.minLength(7)]),
       Confirm:new FormControl('',[Validators.required,Validators.minLength(7)]),
-      employeeNo:new FormControl('',[Validators.required,Validators.minLength(4),Validators.maxLength(9)])
+      employeeNumber:new FormControl('',[Validators.required,Validators.minLength(4),Validators.maxLength(9)])
     },
     {
-      validator: [this.confirmPasswordMatch('Password','Confirm')]
+      validator: [this.confirmPasswordMatch('password','Confirm')]
     }
     )
     const userAgent = window.navigator.userAgent;
@@ -80,16 +74,26 @@ export class RegisterPage implements OnInit {
   }
 
   onSubmit() {
-    const { email, password } = this.form.value;
-    const { firstName, lastName,employeeNumber} = this.form.value;
-    if (!email || !password! || firstName || !lastName) return;
 
-      const newUser: NewUser = { firstName, lastName, email, password,employeeNumber };
+    this.authService.register(this.form.value).subscribe(() => {
+          this.router.navigateByUrl('/login');
+          
+        });
+    // const { email, password } = this.form.value;
+    // const { firstName, lastName,employeeNumber} = this.form.value;
+    // // console.log(this.form.value)
+    // if (!email || !password! || firstName || !lastName || !employeeNumber) return;
 
-      return this.authService.register(newUser).subscribe(() => {
-        this.router.navigateByUrl('/login');
+    //   const newUser: NewUser = { firstName, lastName, email, password,employeeNumber };
+
+
+    //   console.log(newUser);
+      
+
+    //   return this.authService.register(newUser).subscribe(() => {
+    //     this.router.navigateByUrl('/login');
         
-      });
+    //   });
     }
   
 
@@ -99,44 +103,33 @@ export class RegisterPage implements OnInit {
     submit(){
       console.log(this.form.value)
     }
-    get Email()
+    get email()
     {
-      return this.form.get('Email')
+      return this.form.get('email')
     }
-    get Name()
+    get firstName()
     {
-      return this.form.get('Name')
+      return this.form.get('firstName')
     }
-    get Surname()
+    get lastName()
     {
-      return this.form.get('Surname')
+      return this.form.get('lastName')
     }
-    get Password()
+    get password()
     {
-      return this.form.get('Password')
+      return this.form.get('password')
     }
-    get employeeNo()
+    get employeeNumber()
     {
-      return this.form.get('employeeNo')
+      return this.form.get('employeeNumber')
     }
 
     confirm(){
       alert("You have succefully Registered")
     }
 
-    newUser(): void{
-
-      this.submitted = false
-      this.user = {
-        Email: '',
-        Name: '',
-        Surname: '',
-       Password:'',
-       employeeNo:''
-
-        
-      };
-    }
+    
+    
   
   }
   

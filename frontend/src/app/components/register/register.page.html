@@ -7,58 +7,62 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]= "form" (ngSubmit)= "onSubmit(form)">
+  <form [formGroup]= "form" (ngSubmit)= "onSubmit()">
+
+
     <ion-card>
     <ion-item id="items">
-      <ion-input placeholder="First Name" type ="Name" id="input" formControlName="Name" required></ion-input>
+      <ion-input placeholder="First Name" type ="Name" id="input" formControlName="firstName" required></ion-input>
       <ion-icon id="icon" slot="end" name="person-outline"></ion-icon>
-      <div *ngIf= "(Name.dirty || Name.touched) && Name.errors" class= "errors" >
-        <span *ngIf= "Name.errors?.required">Name is required</span>
-        <span *ngIf= "Name.errors?.invalid">Name is invalid</span>
-      </div>
+      <!-- <div *ngIf= "(firstName.dirty || firstName.touched) && firstName.errors" class= "errors" >
+        <span *ngIf= "firstName.errors?.required">Name is required</span>
+        <span *ngIf= "firstName.errors?.invalid">Name is invalid</span>
+      </div> -->
     </ion-item>
   </ion-card>
 
   <ion-card>
     <ion-item id="items">
-      <ion-input placeholder="Last Name" id="input" type="name" formControlName="Surname"></ion-input>
+      <ion-input placeholder="Last Name" id="input" type="name" formControlName="lastName"></ion-input>
       <ion-icon id="icon" slot="end" name="person-outline"></ion-icon>
-      <div *ngIf= "(Surname.dirty || Surname.touched) && Surname.errors" class= "errors" >
-        <span *ngIf= "Surname.errors?.required">last name is required</span>
-        <span *ngIf= "Surname.errors?.Surname">last name is invalid</span>
-      </div>
+      <!-- <div *ngIf= "(lastName.dirty || lastName.touched) && lastName.errors" class= "errors" >
+        <span *ngIf= "lastName.errors?.required">last name is required</span>
+        <span *ngIf= "lastName.errors?.lastName">last name is invalid</span>
+      </div> -->
     </ion-item>
-    </ion-card>
+  </ion-card>
+
+
 
     <ion-card>
       <ion-item id="items">
-      <ion-input placeholder="Email" id="input" type="email" formControlName="Email"></ion-input>
+      <ion-input placeholder="email" id="input" type="email" formControlName="email"></ion-input>
       <ion-icon id="icon" slot="end" name="mail-outline"></ion-icon>
-      <div *ngIf= "(Email.dirty || Email.touched) && Email.errors" class= "errors" >
-        <span *ngIf= "Email.errors?.required">email name is required</span>
-        <span *ngIf= "Email.errors?.email">email is invalid</span>
-      </div>
+      <!-- <div *ngIf= "(email.dirty || email.touched) && email.errors" class= "errors" >
+        <span *ngIf= "email.errors?.required">email name is required</span>
+        <span *ngIf= "email.errors?.email">email is invalid</span>
+      </div> -->
     </ion-item>
     </ion-card>
 
     <ion-card>
       <ion-item id="items">
-        <ion-input placeholder="Employee Number" id="input" type="number" formControlName="employeeNo"></ion-input>
+        <ion-input placeholder="Employee Number" id="input" type="number" formControlName="employeeNumber"></ion-input>
         <ion-icon id="icon" slot="end" name="id-card-outline"></ion-icon>
-        <div *ngIf= "(employeeNo.dirty || employeeNo.touched) && employeeNo.errors" class= "errors" >
-          <span *ngIf= "employeeNo.errors?.required">employee no is required</span>
-          <span *ngIf= "employeeNo.errors?.Employee">employee no is invalid</span>
-        </div>
+        <!-- <div *ngIf= "(employeeNumber.dirty || employeeNumber.touched) && employeeNumber.errors" class= "errors" >
+          <span *ngIf= "employeeNumber.errors?.required">employee no is required</span>
+          <span *ngIf= "employeeNumber.errors?.employeeNumber">employee no is invalid</span>
+        </div> -->
     </ion-item>
     </ion-card>
 
     <ion-card>
       <ion-item id="items">
-      <ion-input placeholder="Password" id="input" type="password" formControlName="Password"></ion-input>
+      <ion-input placeholder="Password" id="input" type="password" formControlName="password"></ion-input>
       <ion-icon id="icon" slot="end" name="key-outline"></ion-icon>
-      <div *ngIf= "(Password.dirty || Password.touched) && Password.errors" class= "errors" >
-        <span *ngIf= "Password.errors?.required">password is required</span>
-        <span *ngIf= "Password.errors?.invalid">password is invalid</span>
+      <div *ngIf= "(password.dirty || password.touched) && password.errors" class= "errors" >
+        <span *ngIf= "password.errors?.required">password is required</span>
+        <span *ngIf= "password.errors?.invalid">password is invalid</span>
       </div>
     </ion-item>
     </ion-card>
@@ -75,5 +79,5 @@
   </div>
 
 
-      </form>
+  </form>
 </ion-content>

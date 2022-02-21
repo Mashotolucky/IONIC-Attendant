@@ -16,17 +16,18 @@ import {
   
     @Column()
     firstName: string;
+    @Column()
+    employeeNumber: string;
   
     @Column()
     lastName: string;
-  
     @Column({ unique: true })
     email: string;
   
     @Column({ select: false })
     password: string;
-    @Column({ unique: true })
-    employeeNumber: string;
+    
+
   
   
     @Column({ type: 'enum', enum: Role, default: Role.USER })
