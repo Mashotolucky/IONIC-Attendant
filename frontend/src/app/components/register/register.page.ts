@@ -79,21 +79,7 @@ export class RegisterPage implements OnInit {
           this.router.navigateByUrl('/login');
           
         });
-    // const { email, password } = this.form.value;
-    // const { firstName, lastName,employeeNumber} = this.form.value;
-    // // console.log(this.form.value)
-    // if (!email || !password! || firstName || !lastName || !employeeNumber) return;
 
-    //   const newUser: NewUser = { firstName, lastName, email, password,employeeNumber };
-
-
-    //   console.log(newUser);
-      
-
-    //   return this.authService.register(newUser).subscribe(() => {
-    //     this.router.navigateByUrl('/login');
-        
-    //   });
     }
   
 
