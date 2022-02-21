@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 
 
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
 
 
 
@@ -22,6 +23,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       autoLoadEntities: true,
       synchronize: true, // shouldn't be used in production - may lose data
     }),
+    AuthModule,
    
 
   ],
