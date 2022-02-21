@@ -99,10 +99,10 @@
                    implementation of booster doses for the COVID-19 vaccines in use in the country.
               </p>
 
-              <p> SAHPRA has also approved the use of the Johnson and Johnson (J&J) vaccine for 
+              <!-- <p> SAHPRA has also approved the use of the Johnson and Johnson (J&J) vaccine for 
                 boosters of the single dose primary J&J schedule at least 2 months after primary vaccination.
               </p>
-              
+               -->
               <p>  Booster doses are the same vaccine in the same dose administered to people 
                    who have had a primary vaccination series and are administered to allow the body to boost its immunity to the COVID-19 virus.
               </p>
@@ -114,22 +114,14 @@
         
       </ion-card-content>
     </ion-card>
+
+   
   </div>
   
   <div class="scan">
-    <ion-button class="btn p-0 ms-4" color="primary" routerLink='/scan'  expand="block"  (click)="setTemperature()">
+    <ion-button class="btn p-0 ms-4" color="primary" routerLink='/scan'  expand="block"  (click)="setCovidStatus()" (click)="setTemperature()">
       <ion-icon name="camera-outline"></ion-icon>
     </ion-button>
   </div>
-
-  <br>
-
-  <!-- <ion-card>
-    <div *ngIf="scannedData">
-        <ion-item>
-            Scanned code output: <strong>{{ scannedData}}</strong>
-        </ion-item>
-    </div>
-</ion-card> -->
 </ion-content>
 

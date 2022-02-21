@@ -42,10 +42,18 @@ export class ScanPage implements OnInit {
   logitude: any;
 
   userIP: any;
+  attendence :Attendence;
 
-  attendence :Attendence ;
+  data = {
+    temperature: '',
+    covid_symptoms_status: null,
+    date: '',
+    time: '',
+    location: ''
+  }
 
   temp: any;
+  covidStatus: any;
   date: any;
   time: any;
   location: any;
@@ -84,6 +92,9 @@ export class ScanPage implements OnInit {
 
     this.getTemperature();
 
+    this.getCovidStaus();
+
+    
     
 
   }
@@ -95,6 +106,7 @@ export class ScanPage implements OnInit {
   }
 
   // Helper functions 
+  //popup message for scanned data
   async showQrToast() {
     const toast = await this.toastCtrl.create({
       message: `Open ${this.scanResult}?`,
@@ -139,8 +151,7 @@ export class ScanPage implements OnInit {
       this.videoElement.play();
       requestAnimationFrame(this.scan.bind(this));
 
-      this.currentLocation();
-      this.postAttendenceData();
+      // this.currentLocation(); 
     
     }
     else{
@@ -227,14 +238,15 @@ export class ScanPage implements OnInit {
     img.src = URL.createObjectURL(file);
   }
 
-  log: any;
-  lat: any;
+  //get current location and timestamp from geolocation
 
-  currentLocation(): void {
+ currentLocation(){
+   
 
     let timestamp;
 
-    this.geolocation.getCurrentPosition().then((resp) => {
+    this.geolocation.getCurrentPosition().then(async (resp) => {
+      //logitude and latitude
       this.latitude = resp.coords.latitude;
       this.logitude = resp.coords.longitude;
 
@@ -244,7 +256,10 @@ export class ScanPage implements OnInit {
       console.log(mydate.toDateString());
 
       this.date = mydate.toDateString();
+      localStorage.setItem('date',this.date);
+
       this.time = mydate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+      localStorage.setItem('time',this.time);
 
       console.log(mydate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
 
@@ -262,10 +277,14 @@ export class ScanPage implements OnInit {
 
             console.log(this.location);
           console.log("House number " + houseNumber + " Media Mill");
-          alert(location + "House number " + houseNumber + " Media Mill")
+          alert("Please scan to attend");
+          // window.location.reload();
+
+          this.postAttendenceData();
         })
 
-
+        
+        this.display();
 
     }).catch((error) => {
       console.log('Error getting location', error);
@@ -282,6 +301,7 @@ export class ScanPage implements OnInit {
     });
   }
 
+  //getting ip address from jsonIP
   loadIp() {
     this.httpClient.get('https://jsonip.com').subscribe(
       (value: any) => {
@@ -296,28 +316,53 @@ export class ScanPage implements OnInit {
     );
   }
 
-  getTemperature(): number{
+  //getting temperature from input box of dashboard component
+  getTemperature(): any{
    
-   this.temp = this.attendentService.getTemperature();
-
-    console.log("Temperature = "+ this.temp);
-    return this.temp;
+    try {
+      this.temp = this.attendentService.getTemperature();
+      return this.temp;
+    } catch (error) {
+      console.log("temperature err = "+ error);
+      
+    }
   }
 
+  //getting covid status from checkbox of dashboard component
+  getCovidStaus(): any{
+    this.covidStatus = this.attendentService.getCovidStatus();
+    console.log("status = "+ this.covidStatus);
+    return this.covidStatus;
+  }
 
- async postAttendenceData(){
-    console.log("here")
+//Providing values to model attendece 
+   postAttendenceData(){
+
+    console.log("here " + this.getCovidStaus())
+
+    // this.currentLocation();
     
-    const tempe = this.getTemperature()
-    console.log(tempe);
-    this.attendence.temperature = tempe;
-    console.log(this.attendence.temperature);
-    this.attendence.covid_symptoms_status = false;
-    this.attendence.date = ''
-    this.attendence.time = await this.time;
-    this.attendence.location = await this.location;
+    const temperature = this.getTemperature();
+    localStorage.setItem('temperature',temperature);
 
+    const covidStatu = this.getCovidStaus();
+    localStorage.setItem('status',covidStatu);
+
+     this.data =  {
+      temperature: localStorage.getItem('temperature'),
+      covid_symptoms_status: localStorage.getItem('status'),
+      date: this.date,
+      time: this.time,
+      location: this.location
+    }
    
+  }
+
+  display(): void{
+    setTimeout(() => {
+      console.log(this.data);
+    }, 2000)
+    
   }
 
 }

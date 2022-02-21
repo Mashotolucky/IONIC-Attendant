@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validator, FormControl, Validators } from '@angular/forms';
 import { MenuController } from '@ionic/angular';
 
+
 import { AttendenceService } from '../service/attendence.service';
 
 
@@ -37,7 +38,7 @@ export class DashboardPage implements OnInit {
     });
     // this.onSubmit()
     this.tempForm = this.formBuilder.group({
-      checked: ['']
+      checked: []
     });
   }
 
@@ -53,6 +54,12 @@ export class DashboardPage implements OnInit {
     this.attendentService.setTemperature(this.formTemp.value.temperature);
 
     console.log(this.formTemp.value.temperature);
+    // console.log("checked = "+this.tempForm.value.checked);
+  }
+
+  setCovidStatus(): void{
+    this.attendentService.setCovidStatus(this.tempForm.value.checked);
+
     console.log("checked = "+this.tempForm.value.checked);
   }
 

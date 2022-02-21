@@ -1,5 +1,5 @@
 export class Attendence {
-    temperature: number;
+    temperature: any;
     covid_symptoms_status: Boolean;
     date: string;
     time: string;
