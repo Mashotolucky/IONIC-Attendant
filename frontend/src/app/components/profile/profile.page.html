@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div>
+    
+    <!-- <ion-avatar>
+      <ion-img [src]="url" ></ion-img>
+    <input type="file" (change)="onselectFile($event)" accept="image/*">
+      
+    </ion-avatar> -->
+    <div id="profile">
+      <img [src]="url" alt="">
+      <input type="file" (change)="onselectFile($event)" accept="image/*">
+      
+    </div>
+  <ion-card>
+    <ion-item>
+      <ion-input placeholder="first name"></ion-input>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-input placeholder="Last name"></ion-input>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-input placeholder="Email"></ion-input>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-input placeholder="Employee number"></ion-input>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-input placeholder="Password"></ion-input>
+    </ion-item>
+  </ion-card>
+
+  <div id="button">
+    <ion-button type="submit" expand="block" >Edit profile</ion-button>
+  </div>
+  </div>
+
+</ion-content>
