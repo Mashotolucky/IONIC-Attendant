@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validator, FormControl, Validators } from '@angular/forms';
 import { MenuController } from '@ionic/angular';
 
-import { AttendenceService } from '../../service/attendence.service';
+import { AttendenceService } from '../../services/attendence.service';
 
 
 
