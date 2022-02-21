@@ -8,11 +8,16 @@
 
   <div>
     
-    <ion-avatar>
+    <!-- <ion-avatar>
       <ion-img [src]="url" ></ion-img>
     <input type="file" (change)="onselectFile($event)" accept="image/*">
       
-    </ion-avatar>
+    </ion-avatar> -->
+    <div id="profile">
+      <img [src]="url" alt="">
+      <input type="file" (change)="onselectFile($event)" accept="image/*">
+      
+    </div>
   <ion-card>
     <ion-item>
       <ion-input placeholder="first name"></ion-input>

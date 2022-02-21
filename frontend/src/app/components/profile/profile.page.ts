@@ -11,7 +11,7 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
   }
-  url="";
+  url="../../assets/defaultProfilePic.jpeg";
   onselectFile(e){
     if(e.target.files){
       var reader = new FileReader();
