@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup,FormBuilder , FormControl, Validators} from '@angular/forms';
-import { User } from '../../model/user.model';
-
+import { User } from '../../Models/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
+import { NewUser } from 'src/app/models/newUser.model';
 
 @Component({
   selector: 'app-register',
@@ -27,9 +28,12 @@ export class RegisterPage implements OnInit {
   submitted = false;
   ipAddress: any;
 
+
+
   constructor(private fb: FormBuilder,
-              
-              private http:HttpClient) {}
+             private authService: AuthService,
+              private http:HttpClient,
+              private router: Router) {}
 
 
   confirmPasswordMatch(controlName: string, matchingControlName: string) 
@@ -75,20 +79,19 @@ export class RegisterPage implements OnInit {
     });
   }
 
-  onSubmit(form) {
-    console.log(form.value);
-    console.log("hello");
+  onSubmit() {
+    const { email, password } = this.form.value;
+    const { firstName, lastName,employeeNumber} = this.form.value;
+    if (!email || !password! || firstName || !lastName) return;
 
+      const newUser: NewUser = { firstName, lastName, email, password,employeeNumber };
 
-    this.userService.create(form.value)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.submitted = true;
-        },
-        error: (e) => console.error(e)
+      return this.authService.register(newUser).subscribe(() => {
+        this.router.navigateByUrl('/login');
+        
       });
-  }
+    }
+  
 
     get f(){
       return this.form.controls

@@ -25,6 +25,8 @@ import {
   
     @Column({ select: false })
     password: string;
+    @Column({ unique: true })
+    employeeNumber: string;
   
   
     @Column({ type: 'enum', enum: Role, default: Role.USER })

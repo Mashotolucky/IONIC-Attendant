@@ -8,7 +8,7 @@ import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import jsQR from 'jsqr';
 import { LocationService } from '../../services/location.service';
 
-import { Attendence } from '../../Models/attendece';
+import { Attendence } from '../../Models/attendance';
 import { AttendenceService } from '../../services/attendence.service';
 
 import { HttpClient } from '@angular/common/http';
