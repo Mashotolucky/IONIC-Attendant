@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup,FormBuilder , FormControl, Validators} from '@angular/forms';
-import { User } from '../../model/user.model';
 
+import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
+import { NewUser } from 'src/app/models/newUser.model';
 
 @Component({
   selector: 'app-register',
@@ -16,20 +17,17 @@ export class RegisterPage implements OnInit {
 
   form: FormGroup;
   
-  user = {
-    Email: '',
-    Name: '',
-    Surname: '',
-    Password: '',
-    employeeNo: ''
-  };
+  user: NewUser;
 
   submitted = false;
   ipAddress: any;
 
+
+
   constructor(private fb: FormBuilder,
-              
-              private http:HttpClient) {}
+             private authService: AuthService,
+              private http:HttpClient,
+              private router: Router) {}
 
 
   confirmPasswordMatch(controlName: string, matchingControlName: string) 
@@ -50,15 +48,15 @@ export class RegisterPage implements OnInit {
 
   ngOnInit(): void{
     this.form=this.fb.group({
-      Email:new FormControl('',[Validators.required,Validators.email]),
-      Name:new FormControl('',[Validators.required,Validators.minLength(3)]),
-      Surname:new FormControl('',[Validators.required,Validators.minLength(3)]),
-      Password:new FormControl('',[Validators.required,Validators.minLength(7)]),
+      email:new FormControl('',[Validators.required,Validators.email]),
+      firstName:new FormControl('',[Validators.required,Validators.minLength(3)]),
+      lastName:new FormControl('',[Validators.required,Validators.minLength(3)]),
+      password:new FormControl('',[Validators.required,Validators.minLength(7)]),
       Confirm:new FormControl('',[Validators.required,Validators.minLength(7)]),
-      employeeNo:new FormControl('',[Validators.required,Validators.minLength(4),Validators.maxLength(9)])
+      employeeNumber:new FormControl('',[Validators.required,Validators.minLength(4),Validators.maxLength(9)])
     },
     {
-      validator: [this.confirmPasswordMatch('Password','Confirm')]
+      validator: [this.confirmPasswordMatch('password','Confirm')]
     }
     )
     const userAgent = window.navigator.userAgent;
@@ -89,6 +87,17 @@ export class RegisterPage implements OnInit {
   //       error: (e) => console.error(e)
   //     });
   // }
+  onSubmit() {
+    console.log(this.form.value);
+
+    this.authService.register(this.form.value).subscribe((res) => {
+          alert("Succesfully created an account");
+          this.router.navigateByUrl('/login');
+          
+        });
+
+    }
+  
 
     get f(){
       return this.form.controls
@@ -96,44 +105,33 @@ export class RegisterPage implements OnInit {
     submit(){
       console.log(this.form.value)
     }
-    get Email()
+    get email()
     {
-      return this.form.get('Email')
+      return this.form.get('email')
     }
-    get Name()
+    get firstName()
     {
-      return this.form.get('Name')
+      return this.form.get('firstName')
     }
-    get Surname()
+    get lastName()
     {
-      return this.form.get('Surname')
+      return this.form.get('lastName')
     }
-    get Password()
+    get password()
     {
-      return this.form.get('Password')
+      return this.form.get('password')
     }
-    get employeeNo()
+    get employeeNumber()
     {
-      return this.form.get('employeeNo')
+      return this.form.get('employeeNumber')
     }
 
     confirm(){
       alert("You have succefully Registered")
     }
 
-    newUser(): void{
-
-      this.submitted = false
-      this.user = {
-        Email: '',
-        Name: '',
-        Surname: '',
-       Password:'',
-       employeeNo:''
-
-        
-      };
-    }
+    
+    
   
   }
   

@@ -41,6 +41,10 @@ const routes: Routes = [
     path: 'tab-bar',
     loadChildren: () => import('./tab-bar/tab-bar.module').then( m => m.TabBarPageModule)
   },
+  {
+    path: 'success',
+    loadChildren: () => import('./success/success.module').then( m => m.SuccessPageModule)
+  },
   
   
      

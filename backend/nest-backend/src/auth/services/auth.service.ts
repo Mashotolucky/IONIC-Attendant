@@ -8,12 +8,15 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../models/user.entity';
 import { User } from '../models/user.class';
+import { Admin } from '../../admin/models/admin.class';
+
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+   
     private jwtService: JwtService,
   ) {}
 
@@ -30,7 +33,7 @@ export class AuthService {
   }
 
   registerAccount(user: User): Observable<User> {
-    const { firstName, lastName, email, password } = user;
+    const { firstName, lastName, email, password,employeeNumber } = user;
 
     return this.doesUserExist(email).pipe(
       tap((doesUserExist: boolean) => {
@@ -40,6 +43,7 @@ export class AuthService {
             HttpStatus.BAD_REQUEST,
           );
       }),
+      
       switchMap(() => {
         return this.hashPassword(password).pipe(
           switchMap((hashedPassword: string) => {
@@ -48,6 +52,7 @@ export class AuthService {
                 firstName,
                 lastName,
                 email,
+                employeeNumber,
                 password: hashedPassword,
               }),
             ).pipe(
@@ -61,6 +66,8 @@ export class AuthService {
       }),
     );
   }
+ 
+
 
   validateUser(email: string, password: string): Observable<User> {
     return from(

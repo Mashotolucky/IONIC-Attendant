@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { User } from '../models/user.class';
+import { Admin } from '../../admin/models/admin.class';
 import { AuthService } from '../services/auth.service';
 
 @Controller('auth')
@@ -13,6 +14,7 @@ export class AuthController {
   register(@Body() user: User): Observable<User> {
     return this.authService.registerAccount(user);
   }
+ 
 
   @Post('login')
   @HttpCode(HttpStatus.OK)

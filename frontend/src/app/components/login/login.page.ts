@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginPage implements OnInit{
 
   
 
-  constructor(private formBuilder:FormBuilder, private router: Router) {}
+  constructor(private formBuilder:FormBuilder, private router: Router,
+    private authService: AuthService) {}
   ngOnInit(): void{
     this.form = this.formBuilder.group({
       email:  new FormControl('', [Validators.required, Validators.email]),
@@ -22,14 +24,15 @@ export class LoginPage implements OnInit{
     
   }
 
-  onSubmit(form){
-    console.log(form);
-  
-  }
+  onSubmit() {
+    const { email, password } = this.form.value;
+    if (!email || !password) return;
 
-  // get f(){
-  //   return this.form.controls;
-  // }
+      return this.authService.login(email, password).subscribe(() => {
+        this.router.navigateByUrl('/tab-bar');
+      });
+    }
+
   submit(form){
     console.log(this.form.value);
   }

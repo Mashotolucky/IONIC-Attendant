@@ -8,7 +8,7 @@ import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import jsQR from 'jsqr';
 import { LocationService } from '../../services/location.service';
 
-import { Attendence } from '../../Models/attendece';
+import { Attendance } from '../../Models/attendance';
 import { AttendenceService } from '../../services/attendence.service';
 
 import { HttpClient } from '@angular/common/http';
@@ -42,7 +42,7 @@ export class ScanPage implements OnInit {
   logitude: any;
 
   userIP: any;
-  attendence :Attendence;
+  attendence :Attendance;
 
   data = {
     temperature: '',

@@ -1,23 +1,28 @@
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Attendence } from '../Models/attendece';
+import { catchError, take, tap } from 'rxjs/operators';
+import { AuthService } from './auth.service';
+import { ErrorHandlerService } from './error-handler.service';
+import { environment } from 'src/environments/environment';
+import { Attendance } from '../Models/attendance';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttendenceService {
-
-  BaseUrl = '';
-
   temperature: any;
+
   covidStatus: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private errorHandlerService: ErrorHandlerService
+  ) {}
 
-  attendence(body: Attendence): Observable<any> {
-    return this.http.post(this.BaseUrl,body);
-  }
+  private httpOptions: { headers: HttpHeaders } = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
 
   setTemperature(temperature: any): void{
     this.temperature = temperature;
@@ -25,6 +30,7 @@ export class AttendenceService {
 
   setCovidStatus(status: any): void{
     this.covidStatus = status;
+
   }
 
   getTemperature(): any{
@@ -34,5 +40,42 @@ export class AttendenceService {
   getCovidStatus(): any{
     return this.covidStatus;
   }
+
+
+  // getSelectedAttendance(params) {
+  //   return this.http
+  //     .get<Attendance[]>(`${environment.baseApiUrl}/attendance${params}`)
+  //     .pipe(
+  //       tap((attendence: Attendance[]) => {
+  //         if (attendence.length === 0) throw new Error('No attendence to retrieve');
+  //       }),
+  //       catchError(
+  //         this.errorHandlerService.handleError<Attendance[]>('getSelectedPosts', [])
+  //       )
+  //     );
+  // }
+
+  createAttendance(body: string) {
+    return this.http
+      .post<Attendance>(`${environment.baseApiUrl}/attendance`, { body }, this.httpOptions)
+      .pipe(take(1));
+  }
+
+  // updateAttendance(attendanceId: number, body: string) {
+  //   return this.http
+  //     .put(
+  //       `${environment.baseApiUrl}/attendance/${attendanceId}`,
+  //       { body },
+  //       this.httpOptions
+  //     )
+  //     .pipe(take(1));
+  // }
+
+  // deleteAttendance(attendanceId: number) {
+  //   return this.http
+  //     .delete(`${environment.baseApiUrl}/attendance/${attendanceId}`)
+  //     .pipe(take(1));
+  // }
+
 
 }
