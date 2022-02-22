@@ -5,9 +5,10 @@ import { AuthModule } from 'src/auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdminEntity } from './models/admin.entity';
 import { IsCreatorGuard } from 'src/attendance/guards/attendance.guard';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
-  imports: [AuthModule, TypeOrmModule.forFeature([AdminEntity])],
+  imports: [TypeOrmModule.forFeature([AdminEntity])],
   providers: [AdminService],
   controllers: [AdminController]
 })

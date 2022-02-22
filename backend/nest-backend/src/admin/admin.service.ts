@@ -9,12 +9,15 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Repository } from 'typeorm';
 import { AdminEntity } from './models/admin.entity';
 import {Admin} from './models/admin.class'
+import { User } from 'src/auth/models/user.class';
 
 @Injectable()
 export class AdminService {
+   
     constructor(
         @InjectRepository(AdminEntity)
         private readonly adminRepository: Repository<AdminEntity>,
+      
       ) {}
 
       doesUserExist(email: string): Observable<boolean> {
@@ -63,4 +66,53 @@ export class AdminService {
           }),
         );
       }
+
+    
+
+     
+
+      validateAdmin(email: string, password: string): Observable<Admin> {
+        return from(
+          this.adminRepository.findOne(
+            { email },
+            {
+              select: ['id','email', 'password', 'role'],
+            },
+          ),
+        ).pipe(
+          switchMap((admin: Admin) => {
+            if (!admin) {
+              throw new HttpException(
+                { status: HttpStatus.FORBIDDEN, error: 'Invalid Credentials' },
+                HttpStatus.FORBIDDEN,
+              );
+            }
+            return from(bcrypt.compare(password, admin.password)).pipe(
+              map((isValidPassword: boolean) => {
+                if (isValidPassword) {
+                  delete admin.password;
+                  return admin;
+                }
+              }),
+            );
+          }),
+        );
+      }
+
+  //Admin login
+    //   login(admin: Admin): Observable<string> {
+    //     const { email, password } = admin;
+    //     return this.validateAdmin(email, password).pipe(
+    //       switchMap((admin: Admin) => {
+    //         if (admin) {
+    //           // create JWT - credentials
+    //           return from(this.jwtservice.signAsync({ admin }));
+    //         }
+    //       }),
+    //     );
+    //   }
+
+
+      
+
 }

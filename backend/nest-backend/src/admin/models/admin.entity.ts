@@ -11,9 +11,12 @@ import {
   import { Role } from '../../auth/models/role.enum';
  
   @Entity('admin')
+
   export class AdminEntity {
     @PrimaryGeneratedColumn()
     id: number;
+
+    @Column({unique: true})
     email: string;
   
     @Column({ select: false })
