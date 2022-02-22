@@ -1,3 +1,4 @@
+import { attendanceEntity } from 'src/attendance/models/attendance.entity';
 import {
     Column,
     Entity,
@@ -28,7 +29,8 @@ import {
     password: string;
     
 
-  
+    @OneToMany(() => attendanceEntity, ( attendanceEntity) =>  attendanceEntity.author)
+  Attendence: attendanceEntity[];
   
     @Column({ type: 'enum', enum: Role, default: Role.USER })
     role: Role;

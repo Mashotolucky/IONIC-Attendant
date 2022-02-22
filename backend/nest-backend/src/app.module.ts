@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
+import { AttendanceModule } from './attendance/attendance.module';
 
 
 
@@ -24,6 +25,7 @@ import { AuthModule } from './auth/auth.module';
       synchronize: true, // shouldn't be used in production - may lose data
     }),
     AuthModule,
+    AttendanceModule,
    
 
   ],
