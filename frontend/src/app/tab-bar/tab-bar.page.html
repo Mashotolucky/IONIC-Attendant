@@ -1,0 +1,21 @@
+
+<div class="tabs">
+  <ion-tabs>
+    
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button [routerLink]="['/profile']">
+        <ion-label class="text-light" >Profile</ion-label>
+        <ion-icon id="icon" name="person-outline"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="attendance" [routerLink]="['/attendence']">
+        <ion-label class="text-light">Attendance</ion-label>
+        <ion-icon id="icon" name="book-outline"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="signout" [routerLink]="['/login']">
+        <ion-label class="text-light">Sign out</ion-label>
+        <ion-icon id="icon" name="log-out-outline"></ion-icon>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+
+</div>

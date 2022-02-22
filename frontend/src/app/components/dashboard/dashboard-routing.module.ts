@@ -8,7 +8,15 @@ const routes: Routes = [
   {
     path: '',
     component: DashboardPage
-  }
+  , children: [
+    {
+      path: '',
+      loadChildren: () => import('../scan/scan.module').then( m => m.ScanPageModule)
+    }
+
+  ]}
+  
+
 ];
 
 @NgModule({

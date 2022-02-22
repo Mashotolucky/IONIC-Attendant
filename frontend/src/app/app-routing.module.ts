@@ -6,10 +6,10 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./components/splash/splash.module').then( m => m.SplashPageModule)
   },
-  {
-    path: 'dashboard',
-    loadChildren: () => import('./components/dashboard/dashboard.module').then( m => m.DashboardPageModule)
-  },
+  // {
+  //   path: 'dashboard',
+  //   loadChildren: () => import('./components/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  // },
   {
     path: 'splash',
     loadChildren: () => import('./components/splash/splash.module').then( m => m.SplashPageModule)
@@ -32,9 +32,14 @@ const routes: Routes = [
         path: 'register',
         loadChildren: () => import('./components/register/register.module').then( m => m.RegisterPageModule)
       },
+      {
+        path: 'profile',
+        loadChildren: () => import('./components/profile/profile.module').then( m => m.ProfilePageModule)
+      },
+  
   {
-    path: 'profile',
-    loadChildren: () => import('./components/profile/profile.module').then( m => m.ProfilePageModule)
+    path: 'tab-bar',
+    loadChildren: () => import('./tab-bar/tab-bar.module').then( m => m.TabBarPageModule)
   },
   
   

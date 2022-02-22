@@ -75,20 +75,20 @@ export class RegisterPage implements OnInit {
     });
   }
 
-  onSubmit(form) {
-    console.log(form.value);
-    console.log("hello");
+  // onSubmit(form) {
+  //   console.log(form.value);
+  //   console.log("hello");
 
 
-    this.userService.create(form.value)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.submitted = true;
-        },
-        error: (e) => console.error(e)
-      });
-  }
+  //   this.userService.create(form.value)
+  //     .subscribe({
+  //       next: (res) => {
+  //         console.log(res);
+  //         this.submitted = true;
+  //       },
+  //       error: (e) => console.error(e)
+  //     });
+  // }
 
     get f(){
       return this.form.controls
