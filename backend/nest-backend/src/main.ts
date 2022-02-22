@@ -9,7 +9,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   
   try {
-    await app.listen(3500);
+    await app.listen(4000);
     
   } catch (error) {
     console.log(error)

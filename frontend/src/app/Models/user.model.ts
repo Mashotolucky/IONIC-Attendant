@@ -1,4 +1,4 @@
-import { Attendence } from "./attendance";
+import { Attendance } from "./attendance";
 
 export type Role = 'admin' | 'premium' | 'user';
 
@@ -9,4 +9,5 @@ export interface User {
   email?: string;
   employeeNumber?: string;
   role?: Role;
+  
 }

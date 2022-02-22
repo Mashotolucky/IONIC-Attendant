@@ -8,7 +8,7 @@ import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import jsQR from 'jsqr';
 import { LocationService } from '../../services/location.service';
 
-import { Attendence } from '../../Models/attendance';
+import { Attendance } from '../../Models/attendance';
 import { AttendenceService } from '../../services/attendence.service';
 
 import { HttpClient } from '@angular/common/http';
@@ -43,7 +43,7 @@ export class ScanPage implements OnInit {
 
   userIP: any;
 
-  attendence :Attendence ;
+  attendence :Attendance ;
 
   temp: any;
   date: any;
@@ -313,8 +313,8 @@ export class ScanPage implements OnInit {
     this.attendence.temperature = tempe;
     console.log(this.attendence.temperature);
     this.attendence.covid_symptoms_status = false;
-    this.attendence.date = ''
-    this.attendence.time = await this.time;
+    this.attendence.createdAt = ''
+    this.attendence.creationTimestamp= await this.time;
     this.attendence.location = await this.location;
 
    

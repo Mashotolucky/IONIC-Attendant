@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, take, tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
-import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+import { ErrorHandlerService } from './error-handler.service';
 import { environment } from 'src/environments/environment';
 import { Attendance } from '../Models/attendance';
 
@@ -11,6 +11,7 @@ import { Attendance } from '../Models/attendance';
   providedIn: 'root'
 })
 export class AttendenceService {
+  temperature: any;
   constructor(
     private http: HttpClient,
     private errorHandlerService: ErrorHandlerService
@@ -19,6 +20,14 @@ export class AttendenceService {
   private httpOptions: { headers: HttpHeaders } = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
+  setTemperature(temp: any): void{
+    this.temperature = temp;
+  }
+
+  getTemperature(): any{
+    return this.temperature;
+  }
+
 
   getSelectedAttendance(params) {
     return this.http

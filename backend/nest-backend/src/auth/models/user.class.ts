@@ -10,7 +10,6 @@ export class User {
   email?: string;
   @IsString()
   password?: string;
-  
   role?: Role;
   
 }

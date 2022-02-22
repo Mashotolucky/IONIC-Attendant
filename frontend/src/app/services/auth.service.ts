@@ -67,9 +67,11 @@ export class AuthService {
       .post<User>(
         `${environment.baseApiUrl}/auth/register`,
         newUser,
-        this.httpOptions
+        this.httpOptions,
+        
       )
       .pipe(take(1));
+      
   }
 
   login(email: string, password: string): Observable<{ token: string }> {
@@ -101,7 +103,7 @@ export class AuthService {
       map((data: { value: string }) => {
         if (!data || !data.value) return null;
 
-        const decodedToken: UserResponse = jwt_decode(data.value);
+        const decodedToken: UserResponse = jwt_decodea(data.value);
         const jwtExpirationInMsSinceUnixEpoch = decodedToken.exp * 1000;
         const isExpired =
           new Date() > new Date(jwtExpirationInMsSinceUnixEpoch);

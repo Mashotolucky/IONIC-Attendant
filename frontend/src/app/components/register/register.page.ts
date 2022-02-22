@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup,FormBuilder , FormControl, Validators} from '@angular/forms';
-import { User } from '../../Models/user.model';
+
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { NewUser } from 'src/app/models/newUser.model';
@@ -74,8 +74,10 @@ export class RegisterPage implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.form.value);
 
-    this.authService.register(this.form.value).subscribe(() => {
+    this.authService.register(this.form.value).subscribe((res) => {
+          alert("Succesfully created an account");
           this.router.navigateByUrl('/login');
           
         });

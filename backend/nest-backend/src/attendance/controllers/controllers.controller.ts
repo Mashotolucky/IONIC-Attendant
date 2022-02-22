@@ -29,7 +29,7 @@ export class ControllersController {
     @UseGuards(JwtGuard)
     @Post()
     create(@Body() attendance: Attendance, @Request() req): Observable<Attendance> {
-      return this.attendanceService.createPost(req.user, attendance);
+      return this.attendanceService.createAttendance(req.user, attendance);
     }
   
     // @Get()
@@ -37,30 +37,30 @@ export class ControllersController {
     //   return this.feedService.findAllPosts();
     // }
   
-    @UseGuards(JwtGuard)
-    @Get()
-    findSelected(
-      @Query('take') take: number = 1,
-      @Query('skip') skip: number = 1,
-    ): Observable<Attendance[]> {
-      take = take > 20 ? 20 : take;
-      return this.attendanceService.findPosts(take, skip);
-    }
+    // @UseGuards(JwtGuard)
+    // @Get()
+    // findSelected(
+    //   @Query('take') take: number = 1,
+    //   @Query('skip') skip: number = 1,
+    // ): Observable<Attendance[]> {
+    //   take = take > 20 ? 20 : take;
+    //   return this.attendanceService.findPosts(take, skip);
+    // }
   
-    @UseGuards(JwtGuard, IsCreatorGuard)
-    @Put(':id')
-    update(
-      @Param('id') id: number,
-      @Body() attendance: Attendance,
-    ): Observable<UpdateResult> {
-      return this.attendanceService.updatePost(id, attendance);
-    }
+    // @UseGuards(JwtGuard, IsCreatorGuard)
+    // @Put(':id')
+    // update(
+    //   @Param('id') id: number,
+    //   @Body() attendance: Attendance,
+    // ): Observable<UpdateResult> {
+    //   return this.attendanceService.updatePost(id, attendance);
+    // }
   
-    @UseGuards(JwtGuard, IsCreatorGuard)
-    @Delete(':id')
-    delete(@Param('id') id: number): Observable<DeleteResult> {
-      return this.attendanceService.deletePost(id);
-    }
+    // @UseGuards(JwtGuard, IsCreatorGuard)
+    // @Delete(':id')
+    // delete(@Param('id') id: number): Observable<DeleteResult> {
+    //   return this.attendanceService.deletePost(id);
+    // }
   
   
 }

@@ -30,7 +30,7 @@ import {
     
 
     @OneToMany(() => attendanceEntity, ( attendanceEntity) =>  attendanceEntity.author)
-  Attendence: attendanceEntity[];
+    Attendence: attendanceEntity[];
   
     @Column({ type: 'enum', enum: Role, default: Role.USER })
     role: Role;

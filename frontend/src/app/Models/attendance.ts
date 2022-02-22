@@ -5,6 +5,6 @@ export interface Attendance {
   temperature?: number;
   covid_symptoms_status?: boolean;
   creationTimestamp?: string;
-  createdAt?: Date;
+  createdAt?: string;
   author: User;
 }

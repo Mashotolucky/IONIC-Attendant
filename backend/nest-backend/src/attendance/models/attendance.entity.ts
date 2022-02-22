@@ -13,7 +13,7 @@ import {
     @PrimaryGeneratedColumn()
     id: number;
   
-    @Column({ default: '' })
+    @Column()
     location: string;
 
     @Column()
@@ -22,11 +22,13 @@ import {
     @Column()
     covid_symptoms_status: boolean;
 
-    @Column({ default: '' })
-    creationTimestamp: string;
+    @Column()
+    time: string;
+
+    @Column()
+    date: string;
   
-    @CreateDateColumn()
-    createdAt: Date;
+    
   
     @ManyToOne(() => UserEntity, (userEntity) => userEntity.Attendence)
     author: UserEntity;
