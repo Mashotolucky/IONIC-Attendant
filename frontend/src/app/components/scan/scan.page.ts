@@ -281,9 +281,9 @@ export class ScanPage implements OnInit {
           // window.location.reload();
 
           this.postAttendenceData();
+          
         })
 
-        
         this.display();
 
     }).catch((error) => {
@@ -336,7 +336,7 @@ export class ScanPage implements OnInit {
   }
 
 //Providing values to model attendece 
-   postAttendenceData(){
+  postAttendenceData(){
 
     console.log("here " + this.getCovidStaus())
 
@@ -361,7 +361,7 @@ export class ScanPage implements OnInit {
   display(): void{
     setTimeout(() => {
       console.log(this.data);
-    }, 1000)
+    }, 5000)
     
   }
 

@@ -16,7 +16,7 @@ import { AttendenceService } from '../../services/attendence.service';
 export class DashboardPage implements OnInit {
 
 
-
+  targetId: any;
 
   formTemp = new FormGroup({
     temperature: new FormControl(Validators.required)
@@ -40,6 +40,8 @@ export class DashboardPage implements OnInit {
     this.tempForm = this.formBuilder.group({
       checked: []
     });
+
+    // this.setCovidStatus();
   }
 
 
@@ -54,24 +56,29 @@ export class DashboardPage implements OnInit {
     this.attendentService.setTemperature(this.formTemp.value.temperature);
 
     console.log(this.formTemp.value.temperature);
-    // console.log("checked = "+this.tempForm.value.checked);
+    console.log("checked = "+this.tempForm.value.checked);
   }
 
-  setCovidStatus(): void{
+  eventCheck(e){
+
+    this.targetId = e.target.id
+    console.log(e.target.id);
+  }
+
+  setCovidStatus(){
     this.attendentService.setCovidStatus(this.tempForm.value.checked);
-
-    console.log("checked = "+this.tempForm.value);
+    console.log("checked = "+this.tempForm.value.checked);
   }
+  
 
-
-  profile()
-  {
+  // profile()
+  // {
     
-    this.router.navigate(['/profile']);
-  }
+  //   this.router.navigate(['/profile']);
+  // }
 
-  test() {
-    console.log('route');
+  // test() {
+  //   console.log('route');
 
-  }
+  // }
 }

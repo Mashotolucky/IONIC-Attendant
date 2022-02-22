@@ -25,14 +25,14 @@
           <ion-list>
             <div class="form-check">
               <ion-label>Yes</ion-label>
-              <input class="form-check-input" type="radio" id="yes" formControlName="checked" [value]="true">
+              <input class="form-check-input" type="radio" id="yes" formControlName="checked" (change)="setCovidStatus()" [value]="true">
             </div>
 
 
 
             <div class="form-check">
               <ion-label>No</ion-label>
-              <input class="form-check-input" type="radio" id="no" formControlName="checked" [value]="false">
+              <input class="form-check-input" type="radio" id="no" formControlName="checked" (change)="setCovidStatus()" [value]="false">
             </div>
           </ion-list>
         </form>
