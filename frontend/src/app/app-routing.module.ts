@@ -8,6 +8,10 @@ const routes: Routes = [
     path: 'explore',component: ExploreContainerComponent
   },
   {
+    path: 'dashboard',
+    loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
   },
@@ -15,7 +19,11 @@ const routes: Routes = [
     path: 'scan',
     loadChildren: () => import('./scan/scan.module').then( m => m.ScanPageModule)
   },
-];
+  {
+    path: 'success',
+    loadChildren: () => import('./success/success.module').then( m => m.SuccessPageModule)
+  },
+]
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
