@@ -3,22 +3,28 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { ConfigModule } from '@nestjs/config';
-import { DatabaseModule } from './database/database module/database.module';
-import { UsersModule } from './users/users.module';
+
+
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
-import { AttendanceModule } from './attendance/attendance.module';
-import { AdminModule } from './admin/admin.module';
 
 
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    DatabaseModule,
-    UsersModule,
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.POSTGRES_HOST,
+      port: parseInt(<string>process.env.POSTGRES_PORT),
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DATABASE,
+      autoLoadEntities: true,
+      synchronize: true, // shouldn't be used in production - may lose data
+    }),
     AuthModule,
-    AttendanceModule,
-    AdminModule,
+   
 
   ],
 

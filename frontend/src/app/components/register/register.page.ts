@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup,FormBuilder , FormControl, Validators} from '@angular/forms';
 import { User } from '../../model/user.model';
-import { ServicesService } from '../../services/services.service';
+
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -28,7 +28,7 @@ export class RegisterPage implements OnInit {
   ipAddress: any;
 
   constructor(private fb: FormBuilder,
-              private userService:ServicesService,
+              
               private http:HttpClient) {}
 
 

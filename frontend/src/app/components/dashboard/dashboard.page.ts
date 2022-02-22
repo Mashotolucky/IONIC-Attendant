@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validator, FormControl, Validators } from '@ang
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 
-import { AttendenceService } from '../../service/attendence.service';
+import { AttendenceService } from '../../services/attendence.service';
 
 
 
