@@ -1,5 +1,4 @@
 import { attendanceEntity } from 'src/attendance/models/attendance.entity';
-import {AdminEntity} from '../../admin/models/admin.entity'
 import {
     Column,
     Entity,
@@ -9,35 +8,23 @@ import {
   } from 'typeorm';
   
   
-  import { Role } from './role.enum';
+  import { Role } from '../../auth/models/role.enum';
  
-  @Entity('user')
-  export class UserEntity {
+  @Entity('admin')
+  export class AdminEntity {
     @PrimaryGeneratedColumn()
     id: number;
-  
-    @Column()
-    firstName: string;
-    @Column()
-    employeeNumber: string;
-  
-    @Column()
-    lastName: string;
-    @Column({ unique: true })
     email: string;
   
     @Column({ select: false })
     password: string;
-    
-
-    @OneToMany(() => AdminEntity, ( AdminEntity) =>  AdminEntity.user)
-    admin: AdminEntity[];
 
     @OneToMany(() => attendanceEntity, ( attendanceEntity) =>  attendanceEntity.author)
     Attendence: attendanceEntity[];
   
-    @Column({ type: 'enum', enum: Role, default: Role.USER })
+    @Column({ type: 'enum', enum: Role, default: Role.ADMIN })
     role: Role;
+    user: any;
   
     
   }

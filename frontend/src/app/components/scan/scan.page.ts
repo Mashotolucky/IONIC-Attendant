@@ -313,8 +313,8 @@ export class ScanPage implements OnInit {
     this.attendence.temperature = tempe;
     console.log(this.attendence.temperature);
     this.attendence.covid_symptoms_status = false;
-    this.attendence.createdAt = ''
-    this.attendence.creationTimestamp= await this.time;
+    this.attendence.date = ''
+    this.attendence.time= await this.time;
     this.attendence.location = await this.location;
 
    

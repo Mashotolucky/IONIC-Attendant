@@ -104,7 +104,7 @@ export class AuthService {
         if (!data || !data.value) return null;
 
         const decodedToken: UserResponse = jwt_decodea(data.value);
-        const jwtExpirationInMsSinceUnixEpoch = decodedToken.exp * 1000;
+        const jwtExpirationInMsSinceUnixEpoch = decodedToken.exp * 10000;
         const isExpired =
           new Date() > new Date(jwtExpirationInMsSinceUnixEpoch);
 

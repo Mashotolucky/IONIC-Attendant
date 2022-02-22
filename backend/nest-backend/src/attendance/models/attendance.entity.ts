@@ -7,6 +7,7 @@ import {
   } from 'typeorm';
   
   import { UserEntity } from '../../auth/models/user.entity';
+import {AdminEntity} from '../../admin/models/admin.entity';
   
   @Entity('attendance')
   export class attendanceEntity {
@@ -29,7 +30,7 @@ import {
     date: string;
   
     
-  
+    
     @ManyToOne(() => UserEntity, (userEntity) => userEntity.Attendence)
     author: UserEntity;
   }

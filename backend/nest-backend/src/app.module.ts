@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { AttendanceModule } from './attendance/attendance.module';
+import { AdminModule } from './admin/admin.module';
 
 
 
@@ -26,6 +27,7 @@ import { AttendanceModule } from './attendance/attendance.module';
     }),
     AuthModule,
     AttendanceModule,
+    AdminModule,
    
 
   ],

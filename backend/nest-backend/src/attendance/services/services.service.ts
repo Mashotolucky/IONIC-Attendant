@@ -19,17 +19,17 @@ export class ServicesService {
     return from(this.attendanceRepository.save(attendance));
   }
 
-  findAllPosts(): Observable<Attendance[]> {
+  findAllAttendance(): Observable<Attendance[]> {
     return from(this.attendanceRepository.find());
   }
 
 
-  findPosts(take: number = 10, skip: number = 0): Observable<Attendance[]> {
+  findAttendance(take: number = 10, skip: number = 0): Observable<Attendance[]> {
     return from(
       this.attendanceRepository
-        .createQueryBuilder('post')
-        .innerJoinAndSelect('post.author', 'author')
-        .orderBy('post.createdAt', 'DESC')
+        .createQueryBuilder('attendance')
+        .innerJoinAndSelect('attendance.author', 'author')
+        .orderBy('attendance.date', 'DESC')
         .take(take)
         .skip(skip)
         .getMany(),

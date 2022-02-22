@@ -29,40 +29,40 @@ export class AttendenceService {
   }
 
 
-  getSelectedAttendance(params) {
-    return this.http
-      .get<Attendance[]>(`${environment.baseApiUrl}/attendance${params}`)
-      .pipe(
-        tap((attendence: Attendance[]) => {
-          if (attendence.length === 0) throw new Error('No attendence to retrieve');
-        }),
-        catchError(
-          this.errorHandlerService.handleError<Attendance[]>('getSelectedPosts', [])
-        )
-      );
-  }
+  // getSelectedAttendance(params) {
+  //   return this.http
+  //     .get<Attendance[]>(`${environment.baseApiUrl}/attendance${params}`)
+  //     .pipe(
+  //       tap((attendence: Attendance[]) => {
+  //         if (attendence.length === 0) throw new Error('No attendence to retrieve');
+  //       }),
+  //       catchError(
+  //         this.errorHandlerService.handleError<Attendance[]>('getSelectedPosts', [])
+  //       )
+  //     );
+  // }
 
-  createPost(body: string) {
+  createAttendance(body: string) {
     return this.http
       .post<Attendance>(`${environment.baseApiUrl}/attendance`, { body }, this.httpOptions)
       .pipe(take(1));
   }
 
-  updateAttendance(attendanceId: number, body: string) {
-    return this.http
-      .put(
-        `${environment.baseApiUrl}/attendance/${attendanceId}`,
-        { body },
-        this.httpOptions
-      )
-      .pipe(take(1));
-  }
+  // updateAttendance(attendanceId: number, body: string) {
+  //   return this.http
+  //     .put(
+  //       `${environment.baseApiUrl}/attendance/${attendanceId}`,
+  //       { body },
+  //       this.httpOptions
+  //     )
+  //     .pipe(take(1));
+  // }
 
-  deleteAttendance(attendanceId: number) {
-    return this.http
-      .delete(`${environment.baseApiUrl}/attendance/${attendanceId}`)
-      .pipe(take(1));
-  }
+  // deleteAttendance(attendanceId: number) {
+  //   return this.http
+  //     .delete(`${environment.baseApiUrl}/attendance/${attendanceId}`)
+  //     .pipe(take(1));
+  // }
 
 
 }

@@ -33,19 +33,19 @@ export class ControllersController {
     }
   
     // @Get()
-    // findAll(): Observable<FeedPost[]> {
-    //   return this.feedService.findAllPosts();
+    // findAll(): Observable<Attendance[]> {
+    //   return this.attendanceService.findAllAttendance();
     // }
   
-    // @UseGuards(JwtGuard)
-    // @Get()
-    // findSelected(
-    //   @Query('take') take: number = 1,
-    //   @Query('skip') skip: number = 1,
-    // ): Observable<Attendance[]> {
-    //   take = take > 20 ? 20 : take;
-    //   return this.attendanceService.findPosts(take, skip);
-    // }
+    @UseGuards(JwtGuard)
+    @Get()
+    findSelected(
+      @Query('take') take: number = 1,
+      @Query('skip') skip: number = 1,
+    ): Observable<Attendance[]> {
+      take = take > 20 ? 20 : take;
+      return this.attendanceService.findAttendance(take, skip);
+    }
   
     // @UseGuards(JwtGuard, IsCreatorGuard)
     // @Put(':id')
