@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import jwt_decodea from "jwt-decode";
 import { NewUser } from '../models/newUser.model';
 import { Role, User } from '../models/user.model';
 import { Router } from '@angular/router';
@@ -7,6 +8,7 @@ import { map, switchMap, take, tap } from 'rxjs/operators';
 import { BehaviorSubject, from, Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserResponse } from '../models/userResponse.model';
+
 
 import { environment } from 'src/environments/environment';
 
@@ -84,7 +86,7 @@ export class AuthService {
             key: 'token',
             value: response.token,
           });
-          const decodedToken: UserResponse = jwt_decode(response.token);
+          const decodedToken: UserResponse = jwt_decodea(response.token);
           this.user$.next(decodedToken.user);
         })
       );
