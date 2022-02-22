@@ -1,7 +1,8 @@
-export class Attendence {
-    temperature: number;
-    covid_symptoms_status: Boolean;
-    date: string;
-    time: string;
-    location: string;
-  }
+export interface Attendance {
+  id?: number;
+  location?: string;
+  temperature?: number;
+  covid_symptoms_status?: boolean;
+  creationTimestamp?: string;
+  createdAt?: Date;
+}
