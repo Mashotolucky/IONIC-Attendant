@@ -5,7 +5,7 @@ import { catchError, take, tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { environment } from 'src/environments/environment';
-import { Attendence } from '../Models/attendance';
+import { Attendance } from '../Models/attendance';
 
 @Injectable({
   providedIn: 'root'
@@ -22,20 +22,20 @@ export class AttendenceService {
 
   getSelectedAttendance(params) {
     return this.http
-      .get<Attendence[]>(`${environment.baseApiUrl}/attendance${params}`)
+      .get<Attendance[]>(`${environment.baseApiUrl}/attendance${params}`)
       .pipe(
-        tap((attendence: Attendence[]) => {
+        tap((attendence: Attendance[]) => {
           if (attendence.length === 0) throw new Error('No attendence to retrieve');
         }),
         catchError(
-          this.errorHandlerService.handleError<Attendence[]>('getSelectedPosts', [])
+          this.errorHandlerService.handleError<Attendance[]>('getSelectedPosts', [])
         )
       );
   }
 
   createPost(body: string) {
     return this.http
-      .post<Attendence>(`${environment.baseApiUrl}/attendance`, { body }, this.httpOptions)
+      .post<Attendance>(`${environment.baseApiUrl}/attendance`, { body }, this.httpOptions)
       .pipe(take(1));
   }
 
