@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validator, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 
 import { AttendenceService } from '../../service/attendence.service';
@@ -26,7 +27,7 @@ export class DashboardPage implements OnInit {
   })
 
 
-  constructor(private formBuilder: FormBuilder, menu: MenuController, private attendentService: AttendenceService) {
+  constructor(private formBuilder: FormBuilder, menu: MenuController, private attendentService: AttendenceService, private router:Router) {
 
   }
 
@@ -56,4 +57,15 @@ export class DashboardPage implements OnInit {
     console.log("checked = "+this.tempForm.value.checked);
   }
 
+
+  profile()
+  {
+    
+    this.router.navigate(['/profile']);
+  }
+
+  test() {
+    console.log('route');
+
+  }
 }

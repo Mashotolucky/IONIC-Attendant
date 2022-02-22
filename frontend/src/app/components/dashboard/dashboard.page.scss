@@ -4,11 +4,31 @@ ion-button{
     left: 30%;
     right: 30%;
     transform: translateY(400%);
-    --background:#50C8FF;
+    // --background:#5500CC;
 }
-ion-input{
-    left:5%;
-    right:10%;
+
+ion-item{
+
+    --background: #DDE7FF;
 }
+ion-content {
+    margin-top: 3rem;
+    // transform: translateY(.5%);
+}
+
+.tabs{
+    margin-bottom: 6rem;
+}
+
+ion-tab-button {
+    background-color: #50C8FF;
+}
+
+#icon {
+    color: white;
+}
+
+
+
 
 
