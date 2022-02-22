@@ -11,6 +11,7 @@ export class AttendenceService {
   BaseUrl = '';
 
   temperature: any;
+  covidStatus: any;
 
   constructor(private http: HttpClient) { }
 
@@ -18,12 +19,20 @@ export class AttendenceService {
     return this.http.post(this.BaseUrl,body);
   }
 
-  setTemperature(temp: any): void{
-    this.temperature = temp;
+  setTemperature(temperature: any): void{
+    this.temperature = temperature;
+  }
+
+  setCovidStatus(status: any): void{
+    this.covidStatus = status;
   }
 
   getTemperature(): any{
     return this.temperature;
+  }
+
+  getCovidStatus(): any{
+    return this.covidStatus;
   }
 
 }

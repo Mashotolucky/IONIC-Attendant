@@ -19,7 +19,7 @@
     Capture Image
   </ion-button>
  
-  <ion-button expand="full" (click)="startScan()">
+  <ion-button expand="full" (click)="startScan()" (click)="currentLocation()">
     <ion-icon slot="start" name="qr-scanner"></ion-icon>
     Start scan
   </ion-button>
@@ -44,6 +44,17 @@
   <ion-card *ngIf="scanResult">
     <ion-card-header>
       <ion-card-title>Results</ion-card-title>
+
+      <ion-item>
+        {{data.location}}
+      </ion-item>
+      <ion-item>
+        {{data.date}}
+      </ion-item>
+      <ion-item>
+        {{data.time}}
+      </ion-item>
+
     </ion-card-header>
     <ion-card-content>
       <ion-text >

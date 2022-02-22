@@ -1,0 +1,127 @@
+
+ <ion-toolbar>
+    
+  <ion-title class="homeFont ms-5" slot="end" [routerLink]="['/home']" ></ion-title>
+  <ion-buttons class="ms-1" slot="start">
+    <div>
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </div>
+  </ion-buttons>
+
+</ion-toolbar>
+  <ion-menu side="start" menuId="first" contentId="main">
+    <ion-header >
+      
+      <ion-buttons>
+        <!-- <ion-searchbar animated></ion-searchbar> -->
+      </ion-buttons>
+    </ion-header>
+    <ion-content>
+      <ion-list >
+
+        <ion-menu-toggle>
+          <ion-item class="nav-link" [routerLink]="['']" >
+            <ion-icon name="person-outline"></ion-icon>Profile</ion-item>
+        </ion-menu-toggle>
+       <ion-menu-toggle>
+         <ion-item class="nav-link" [routerLink]="['']" >
+          <ion-icon name="book-outline"></ion-icon>Attendance</ion-item></ion-menu-toggle>
+        <ion-menu-toggle><ion-item class="nav-link" [routerLink]="['/login']">
+          <ion-icon name="log-out-outline"></ion-icon>Sign out</ion-item> </ion-menu-toggle> 
+
+       
+
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  
+ 
+<ion-content >
+  <div class="container-fluid">
+    <ion-card>
+      <ion-item>
+    <form  [formGroup]="formTemp">
+      <ion-input type="text" formControlName="temperature" placeholder="Temperature">
+      </ion-input>
+    </form>
+  </ion-item>
+  </ion-card>
+</div>
+
+
+  <div class="container-fluid">
+      <ion-card>
+      <ion-card-content >
+        Do you have any COVID symptoms <br>
+        if Yes, please see Covid compliance <br>
+        Officer immediately*
+
+        <form [formGroup]="tempForm">
+            <ion-list>
+                <div class="form-check">
+                  <ion-label >Yes</ion-label>
+                  <input class="form-check-input" type="radio" id="yes" formControlName="checked" [value]="true">
+                </div>
+              
+            
+             
+                <div class="form-check">
+                  <ion-label>No</ion-label>
+                  <input class="form-check-input" type="radio"  id="no" formControlName="checked" [value]="false">
+                </div>
+             
+
+             
+
+            </ion-list>
+        </form>
+
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div class="container-fluid">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>COVID-19 vaccine booster doses</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        
+        <ion-infinite-scroll>
+          <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+             loadingText = ""
+            >
+            
+            
+              <p>  The Department of Health is pleased to announce the details of the 
+                   implementation of booster doses for the COVID-19 vaccines in use in the country.
+              </p>
+
+              <!-- <p> SAHPRA has also approved the use of the Johnson and Johnson (J&J) vaccine for 
+                boosters of the single dose primary J&J schedule at least 2 months after primary vaccination.
+              </p>
+               -->
+              <p>  Booster doses are the same vaccine in the same dose administered to people 
+                   who have had a primary vaccination series and are administered to allow the body to boost its immunity to the COVID-19 virus.
+              </p>
+          
+          <a href="https://www.gov.za/">Loading more data…</a>
+        </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+        
+        
+      </ion-card-content>
+    </ion-card>
+
+   
+  </div>
+  
+  <div class="scan">
+    <ion-button class="btn p-0 ms-4" color="primary" routerLink='/scan'  expand="block"  (click)="setCovidStatus()" (click)="setTemperature()">
+      <ion-icon name="camera-outline"></ion-icon>
+    </ion-button>
+  </div>
+</ion-content>
+

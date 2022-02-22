@@ -6,10 +6,10 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./components/splash/splash.module').then( m => m.SplashPageModule)
   },
-  // {
-  //   path: 'dashboard',
-  //   loadChildren: () => import('./components/dashboard/dashboard.module').then( m => m.DashboardPageModule)
-  // },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./components/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  },
   {
     path: 'splash',
     loadChildren: () => import('./components/splash/splash.module').then( m => m.SplashPageModule)
