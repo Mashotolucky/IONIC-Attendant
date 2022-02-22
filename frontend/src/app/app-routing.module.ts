@@ -47,6 +47,12 @@ const routes: Routes = [
   },
   
   
+  {
+    path: 'attendance',
+    loadChildren: () => import('./components/attendance/attendance.module').then( m => m.AttendancePageModule)
+  },
+     
+ 
      
   
 ];
