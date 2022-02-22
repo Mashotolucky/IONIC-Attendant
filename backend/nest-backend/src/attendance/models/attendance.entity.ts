@@ -16,11 +16,11 @@ import {
     @Column({ default: '' })
     location: string;
 
-    @Column({ default: '' })
-    temperature: string;
+    @Column()
+    temperature: number;
 
-    @Column({ default: '' })
-    covid_symptoms_status: string;
+    @Column()
+    covid_symptoms_status: boolean;
 
     @Column({ default: '' })
     creationTimestamp: string;
