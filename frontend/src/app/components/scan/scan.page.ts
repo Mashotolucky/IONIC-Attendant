@@ -12,6 +12,8 @@ import { Attendance } from '../../Models/attendance';
 import { AttendenceService } from '../../services/attendence.service';
 
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -71,6 +73,7 @@ export class ScanPage implements OnInit {
     private locationApi: LocationService,
     private attendentService: AttendenceService,
     private httpClient: HttpClient,
+    private router: Router,
     
   
   ) {
@@ -109,18 +112,22 @@ export class ScanPage implements OnInit {
   //popup message for scanned data
   async showQrToast() {
     const toast = await this.toastCtrl.create({
-      message: `Open ${this.scanResult}?`,
+      message: `Scanned `,
       position: 'top',
       buttons: [
         {
-          text: 'Open',
+          text: 'Submit',
           handler: () => {
-            window.open(this.scanResult, '_system', 'location=yes');
+            // window.open(this.scanResult, '_system', 'location=yes');
+            this.router.navigateByUrl('/success');
           }
         }
       ]
     });
-    toast.present();
+    if(this.scanResult != null){
+      toast.present();
+    }
+    
   }
 
   reset() {
@@ -211,7 +218,13 @@ export class ScanPage implements OnInit {
 
   //capture qr code
   captureImage() {
-    this.fileinput.nativeElement.click();
+    if (this.userIP === '154.0.14.211'){
+      this.fileinput.nativeElement.click();
+    }
+    else{
+      alert('Your Are not in Digital Academy');
+    }
+    
   }
 
   handleFile(files: FileList) {
@@ -277,7 +290,7 @@ export class ScanPage implements OnInit {
 
             console.log(this.location);
           console.log("House number " + houseNumber + " Media Mill");
-          alert("Please scan to attend");
+          // alert("Please scan to attend");
           // window.location.reload();
 
           this.postAttendenceData();
@@ -361,7 +374,7 @@ export class ScanPage implements OnInit {
   display(): void{
     setTimeout(() => {
       console.log(this.data);
-    }, 5000)
+    }, 2000)
     
   }
 
