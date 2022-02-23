@@ -355,7 +355,7 @@ export class ScanPage implements OnInit {
       covid_symptoms_status: localStorage.getItem('status'),
       date: this.date,
       time: this.time,
-      location: "DA",
+      location: this.location,
 
     }
     console.log("location"+ this.attendence.location)
