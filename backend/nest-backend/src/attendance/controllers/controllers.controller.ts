@@ -9,6 +9,7 @@ import {
     Query,
     Request,
     Res,
+    Response,
     UseGuards,
   } from '@nestjs/common';
   import { Observable } from 'rxjs';
@@ -20,6 +21,7 @@ import {
   import { ServicesService } from '../services/services.service';
   
   import { IsCreatorGuard } from '../guards/attendance.guard';
+import { send } from 'process';
 @Controller('attendance')
 export class ControllersController {
     constructor(private attendanceService: ServicesService) {}
@@ -29,7 +31,10 @@ export class ControllersController {
     @UseGuards(JwtGuard)
     @Post()
     create(@Body() attendance: Attendance, @Request() req): Observable<Attendance> {
-      return this.attendanceService.createAttendance(req.user, attendance);
+      console.log(attendance.location);
+      console.log();
+      
+      return this.attendanceService.createAttendance(req.user, attendance['data']);
     }
   
     // @Get()

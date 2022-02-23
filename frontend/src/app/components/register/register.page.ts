@@ -89,6 +89,7 @@ export class RegisterPage implements OnInit {
   // }
   onSubmit() {
     console.log(this.form.value);
+  
 
     this.authService.register(this.form.value).subscribe((res) => {
           alert("Succesfully created an account");

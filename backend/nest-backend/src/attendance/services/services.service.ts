@@ -14,8 +14,10 @@ export class ServicesService {
     private readonly attendanceRepository: Repository<attendanceEntity>,
   ) {}
 
-  createAttendance(user: User, attendance: Attendance): Observable<Attendance> {
+  createAttendance(user: User, attendance: any): Observable<Attendance> {
     attendance.author = user;
+    console.log(attendance.location);
+    
     return from(this.attendanceRepository.save(attendance));
   }
 

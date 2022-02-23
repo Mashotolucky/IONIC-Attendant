@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import jwt_decodea from "jwt-decode";
+import jwt_decode from "jwt-decode";
 import { NewUser } from '../models/newUser.model';
 import { Role, User } from '../models/user.model';
 import { Router } from '@angular/router';
@@ -17,6 +17,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
   private user$ = new BehaviorSubject<User>(null);
+ 
 
   constructor(private http: HttpClient, private router: Router) { }
   private httpOptions: { headers: HttpHeaders } = {
@@ -88,7 +89,7 @@ export class AuthService {
             key: 'token',
             value: response.token,
           });
-          const decodedToken: UserResponse = jwt_decodea(response.token);
+          const decodedToken: UserResponse = jwt_decode(response.token);
           this.user$.next(decodedToken.user);
         })
       );
@@ -103,8 +104,8 @@ export class AuthService {
       map((data: { value: string }) => {
         if (!data || !data.value) return null;
 
-        const decodedToken: UserResponse = jwt_decodea(data.value);
-        const jwtExpirationInMsSinceUnixEpoch = decodedToken.exp * 10000;
+        const decodedToken: UserResponse = jwt_decode(data.value);
+        const jwtExpirationInMsSinceUnixEpoch = decodedToken.exp * 1000;
         const isExpired =
           new Date() > new Date(jwtExpirationInMsSinceUnixEpoch);
 
@@ -120,10 +121,10 @@ export class AuthService {
   logout(): void {
     this.user$.next(null);
     Storage.remove({ key: 'token' });
-    this.router.navigateByUrl('/auth');
+    this.router.navigateByUrl('/login');
   }
+ 
+  
 }
-function jwt_decode(token: string): UserResponse {
-  throw new Error('Function not implemented.');
-}
+
 

@@ -26,6 +26,7 @@ export class LoginPage implements OnInit{
 
   onSubmit() {
     const { email, password } = this.form.value;
+    console.log(typeof(this.form.value))
     if (!email || !password) return;
 
       return this.authService.login(email, password).subscribe(() => {
