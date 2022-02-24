@@ -18,6 +18,7 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
   private user$ = new BehaviorSubject<User>(null);
  
+  private userID : any;
 
   constructor(private http: HttpClient, private router: Router) { }
   private httpOptions: { headers: HttpHeaders } = {
@@ -92,6 +93,12 @@ export class AuthService {
           const decodedToken: UserResponse = jwt_decode(response.token);
           console.log(decodedToken);
           this.user$.next(decodedToken.user);
+
+          this.userID = decodedToken.user;
+
+          console.log(this.userID.id);
+          this.setUserID()
+          
         })
       );
   }
@@ -119,10 +126,18 @@ export class AuthService {
     );
   }
 
+  setUserID(){
+    console.log("function "+this.userID.id)
+    return this.userID.id;
+  }
+
   logout(): void {
     this.user$.next(null);
     Storage.remove({ key: 'token' });
     this.router.navigateByUrl('/login');
+  }
+  loggedIn(){
+    return !!localStorage.getItem('CapacitorStorage.token') 
   }
  
   

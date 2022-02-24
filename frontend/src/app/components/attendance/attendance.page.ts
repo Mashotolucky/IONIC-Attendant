@@ -32,11 +32,11 @@ export class AttendancePage implements OnInit {
       });
    }
 
-   getToken(){
-    this.authToken = localStorage.getItem('CapacitorStorage.token')
-    return this.authToken;
+  //  getToken(){
+  //   this.authToken = localStorage.getItem('CapacitorStorage.token')
+  //   return this.authToken;
     
-  }
+  // }
   response:any;
   getDecodedToken(){
     

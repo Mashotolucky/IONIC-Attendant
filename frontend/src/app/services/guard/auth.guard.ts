@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanLoad, Router, UrlTree } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, CanLoad, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { switchMap, take, tap } from 'rxjs/operators';
 
@@ -10,6 +10,7 @@ import { AuthService } from '../auth.service';
 })
 export class AuthGuard implements CanLoad {
   constructor(private authService: AuthService, private router: Router) {}
+  
 
   canLoad():
     | Observable<boolean | UrlTree>
@@ -26,7 +27,7 @@ export class AuthGuard implements CanLoad {
       }),
       tap((isUserLoggedIn: boolean) => {
         if (!isUserLoggedIn) {
-          this.router.navigateByUrl('/auth');
+          this.router.navigateByUrl('/login');
         }
       })
     );
