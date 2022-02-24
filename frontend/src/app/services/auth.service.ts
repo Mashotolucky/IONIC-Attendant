@@ -90,6 +90,7 @@ export class AuthService {
             value: response.token,
           });
           const decodedToken: UserResponse = jwt_decode(response.token);
+          console.log(decodedToken);
           this.user$.next(decodedToken.user);
         })
       );
