@@ -38,17 +38,26 @@ export class ServicesService {
     );
   }
 
-  updatePost(id: number, attendance: Attendance): Observable<UpdateResult> {
+  updateAttendance(id: number, attendance: Attendance): Observable<UpdateResult> {
     return from(this.attendanceRepository.update(id, attendance));
   }
 
-  deletePost(id: number): Observable<DeleteResult> {
+  deleteAttendance(id: number): Observable<DeleteResult> {
     return from(this.attendanceRepository.delete(id));
   }
 
   findAttendanceById(id: number): Observable<Attendance> {
+    
     return from(
       this.attendanceRepository.findOne({ id }, { relations: ['author'] }),
+      
+    );
+  }
+  findAttendanceByuserId(): Observable<Attendance> {
+    
+    return from(
+      this.attendanceRepository.createQueryBuilder('attendance').select('id').getOne()
+      
     );
   }
 }

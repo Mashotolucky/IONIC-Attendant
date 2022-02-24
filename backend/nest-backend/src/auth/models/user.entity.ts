@@ -34,7 +34,7 @@ import {
     admin: AdminEntity[];
 
     @OneToMany(() => attendanceEntity, ( attendanceEntity) =>  attendanceEntity.author)
-    Attendence: attendanceEntity[];
+    Attendance: attendanceEntity[];
   
     @Column({ type: 'enum', enum: Role, default: Role.USER })
     role: Role;

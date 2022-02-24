@@ -31,6 +31,6 @@ import {AdminEntity} from '../../admin/models/admin.entity';
   
     
     
-    @ManyToOne(() => UserEntity, (userEntity) => userEntity.Attendence)
+    @ManyToOne(() => UserEntity, (userEntity) => userEntity.Attendance)
     author: UserEntity;
   }

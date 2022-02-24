@@ -43,18 +43,17 @@ export class ControllersController {
     findAll(): Observable<Attendance[]> {
       return this.attendanceService.findAllAttendance();
     }
+    @Get('userAttendance')
+    findAttendanceUser(@Param('id') id: number): Observable<Attendance> {
+      return this.attendanceService.findAttendanceByuserId();
+    }
 
 
+      @Get(':id')
+      findOne(@Param('id') id: number): Observable<Attendance> {
+        return this.attendanceService.findAttendanceById(id);
+      }
 
-@Get(':id')
-findOne(@Param('id') id: number): Observable<Attendance> {
-  return this.attendanceService.findAttendanceById(id);
-}
-
-
-    
-
-  
     @UseGuards(JwtGuard)
     @Get()
     findSelected(
@@ -71,13 +70,13 @@ findOne(@Param('id') id: number): Observable<Attendance> {
       @Param('id') id: number,
       @Body() attendance: Attendance,
     ): Observable<UpdateResult> {
-      return this.attendanceService.updatePost(id, attendance);
+      return this.attendanceService.updateAttendance(id, attendance);
     }
   
     @UseGuards(JwtGuard, IsCreatorGuard)
     @Delete(':id')
     delete(@Param('id') id: number): Observable<DeleteResult> {
-      return this.attendanceService.deletePost(id);
+      return this.attendanceService.deleteAttendance(id);
     }
   
   
