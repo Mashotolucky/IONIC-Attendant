@@ -49,18 +49,18 @@ export class AttendenceService {
   }
 
 
-  // getSelectedAttendance(params) {
-  //   return this.http
-  //     .get<Attendance[]>(`${environment.baseApiUrl}/attendance${params}`)
-  //     .pipe(
-  //       tap((attendence: Attendance[]) => {
-  //         if (attendence.length === 0) throw new Error('No attendence to retrieve');
-  //       }),
-  //       catchError(
-  //         this.errorHandlerService.handleError<Attendance[]>('getSelectedPosts', [])
-  //       )
-  //     );
-  // }
+  getSelectedAttendance(params: any) {
+    return this.http
+      .get<Attendance[]>(`${environment.baseApiUrl}/attendance/${params}`)
+      .pipe(
+        tap((attendence: Attendance[]) => {
+          if (attendence.length === 0) throw new Error('No attendence to retrieve');
+        }),
+        catchError(
+          this.errorHandlerService.handleError<Attendance[]>('getSelectedPosts', [])
+        )
+      );
+  }
 
   createAttendance(data: Object) {
     console.log("m here")
@@ -74,6 +74,9 @@ export class AttendenceService {
     })
     this.authToken = Token;
     
+  }
+  getAllAttendances(){
+    return this.http.get<Attendance>(`${environment.baseApiUrl}/attendance`,this.httpOptions)
   }
   // updateAttendance(attendanceId: number, body: string) {
   //   return this.http
