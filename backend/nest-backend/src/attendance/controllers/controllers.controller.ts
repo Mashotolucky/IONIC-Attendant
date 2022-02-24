@@ -36,11 +36,24 @@ export class ControllersController {
       
       return this.attendanceService.createAttendance(req.user, attendance['data']);
     }
-  
-    // @Get()
-    // findAll(): Observable<Attendance[]> {
-    //   return this.attendanceService.findAllAttendance();
-    // }
+
+
+    // @UseGuards(JwtGuard)
+    @Get()
+    findAll(): Observable<Attendance[]> {
+      return this.attendanceService.findAllAttendance();
+    }
+
+
+
+@Get(':id')
+findOne(@Param('id') id: number): Observable<Attendance> {
+  return this.attendanceService.findAttendanceById(id);
+}
+
+
+    
+
   
     @UseGuards(JwtGuard)
     @Get()
@@ -52,20 +65,20 @@ export class ControllersController {
       return this.attendanceService.findAttendance(take, skip);
     }
   
-    // @UseGuards(JwtGuard, IsCreatorGuard)
-    // @Put(':id')
-    // update(
-    //   @Param('id') id: number,
-    //   @Body() attendance: Attendance,
-    // ): Observable<UpdateResult> {
-    //   return this.attendanceService.updatePost(id, attendance);
-    // }
+    @UseGuards(JwtGuard, IsCreatorGuard)
+    @Put(':id')
+    update(
+      @Param('id') id: number,
+      @Body() attendance: Attendance,
+    ): Observable<UpdateResult> {
+      return this.attendanceService.updatePost(id, attendance);
+    }
   
-    // @UseGuards(JwtGuard, IsCreatorGuard)
-    // @Delete(':id')
-    // delete(@Param('id') id: number): Observable<DeleteResult> {
-    //   return this.attendanceService.deletePost(id);
-    // }
+    @UseGuards(JwtGuard, IsCreatorGuard)
+    @Delete(':id')
+    delete(@Param('id') id: number): Observable<DeleteResult> {
+      return this.attendanceService.deletePost(id);
+    }
   
   
 }
