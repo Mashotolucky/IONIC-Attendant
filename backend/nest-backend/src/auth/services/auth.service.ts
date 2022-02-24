@@ -109,6 +109,18 @@ export class AuthService {
     );
   }
 
+    loginAdmin(admin: Admin): Observable<string> {
+        const { email, password } = admin;
+        return this.validateUser(email, password).pipe(
+          switchMap((admin: Admin) => {
+            if (admin) {
+              // create JWT - credentials
+              return from(this.jwtService.signAsync({ admin }));
+            }
+          }),
+        );
+      }
+
   getJwtUser(jwt: string): Observable<User | null> {
     return from(this.jwtService.verifyAsync(jwt)).pipe(
       map(({ user }: { user: User }) => {

@@ -28,15 +28,15 @@ export class IsCreatorGuard implements CanActivate {
     const attendanceID = params.id;
 
     // Determine if logged-in user is the same as the user that created the feed post
-    return this.userService.findUserById(userId).pipe(
-      switchMap((user: User) =>
-        this.attendanceService.findAttendanceById(attendanceID).pipe(
-          map((attendance: Attendance) => {
-            let isAuthor = user.id === attendance.author.id;
-            return isAuthor;
-          }),
-        ),
-      ),
-    );
+    // return this.userService.findUserById(userId).pipe(
+    //   switchMap((user: User) =>
+    //     this.attendanceService.findAttendanceById(attendanceID).pipe(
+    //       map((attendance: Attendance) => {
+    //         let isAuthor = user.id === attendance.author.id;
+    //         return isAuthor;
+    //       }),
+    //     ),
+    //   ),
+    // );
   }
 }

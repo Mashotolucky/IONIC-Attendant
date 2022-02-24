@@ -16,9 +16,12 @@ export class UserService {
    
   ) {}
 
-  findUserById(id: number): Observable<User> {
+  findUserById(firstName: any): Observable<User> {
+
     return from(
-      this.userRepository.findOne({ id }, { relations: ['Attendance'] }),
+      
+      this.userRepository.findOne({firstName})
+      
     ).pipe(
       map((user: User) => {
         if (!user) {
@@ -27,7 +30,9 @@ export class UserService {
         delete user.password;
         return user;
       }),
-    );
+      
+    )
+    ;
   }
 
  

@@ -46,10 +46,16 @@ export class ServicesService {
     return from(this.attendanceRepository.delete(id));
   }
 
-  findAttendanceById(id: number): Observable<Attendance> {
+  findAttendanceById(id:any): Observable<Attendance[]> {
     
     return from(
-      this.attendanceRepository.findOne({ id }, { relations: ['author'] }),
+      this.attendanceRepository.find({
+        where: {
+            author: { id},
+        },
+        relations: ["author"],
+    })
+      // ({ author }, { relations: ['author'] }),
       
     );
   }

@@ -49,9 +49,9 @@ export class ControllersController {
     }
 
 
-      @Get(':id')
-      findOne(@Param('id') id: number): Observable<Attendance> {
-        return this.attendanceService.findAttendanceById(id);
+      @Get(':author')
+      findOne(@Param('author') author: any): Observable<Attendance[]> {
+        return this.attendanceService.findAttendanceById(author);
       }
 
     @UseGuards(JwtGuard)
