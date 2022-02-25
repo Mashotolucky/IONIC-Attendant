@@ -18,10 +18,10 @@ import {AdminEntity} from '../../admin/models/admin.entity';
     location: string;
 
     @Column()
-    temperature: number;
+    temperature: string;
 
     @Column()
-    covid_symptoms_status: boolean;
+    covid_symptoms_status: string;
 
     @Column()
     time: string;
@@ -31,6 +31,6 @@ import {AdminEntity} from '../../admin/models/admin.entity';
   
     
     
-    @ManyToOne(() => UserEntity, (userEntity) => userEntity.Attendence)
+    @ManyToOne(() => UserEntity, (userEntity) => userEntity.Attendance)
     author: UserEntity;
   }

@@ -1,6 +1,6 @@
 
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+
 import { InjectRepository } from '@nestjs/typeorm';
 
 import * as bcrypt from 'bcrypt';
@@ -11,14 +11,20 @@ import { AdminEntity } from './models/admin.entity';
 import {Admin} from './models/admin.class'
 import { User } from 'src/auth/models/user.class';
 
+
+
 @Injectable()
 export class AdminService {
-   
+  
+  
     constructor(
         @InjectRepository(AdminEntity)
         private readonly adminRepository: Repository<AdminEntity>,
+        
+       
       
       ) {}
+      
 
       doesUserExist(email: string): Observable<boolean> {
         return from(this.adminRepository.findOne({ email })).pipe(
@@ -99,18 +105,18 @@ export class AdminService {
         );
       }
 
-  //Admin login
-    //   login(admin: Admin): Observable<string> {
-    //     const { email, password } = admin;
-    //     return this.validateAdmin(email, password).pipe(
-    //       switchMap((admin: Admin) => {
-    //         if (admin) {
-    //           // create JWT - credentials
-    //           return from(this.jwtservice.signAsync({ admin }));
-    //         }
-    //       }),
-    //     );
-    //   }
+  // Admin login
+      // login(admin: Admin): Observable<string> {
+      //   const { email, password } = admin;
+      //   return this.validateAdmin(email, password).pipe(
+      //     switchMap((admin: Admin) => {
+      //       if (admin) {
+      //         // create JWT - credentials
+      //         return from(this.jwtService.signAsync({ admin }));
+      //       }
+      //     }),
+      //   );
+      // }
 
 
       

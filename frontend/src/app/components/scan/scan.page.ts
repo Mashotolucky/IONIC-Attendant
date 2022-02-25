@@ -13,7 +13,10 @@ import { AttendenceService } from '../../services/attendence.service';
 
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+<<<<<<< HEAD
 
+=======
+>>>>>>> feature/attendance-service
 
 
 @Component({
@@ -46,13 +49,13 @@ export class ScanPage implements OnInit {
   userIP: any;
   attendence :Attendance;
 
-  data = {
-    temperature: '',
-    covid_symptoms_status: null,
-    date: '',
-    time: '',
-    location: ''
-  }
+  // this.attendence = {
+  //   temperature: '',
+  //   covid_symptoms_status: null,
+  //   date: '',
+  //   time: '',
+  //   location: ''
+  // }
 
   temp: any;
   covidStatus: any;
@@ -361,20 +364,37 @@ export class ScanPage implements OnInit {
     const covidStatu = this.getCovidStaus();
     localStorage.setItem('status',covidStatu);
 
-     this.data =  {
+     this.attendence =  {
       temperature: localStorage.getItem('temperature'),
       covid_symptoms_status: localStorage.getItem('status'),
       date: this.date,
       time: this.time,
-      location: this.location
+      location: this.location,
+
     }
+    console.log("location"+ this.attendence.location)
+    let test = typeof(this.attendence)
+    console.log(test)
+    this.attendentService.createAttendance(this.attendence).subscribe((res) => {
+      console.log(res)
+      console.log("we are oky")
+      alert("Succesfully submitted your attendance");
+      this.router.navigateByUrl('/tab-bar');
+      
+    });
+
    
   }
 
   display(): void{
     setTimeout(() => {
+<<<<<<< HEAD
       console.log(this.data);
     }, 2000)
+=======
+      console.log(this.attendence);
+    }, 5000)
+>>>>>>> feature/attendance-service
     
   }
 

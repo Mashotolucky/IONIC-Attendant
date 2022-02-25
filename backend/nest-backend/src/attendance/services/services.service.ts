@@ -14,8 +14,10 @@ export class ServicesService {
     private readonly attendanceRepository: Repository<attendanceEntity>,
   ) {}
 
-  createAttendance(user: User, attendance: Attendance): Observable<Attendance> {
+  createAttendance(user: User, attendance: any): Observable<Attendance> {
     attendance.author = user;
+    console.log(attendance.location);
+    
     return from(this.attendanceRepository.save(attendance));
   }
 
@@ -36,17 +38,32 @@ export class ServicesService {
     );
   }
 
-  updatePost(id: number, attendance: Attendance): Observable<UpdateResult> {
+  updateAttendance(id: number, attendance: Attendance): Observable<UpdateResult> {
     return from(this.attendanceRepository.update(id, attendance));
   }
 
-  deletePost(id: number): Observable<DeleteResult> {
+  deleteAttendance(id: number): Observable<DeleteResult> {
     return from(this.attendanceRepository.delete(id));
   }
 
-  findPostById(id: number): Observable<Attendance> {
+  findAttendanceById(id:any): Observable<Attendance[]> {
+    
     return from(
-      this.attendanceRepository.findOne({ id }, { relations: ['author'] }),
+      this.attendanceRepository.find({
+        where: {
+            author: { id},
+        },
+        relations: ["author"],
+    })
+      // ({ author }, { relations: ['author'] }),
+      
+    );
+  }
+  findAttendanceByuserId(): Observable<Attendance> {
+    
+    return from(
+      this.attendanceRepository.createQueryBuilder('attendance').select('id').getOne()
+      
     );
   }
 }

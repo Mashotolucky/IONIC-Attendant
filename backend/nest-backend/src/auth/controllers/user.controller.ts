@@ -24,11 +24,11 @@ import {
   
     
   
-    @UseGuards(JwtGuard)
+    // @UseGuards(JwtGuard)
     @Get(':userId')
     findUserById(@Param('userId') userStringId: string): Observable<User> {
-      const userId = parseInt(userStringId);
-      return this.userService.findUserById(userId);
+      // const userId = parseInt(userStringId);
+      return this.userService.findUserById(userStringId);
     }
   
     

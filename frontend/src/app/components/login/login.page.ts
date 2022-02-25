@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserResponse } from 'src/app/models/userResponse.model';
 import { AuthService } from 'src/app/services/auth.service';
+
+import jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-login',
@@ -11,7 +14,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginPage implements OnInit{
 
   public form: FormGroup
-
+  private response:any;
   
 
   constructor(private formBuilder:FormBuilder, private router: Router,
@@ -24,14 +27,34 @@ export class LoginPage implements OnInit{
     
   }
 
+  getDecodedToken(){
+    this.response = localStorage.getItem('CapacitorStorage.token');
+    if(this.response){
+      const decodedToken: UserResponse = jwt_decode(this.response);
+      // console.log(decodedToken.user.id);
+      return decodedToken.user.id;
+
+    }
+    
+    
+  
+      
+    }
+
   onSubmit() {
     const { email, password } = this.form.value;
+    console.log(typeof(this.form.value))
     if (!email || !password) return;
 
       return this.authService.login(email, password).subscribe(() => {
+        this.getDecodedToken();
+        console.log(this.getDecodedToken());
+        
         this.router.navigateByUrl('/tab-bar');
       });
     }
+ 
+ 
 
   submit(form){
     console.log(this.form.value);
@@ -47,3 +70,5 @@ export class LoginPage implements OnInit{
     return this.form.get('password');
   }
 }
+
+

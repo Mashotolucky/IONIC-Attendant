@@ -11,7 +11,7 @@
 
 <ion-content>
 <ion-grid>
-    <table class="table table-striped table-bordered table-hover">
+    <table class="table table-striped table-bordered table-hover mt-5">
       <thead>
           <tr>
             <th>Date</th>
@@ -20,10 +20,10 @@
           </tr>
       </thead>
       <tbody>
-          <tr >
-            <td>kjks</td>
-            <td>sd</td>
-            <td>ds</td>
+          <tr *ngFor="let attEmp of attendance">
+            <td>{{attEmp.date}}</td>
+            <td>{{attEmp.time}}</td>
+            <td>{{attEmp.temperature}}</td>
           </tr>
       </tbody>
   </table>

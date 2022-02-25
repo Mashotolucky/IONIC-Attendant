@@ -9,6 +9,7 @@ import {
     Query,
     Request,
     Res,
+    Response,
     UseGuards,
   } from '@nestjs/common';
   import { Observable } from 'rxjs';
@@ -20,6 +21,7 @@ import {
   import { ServicesService } from '../services/services.service';
   
   import { IsCreatorGuard } from '../guards/attendance.guard';
+import { send } from 'process';
 @Controller('attendance')
 export class ControllersController {
     constructor(private attendanceService: ServicesService) {}
@@ -29,14 +31,29 @@ export class ControllersController {
     @UseGuards(JwtGuard)
     @Post()
     create(@Body() attendance: Attendance, @Request() req): Observable<Attendance> {
-      return this.attendanceService.createAttendance(req.user, attendance);
+      console.log(attendance.location);
+      console.log();
+      
+      return this.attendanceService.createAttendance(req.user, attendance['data']);
     }
-  
-    // @Get()
-    // findAll(): Observable<Attendance[]> {
-    //   return this.attendanceService.findAllAttendance();
-    // }
-  
+
+
+    // @UseGuards(JwtGuard)
+    @Get()
+    findAll(): Observable<Attendance[]> {
+      return this.attendanceService.findAllAttendance();
+    }
+    @Get('userAttendance')
+    findAttendanceUser(@Param('id') id: number): Observable<Attendance> {
+      return this.attendanceService.findAttendanceByuserId();
+    }
+
+
+      @Get(':author')
+      findOne(@Param('author') author: any): Observable<Attendance[]> {
+        return this.attendanceService.findAttendanceById(author);
+      }
+
     @UseGuards(JwtGuard)
     @Get()
     findSelected(
@@ -47,20 +64,20 @@ export class ControllersController {
       return this.attendanceService.findAttendance(take, skip);
     }
   
-    // @UseGuards(JwtGuard, IsCreatorGuard)
-    // @Put(':id')
-    // update(
-    //   @Param('id') id: number,
-    //   @Body() attendance: Attendance,
-    // ): Observable<UpdateResult> {
-    //   return this.attendanceService.updatePost(id, attendance);
-    // }
+    @UseGuards(JwtGuard, IsCreatorGuard)
+    @Put(':id')
+    update(
+      @Param('id') id: number,
+      @Body() attendance: Attendance,
+    ): Observable<UpdateResult> {
+      return this.attendanceService.updateAttendance(id, attendance);
+    }
   
-    // @UseGuards(JwtGuard, IsCreatorGuard)
-    // @Delete(':id')
-    // delete(@Param('id') id: number): Observable<DeleteResult> {
-    //   return this.attendanceService.deletePost(id);
-    // }
+    @UseGuards(JwtGuard, IsCreatorGuard)
+    @Delete(':id')
+    delete(@Param('id') id: number): Observable<DeleteResult> {
+      return this.attendanceService.deleteAttendance(id);
+    }
   
   
 }
