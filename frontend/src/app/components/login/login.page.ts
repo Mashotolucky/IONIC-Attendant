@@ -24,6 +24,8 @@ export class LoginPage implements OnInit{
       email:  new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     })
+    const userAgent = window.navigator.userAgent;
+    console.log(userAgent);
     
   }
 
