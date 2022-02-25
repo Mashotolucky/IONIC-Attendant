@@ -39,12 +39,15 @@ export class AttendancePage implements OnInit {
   // }
   response:any;
   getDecodedToken(){
-    
-  this.response = localStorage.getItem('CapacitorStorage.token');
-
-    const decodedToken: UserResponse = jwt_decode(this.response);
+    this.response = localStorage.getItem('CapacitorStorage.token');
+    if(this.response){
+      const decodedToken: UserResponse = jwt_decode(this.response);
     console.log(decodedToken.user.id);
     return decodedToken.user.id;
+    }
+    
+
+    
 
   }
  
