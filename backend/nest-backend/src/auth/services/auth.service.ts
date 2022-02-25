@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-
 import * as bcrypt from 'bcrypt';
 import { from, Observable, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
@@ -9,37 +8,45 @@ import { Repository } from 'typeorm';
 import { UserEntity } from '../models/user.entity';
 import { User } from '../models/user.class';
 import { Admin } from '../../admin/models/admin.class';
-import { UserService } from './user.service';
 import { AdminEntity } from 'src/admin/models/admin.entity';
 
 
 @Injectable()
 export class AuthService {
   constructor(
+    //injecting user repo into the service
     @InjectRepository(UserEntity)
+    //readonly for repo to be given values during initializing
     private readonly userRepository: Repository<UserEntity>,
-    
+     //injecting Admin repo into the service
     @InjectRepository(AdminEntity)
     private readonly adminRepository: Repository<AdminEntity>,
+    //init the wrapper for a jwt api
     private jwtService: JwtService,
   ) {}
 
+  //function to hash the users passwords
   hashPassword(password: string): Observable<any> {
     return from(bcrypt.hash(password, 12));
   }
 
+  //function to chech if the user email already exists in the repository
+  //pipe allows to perform rxjs async operations
   doesUserExist(email: string): Observable<boolean> {
     return from(this.userRepository.findOne({ email })).pipe(
+      //switchmap It creates a new inner observable for every value it receives from the user
       switchMap((user: User) => {
         return of(!!user);
       }),
     );
   }
 
+  // function to register user Account
   registerAccount(user: User): Observable<User> {
     const { firstName, lastName, email, password,employeeNumber } = user;
-
+    
     return this.doesUserExist(email).pipe(
+      //tap returns the output the functiondoesUserExist
       tap((doesUserExist: boolean) => {
         if (doesUserExist)
           throw new HttpException(
@@ -47,7 +54,6 @@ export class AuthService {
             HttpStatus.BAD_REQUEST,
           );
       }),
-      
       switchMap(() => {
         return this.hashPassword(password).pipe(
           switchMap((hashedPassword: string) => {
@@ -60,6 +66,7 @@ export class AuthService {
                 password: hashedPassword,
               }),
             ).pipe(
+              //emitting the user observable to remove the password and return the resulting observable
               map((user: User) => {
                 delete user.password;
                 return user;
@@ -72,7 +79,7 @@ export class AuthService {
   }
  
 
-
+  //funtion to validate the user when logging in
   validateUser(email: string, password: string): Observable<User> {
     return from(
       this.userRepository.findOne(
@@ -100,6 +107,8 @@ export class AuthService {
       }),
     );
   }
+
+   //funtion to validate the Admin user when logging in
   validateAdmin(email: string, password: string): Observable<Admin> {
     return from(
       this.adminRepository.findOne(
@@ -109,18 +118,18 @@ export class AuthService {
         },
       ),
     ).pipe(
-      switchMap((user: User) => {
-        if (!user) {
+      switchMap((admin: Admin) => {
+        if (!admin) {
           throw new HttpException(
             { status: HttpStatus.FORBIDDEN, error: 'Invalid Credentials' },
             HttpStatus.FORBIDDEN,
           );
         }
-        return from(bcrypt.compare(password, user.password)).pipe(
+        return from(bcrypt.compare(password, admin.password)).pipe(
           map((isValidPassword: boolean) => {
             if (isValidPassword) {
-              delete user.password;
-              return user;
+              delete admin.password;
+              return admin;
             }
           }),
         );

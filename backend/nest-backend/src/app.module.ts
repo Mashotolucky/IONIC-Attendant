@@ -15,6 +15,7 @@ import { AdminModule } from './admin/admin.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    //Database configarations
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.POSTGRES_HOST,
@@ -23,15 +24,13 @@ import { AdminModule } from './admin/admin.module';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
       autoLoadEntities: true,
-      synchronize: true, // shouldn't be used in production - may lose data
+      // shouldn't be used in production - may lose data
+      synchronize: true, 
     }),
     AuthModule,
     AttendanceModule,
     AdminModule,
-   
-
   ],
-
   controllers: [AppController],
   providers: [AppService],
 })
