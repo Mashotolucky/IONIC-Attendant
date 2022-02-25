@@ -13,10 +13,6 @@ import { AttendenceService } from '../../services/attendence.service';
 
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-<<<<<<< HEAD
-
-=======
->>>>>>> feature/attendance-service
 
 
 @Component({
@@ -65,6 +61,7 @@ export class ScanPage implements OnInit {
 
   form: FormGroup
   myDate: FormControl = new FormControl('', Validators.required)
+  data: any;
 
 
   constructor(
@@ -388,13 +385,8 @@ export class ScanPage implements OnInit {
 
   display(): void{
     setTimeout(() => {
-<<<<<<< HEAD
       console.log(this.data);
     }, 2000)
-=======
-      console.log(this.attendence);
-    }, 5000)
->>>>>>> feature/attendance-service
     
   }
 
