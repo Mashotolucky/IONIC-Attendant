@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 import { UserResponse } from 'src/app/models/userResponse.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { Device } from '@capacitor/device';
 
 import jwt_decode from "jwt-decode";
 
@@ -26,6 +27,9 @@ export class LoginPage implements OnInit{
     })
     const userAgent = window.navigator.userAgent;
     console.log(userAgent);
+    const info = Device.getId();
+
+  console.log(info);
     
   }
 
@@ -61,6 +65,7 @@ export class LoginPage implements OnInit{
   submit(form){
     console.log(this.form.value);
   }
+  
 
 
   get email() {
