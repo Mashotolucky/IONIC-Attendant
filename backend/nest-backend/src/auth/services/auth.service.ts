@@ -9,6 +9,8 @@ import { Repository } from 'typeorm';
 import { UserEntity } from '../models/user.entity';
 import { User } from '../models/user.class';
 import { Admin } from '../../admin/models/admin.class';
+import { UserService } from './user.service';
+import { AdminEntity } from 'src/admin/models/admin.entity';
 
 
 @Injectable()
@@ -16,7 +18,9 @@ export class AuthService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-   
+    
+    @InjectRepository(AdminEntity)
+    private readonly adminRepository: Repository<AdminEntity>,
     private jwtService: JwtService,
   ) {}
 
@@ -96,6 +100,33 @@ export class AuthService {
       }),
     );
   }
+  validateAdmin(email: string, password: string): Observable<Admin> {
+    return from(
+      this.adminRepository.findOne(
+        { email },
+        {
+          select: ['id','email', 'password', 'role'],
+        },
+      ),
+    ).pipe(
+      switchMap((user: User) => {
+        if (!user) {
+          throw new HttpException(
+            { status: HttpStatus.FORBIDDEN, error: 'Invalid Credentials' },
+            HttpStatus.FORBIDDEN,
+          );
+        }
+        return from(bcrypt.compare(password, user.password)).pipe(
+          map((isValidPassword: boolean) => {
+            if (isValidPassword) {
+              delete user.password;
+              return user;
+            }
+          }),
+        );
+      }),
+    );
+  }
 
   login(user: User): Observable<string> {
     const { email, password } = user;
@@ -111,7 +142,7 @@ export class AuthService {
 
     loginAdmin(admin: Admin): Observable<string> {
         const { email, password } = admin;
-        return this.validateUser(email, password).pipe(
+        return this.validateAdmin(email, password).pipe(
           switchMap((admin: Admin) => {
             if (admin) {
               // create JWT - credentials

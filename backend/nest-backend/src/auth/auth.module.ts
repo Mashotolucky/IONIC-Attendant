@@ -10,6 +10,7 @@ import { JwtStrategy } from './guards/jwt.strategy';
 import { RolesGuard } from './guards/roles.guard';
 import { UserService } from './services/user.service';
 import { UserController } from './controllers/user.controller';
+import { AdminEntity } from 'src/admin/models/admin.entity';
 
 
 
@@ -21,7 +22,7 @@ import { UserController } from './controllers/user.controller';
         signOptions: { expiresIn: '3600s' },
       }),
     }),
-    TypeOrmModule.forFeature([UserEntity]),
+    TypeOrmModule.forFeature([UserEntity,AdminEntity]),
   ],
   providers: [AuthService, JwtGuard, JwtStrategy, RolesGuard, UserService],
   controllers: [AuthController, UserController],

@@ -12,6 +12,7 @@ export class AdminController {
       return this. adminService.registerAdmin(admin
         );
     }
+    
 
 
   // @Post('login')

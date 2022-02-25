@@ -6,6 +6,7 @@ import { User } from '../models/user.class';
 import { Admin } from '../../admin/models/admin.class';
 import { AuthService } from '../services/auth.service';
 
+
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
@@ -26,9 +27,9 @@ export class AuthController {
 
   @Post('log')
   @HttpCode(HttpStatus.OK)
-  loginAdmin(@Body() user: User): Observable<{ token: string }> {
+  loginAdmin(@Body() admin: Admin): Observable<{ token: string }> {
     return this.authService
-      .login(user)
+      .loginAdmin(admin)
       .pipe(map((jwt: string) => ({ token: jwt })));
   }
 }
