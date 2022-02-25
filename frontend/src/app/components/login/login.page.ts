@@ -28,13 +28,17 @@ export class LoginPage implements OnInit{
   }
 
   getDecodedToken(){
-    
     this.response = localStorage.getItem('CapacitorStorage.token');
-  
+    if(this.response){
       const decodedToken: UserResponse = jwt_decode(this.response);
       // console.log(decodedToken.user.id);
       return decodedToken.user.id;
+
+    }
+    
+    
   
+      
     }
 
   onSubmit() {

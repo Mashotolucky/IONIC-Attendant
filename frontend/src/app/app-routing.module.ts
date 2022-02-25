@@ -13,6 +13,7 @@ const routes: Routes = [
     path: 'dashboard',
     loadChildren: () => import('./components/dashboard/dashboard.module').then( m => m.DashboardPageModule),
     canActivate: [AuthGuard]
+
   },
   {
     path: 'splash',
@@ -23,7 +24,7 @@ const routes: Routes = [
   {
     path: 'scan',
     loadChildren: () => import('./components/scan/scan.module').then( m => m.ScanPageModule),
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   
   {
@@ -41,25 +42,25 @@ const routes: Routes = [
       {
         path: 'profile',
         loadChildren: () => import('./components/profile/profile.module').then( m => m.ProfilePageModule),
-        canActivate: [AuthGuard]
+        // canActivate: [AuthGuard]
       },
   
   {
     path: 'tab-bar',
     loadChildren: () => import('./tab-bar/tab-bar.module').then( m => m.TabBarPageModule),
-    canActivate: [AuthGuard]
+    
   },
   {
     path: 'success',
     loadChildren: () => import('./success/success.module').then( m => m.SuccessPageModule),
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   
   
   {
     path: 'attendance',
     loadChildren: () => import('./components/attendance/attendance.module').then( m => m.AttendancePageModule),
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
      
  
@@ -71,6 +72,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }

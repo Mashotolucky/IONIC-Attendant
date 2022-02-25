@@ -16,6 +16,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
+  setRedirectUrl(url: string) {
+    throw new Error('Method not implemented.');
+  }
   private user$ = new BehaviorSubject<User>(null);
  
   private userID : any;
@@ -90,14 +93,18 @@ export class AuthService {
             key: 'token',
             value: response.token,
           });
-          const decodedToken: UserResponse = jwt_decode(response.token);
-          console.log(decodedToken);
-          this.user$.next(decodedToken.user);
-
-          this.userID = decodedToken.user;
+          if(response.token){
+            const decodedToken: UserResponse = jwt_decode(response.token);
+            console.log(decodedToken);
+            this.user$.next(decodedToken.user);
+  
+            this.userID = decodedToken.user;
+          }
+         
 
           console.log(this.userID.id);
           this.setUserID()
+          // this.loggedIn();
           
         })
       );
@@ -134,11 +141,20 @@ export class AuthService {
   logout(): void {
     this.user$.next(null);
     Storage.remove({ key: 'token' });
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/welcome-page');
   }
-  loggedIn(){
-    return !!localStorage.getItem('CapacitorStorage.token') 
-  }
+  state : boolean;
+  // loggedIn(){
+  
+  //   this.state = !!localStorage.getItem('CapacitorStorage.token')
+  //   console.log(this.state);
+    
+  //   return this.state;
+  // }
+  // get isLoggedIn(): boolean {
+  //   const user = JSON.parse(localStorage.getItem('CapacitorStorage.token')!);
+  //   return user !== 'null' ? true : false;
+  // }
  
   
 }
