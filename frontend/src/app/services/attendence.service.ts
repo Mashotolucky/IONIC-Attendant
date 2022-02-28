@@ -54,6 +54,7 @@ export class AttendenceService {
     return this.http
       .post<Attendance>(`${environment.baseApiUrl}/attendance`, { data }, this.httpOptions)
   }
+
   // getSelectedAttendance(params: any) {
   //   return this.http
   //     .get<Attendance[]>(`${environment.baseApiUrl}/attendance/${params}`)
@@ -80,9 +81,7 @@ export class AttendenceService {
   //   this.authToken = Token;
     
   // }
-  // getAllAttendances(){
-  //   return this.http.get<Attendance>(`${environment.baseApiUrl}/attendance`,this.httpOptions)
-  // }
+  
   // updateAttendance(attendanceId: number, body: string) {
   //   return this.http
   //     .put(
