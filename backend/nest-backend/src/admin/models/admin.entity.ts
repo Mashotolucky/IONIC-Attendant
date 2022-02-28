@@ -16,18 +16,24 @@ import {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column()
+    fullName: string;
+
+    @Column()
+    employeeNumber: string;
+
     @Column({unique: true})
     email: string;
   
     @Column({ select: false })
     password: string;
 
-    @OneToMany(() => attendanceEntity, ( attendanceEntity) =>  attendanceEntity.author)
+    @OneToMany(() => attendanceEntity, ( attendanceEntity) =>  attendanceEntity.employeeNumber)
     Attendence: attendanceEntity[];
   
-    @Column({ type: 'enum', enum: Role, default: Role.ADMIN })
-    role: Role;
-    user: any;
+    // @Column({ type: 'enum', enum: Role, default: Role.ADMIN })
+    // role: Role;
+    // user: any;
   
     
   }

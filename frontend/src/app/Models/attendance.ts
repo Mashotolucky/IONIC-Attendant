@@ -1,19 +1,25 @@
-import { User } from './user.model';
-// export interface Attendance {
+// import { User } from './user.model';
+
+// export class Attendance {
 //   id?: number;
-//   location?: string;
-//   temperature?: number;
-//   covid_symptoms_status?: boolean;
-//   time?: string;
-//   date?: string;
-//   author: User;
+//   temperature: string;
+//   covid_symptoms_status: string;
+//   date: string;
+//   time: string;
+//   location: string;
+//   author?: User;
 // }
+
 export class Attendance {
-  id?: number;
-  temperature: string;
-  covid_symptoms_status: string;
-  date: string;
-  time: string;
-  location: string;
-  author?: User;
+
+firstName: string;
+lastName: string;
+employeeNumber: string;
+temperature: string;
+covid_symptoms_status: string; 
+location: string;
+time: string;
+date: string;
+phoneID: string;
+
 }

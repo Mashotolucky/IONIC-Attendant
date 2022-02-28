@@ -30,11 +30,11 @@ import {
     password: string;
     
 
-    @OneToMany(() => AdminEntity, ( AdminEntity) =>  AdminEntity.user)
-    admin: AdminEntity[];
+    // @OneToMany(() => AdminEntity, ( AdminEntity) =>  AdminEntity.user)
+    // admin: AdminEntity[];
 
-    @OneToMany(() => attendanceEntity, ( attendanceEntity) =>  attendanceEntity.author)
-    Attendance: attendanceEntity[];
+    // @OneToMany(() => attendanceEntity, ( attendanceEntity) =>  attendanceEntity.author)
+    // Attendance: attendanceEntity[];
   
     @Column({ type: 'enum', enum: Role, default: Role.USER })
     role: Role;

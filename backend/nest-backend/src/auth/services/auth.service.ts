@@ -114,7 +114,7 @@ export class AuthService {
       this.adminRepository.findOne(
         { email },
         {
-          select: ['id','email', 'password', 'role'],
+          select: ['id','email', 'password'],
         },
       ),
     ).pipe(

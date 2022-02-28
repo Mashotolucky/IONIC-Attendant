@@ -5,12 +5,12 @@ export interface Attendance {
   //added two entities first and last name
   firstName?: string;
   lastName?: string;
+  employeeNumber?: string;
   temperature?: string;
   location?: string;
   covid_symptoms_status?: string;
   time?: string;
   date?: string;
   phoneID?: string;
-  author?: User;
 
 }

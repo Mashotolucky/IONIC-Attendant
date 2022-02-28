@@ -38,7 +38,7 @@ export class AdminService {
       }
 
     registerAdmin(admin: Admin): Observable<Admin> {
-        const { email, password} = admin;
+        const {fullName,employeeNumber,email, password} = admin;
     
         return this.doesUserExist(email).pipe(
           tap((doesUserExist: boolean) => {
@@ -56,9 +56,9 @@ export class AdminService {
               switchMap((hashedPassword: string) => {
                 return from(
                   this.adminRepository.save({
-                    
+                    employeeNumber,
                     email,
-                
+                    fullName,
                     password: hashedPassword,
                   }),
                 ).pipe(
@@ -82,7 +82,7 @@ export class AdminService {
           this.adminRepository.findOne(
             { email },
             {
-              select: ['id','email', 'password', 'role'],
+              select: ['id','email', 'password'],
             },
           ),
         ).pipe(
