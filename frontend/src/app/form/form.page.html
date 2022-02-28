@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>form</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <form [formGroup]="form" >
+    <ion-card>
+      <ion-item>
+        <ion-icon name="person-circle-outline"></ion-icon>
+        <ion-input type="name" id="input" placeholder="First Name" formControlName="firstName" type="text"></ion-input>
+        <div *ngIf="(firstName.dirty || firstName.touched) && firstName.errors" class="errors">
+          <span *ngIf="firstName.errors?.required" id="text_color">first name is required</span>
+        </div>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-icon name="person-circle-outline"></ion-icon>
+        <ion-input type="name" id="input" placeholder="Last Name" formControlName="lastName" type="text"></ion-input>
+        <div *ngIf="(lastName.dirty || lastName.touched) && lastName.errors" class="errors">
+          <span *ngIf="lastName.errors?.required" id="text_color">Last name is required</span>
+        </div>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-icon name="id-card-outline"></ion-icon>
+        <ion-input type="number" id="input" placeholder="Employee No" formControlName="employeeNo" type="text"></ion-input>
+        <div *ngIf="(employeeNo.dirty || employeeNo.touched) && employeeNo.errors" class="errors">
+          <span *ngIf="employeeNo.errors?.required" id="text_color">first name is required</span>
+          <span *ngIf="employeeNo.errors?.valid" id="text_color">Email is invalid</span>
+        </div>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-icon name="thermometer-outline"></ion-icon>
+        <ion-input type="Number" id="input" placeholder="Temperature" formControlName="temperature" type="text"></ion-input>
+        <div *ngIf="(temperature.dirty || temperature.touched) && temperature.errors" class="errors">
+          <span *ngIf="temperature.errors?.required" id="text_color">Temperature is required</span>
+        </div>
+      </ion-item>
+    </ion-card>
+   <div>
+    <ion-card>
+      <ion-card-content>
+        Do you have any COVID symptoms <br>
+        if Yes, please see Covid compliance <br>
+        Officer immediately*
+        <ion-list>
+          <div class="form-check">
+            <ion-label>Yes</ion-label>
+            <input class="form-check-input" type="radio" id="yes" formControlName="checked"  (change)="setCovidStatus()" [value]="true">
+          </div>
+
+          <div class="form-check">
+            <ion-label>No</ion-label>
+            <input class="form-check-input" type="radio" id="no" formControlName="checked" (change)="setCovidStatus()" [value]="false">
+          </div>
+
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+   </div>
+
+   <div id="button">
+    <ion-button type="submit" expand="block"  (click)="post()" routerLink='/login'>Submit</ion-button>
+  </div>
+
+    
+  </form>
+
+</ion-content>

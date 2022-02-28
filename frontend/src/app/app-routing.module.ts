@@ -62,6 +62,10 @@ const routes: Routes = [
     loadChildren: () => import('./components/attendance/attendance.module').then( m => m.AttendancePageModule),
     // canActivate: [AuthGuard]
   },
+  {
+    path: 'form',
+    loadChildren: () => import('./form/form.module').then( m => m.FormPageModule)
+  },
      
  
      

@@ -1,0 +1,22 @@
+// ion-content {
+//     --background:rgb(235, 240, 243);
+// }
+// ion-card-content {
+//     margin-left: 1rem;
+// }
+
+ion-content {
+    --background: rgb(235, 240, 243);
+    position: relative;
+
+    form {
+        position: absolute;
+    }
+    ion-card-content {
+        margin: 1rem;
+    }
+
+}
+#text_color{
+    color:red;
+}
