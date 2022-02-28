@@ -11,14 +11,22 @@ import { AuthService } from '../auth.service';
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
   
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.authService.isLoggedIn !== true) {
+  canActivate(route: ActivatedRouteSnapshot): boolean
+  {
+    console.log("false");
+    if(!this.authService.loggedIn())
+    {
+      console.log("true");
       window.alert('Access Denied, Login is Required to Access This Page!');
       this.router.navigate(['welcome-page']);
+      return false;
     }
+    // if (!this.authService.isLoggedIn) {
+    //   console.log(this.authService.isLoggedIn);
+      
+    //   window.alert('Access Denied, Login is Required to Access This Page!');
+    //   this.router.navigate(['welcome-page']);
+    // }
     return true;
   }
 

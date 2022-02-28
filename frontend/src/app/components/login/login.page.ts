@@ -29,7 +29,11 @@ export class LoginPage implements OnInit{
     console.log(userAgent);
     const info = Device.getId();
 
-  console.log(info);
+   info.then((deviceid)=>
+   {
+     console.log(deviceid.uuid);
+   }
+   );
     
   }
 

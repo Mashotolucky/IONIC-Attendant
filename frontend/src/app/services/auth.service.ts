@@ -144,17 +144,17 @@ export class AuthService {
     this.router.navigateByUrl('/welcome-page');
   }
   state : boolean;
-  // loggedIn(){
+  loggedIn(){
   
-  //   this.state = !!localStorage.getItem('CapacitorStorage.token')
-  //   console.log(this.state);
+    this.state = !!localStorage.getItem('CapacitorStorage.token')
+    console.log(this.state);
     
-  //   return this.state;
-  // }
-  // get isLoggedIn(): boolean {
-  //   const user = JSON.parse(localStorage.getItem('CapacitorStorage.token')!);
-  //   return user !== 'null' ? true : false;
-  // }
+    return this.state;
+  }
+  get isLoggedIn(): boolean {
+    const user = JSON.parse(localStorage.getItem('CapacitorStorage.token')!);
+    return user !== 'null' ? true : false;
+  }
  
   
 }
