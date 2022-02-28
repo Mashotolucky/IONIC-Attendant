@@ -32,8 +32,7 @@ export class LoginPage implements OnInit{
    info.then((deviceid)=>
    {
      console.log(deviceid.uuid);
-   }
-   );
+   });
     
   }
 
