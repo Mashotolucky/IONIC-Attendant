@@ -13,15 +13,23 @@ import {AdminEntity} from '../../admin/models/admin.entity';
   export class attendanceEntity {
     @PrimaryGeneratedColumn()
     id: number;
-  
+
+    // added two entities first and last name
+
     @Column()
-    location: string;
+    firstName: string;
+
+    @Column()
+    lastName: string;
 
     @Column()
     temperature: string;
 
     @Column()
     covid_symptoms_status: string;
+  
+    @Column()
+    location: string;
 
     @Column()
     time: string;
@@ -29,8 +37,6 @@ import {AdminEntity} from '../../admin/models/admin.entity';
     @Column()
     date: string;
   
-    
-    
-    @ManyToOne(() => UserEntity, (userEntity) => userEntity.Attendance)
+    //@ManyToOne(() => UserEntity, (userEntity) => userEntity.Attendance)
     author: UserEntity;
   }
