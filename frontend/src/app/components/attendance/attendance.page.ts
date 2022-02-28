@@ -19,18 +19,18 @@ export class AttendancePage implements OnInit {
 
   ngOnInit() {
     this.getDecodedToken();
-    this.getUserAttendance();
+    // this.getUserAttendance();
   }
 
-   getUserAttendance(){
-     let id = this.getDecodedToken();
-      this.attendanceService.getSelectedAttendance(id).subscribe((res) =>{
-        console.log(res);
-        this.attendance = res;
-        console.log(this.attendance);
+  //  getUserAttendance(){
+  //    let id = this.getDecodedToken();
+  //     this.attendanceService.getSelectedAttendance(id).subscribe((res) =>{
+  //       console.log(res);
+  //       this.attendance = res;
+  //       console.log(this.attendance);
 
-      });
-   }
+  //     });
+  //  }
 
   //  getToken(){
   //   this.authToken = localStorage.getItem('CapacitorStorage.token')

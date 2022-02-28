@@ -361,14 +361,14 @@ export class ScanPage implements OnInit {
     const covidStatu = this.getCovidStaus();
     localStorage.setItem('status',covidStatu);
 
-     this.attendence =  {
-      temperature: localStorage.getItem('temperature'),
-      covid_symptoms_status: localStorage.getItem('status'),
-      date: this.date,
-      time: this.time,
-      location: this.location,
+    //  this.attendence =  {
+    //   temperature: localStorage.getItem('temperature'),
+    //   covid_symptoms_status: localStorage.getItem('status'),
+    //   date: this.date,
+    //   time: this.time,
+    //   location: this.location,
 
-    }
+    // }
     console.log("location"+ this.attendence.location)
     let test = typeof(this.attendence)
     console.log(test)
