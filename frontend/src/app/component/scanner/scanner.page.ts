@@ -1,84 +1,51 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
-import { LoadingController, Platform, ToastController } from '@ionic/angular';
-
-import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
-
-
-import jsQR from 'jsqr';
-import { LocationService } from '../../services/location.service';
-
-import { Attendance } from '../../Models/attendance';
-import { AttendenceService } from '../../services/attendence.service';
-
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { LoadingController, Platform, ToastController } from '@ionic/angular';
+import jsQR from 'jsqr';
+import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
+import { AttendenceService } from 'src/app/services/attendence.service';
+import { LocationService } from 'src/app/services/location.service';
+import { Device } from '@capacitor/device';
 
 @Component({
-  selector: 'app-scan',
-  templateUrl: './scan.page.html',
-  styleUrls: ['./scan.page.scss'],
+  selector: 'app-scanner',
+  templateUrl: './scanner.page.html',
+  styleUrls: ['./scanner.page.scss'],
 })
-export class ScanPage implements OnInit {
+export class ScannerPage implements OnInit {
 
   @ViewChild('video', { static: false }) video: ElementRef;
   @ViewChild('canvas', { static: false }) canvas: ElementRef;
   @ViewChild('fileinput', { static: false }) fileinput: ElementRef;
-
 
   canvasElement: any;
   videoElement: any;
   canvasContext: any;
   scanActive = false;
   scanResult = null;
-  private url: any;
   loading: HTMLIonLoadingElement = null;
 
 
-  AllResults = [];
-
+  userIP: any;
 
   latitude: any;
   logitude: any;
 
-  userIP: any;
-  attendence :Attendance;
-
-  // this.attendence = {
-  //   temperature: '',
-  //   covid_symptoms_status: null,
-  //   date: '',
-  //   time: '',
-  //   location: ''
-  // }
-
-  temp: any;
-  covidStatus: any;
   date: any;
   time: any;
   location: any;
 
-  form: FormGroup
-  myDate: FormControl = new FormControl('', Validators.required)
   data: any;
-
 
   constructor(
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
     private plt: Platform,
-    private fb: FormBuilder,
+    private httpClient: HttpClient,
     private geolocation: Geolocation,
     private locationApi: LocationService,
     private attendentService: AttendenceService,
-    private httpClient: HttpClient,
-    private router: Router,
-    
-  
   ) {
-
     const isInStandaloneMode = () =>
       'standalone' in window.navigator && window.navigator['standalone'];
     if (this.plt.is('ios') && isInStandaloneMode()) {
@@ -86,21 +53,19 @@ export class ScanPage implements OnInit {
       // E.g. hide the scan functionality!
     }
 
+    const userAgent = window.navigator.userAgent;
+    console.log(userAgent);
+    const info = Device.getId();
+
+    info.then((deviceid) => {
+      console.log(deviceid.uuid);
+    });
   }
 
   ngOnInit() {
-
-    // this.currentLocation();
-
-    this.loadIp();
-
-    this.getTemperature();
-
-    this.getCovidStaus();
-
-    
-    
-
+    this.startScan();
+    this.IPAdress();
+    this.currentLocation();
   }
 
   ngAfterViewInit() {
@@ -109,26 +74,24 @@ export class ScanPage implements OnInit {
     this.videoElement = this.video.nativeElement;
   }
 
-  // Helper functions 
-  //popup message for scanned data
+  // Helper functions
   async showQrToast() {
     const toast = await this.toastCtrl.create({
-      message: `Scanned `,
+      message: `Open ${this.scanResult}?`,
       position: 'top',
       buttons: [
         {
-          text: 'Submit',
+          text: 'Open',
           handler: () => {
-            // window.open(this.scanResult, '_system', 'location=yes');
-            this.router.navigateByUrl('/success');
+            window.open(this.scanResult, '_system', 'location=yes');
           }
         }
       ]
     });
-    if(this.scanResult != null){
+
+    if (this.scanResult != '') {
       toast.present();
     }
-    
   }
 
   reset() {
@@ -139,36 +102,22 @@ export class ScanPage implements OnInit {
     this.scanActive = false;
   }
 
- //Generate live QR scanner
   async startScan() {
+    // Not working on iOS standalone mode!
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'environment' }
+    });
 
-    if (this.userIP === '154.0.14.211') {
-      // Not working on iOS standalone mode!
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment' }
+    this.videoElement.srcObject = stream;
+    // Required for Safari
+    this.videoElement.setAttribute('playsinline', true);
 
-      });
+    this.loading = await this.loadingCtrl.create({});
+    await this.loading.present();
 
-      this.videoElement.srcObject = stream;
-      // Required for Safari
-      this.videoElement.setAttribute('playsinline', true);
-
-      this.loading = await this.loadingCtrl.create({});
-      await this.loading.present();
-
-      this.videoElement.play();
-      requestAnimationFrame(this.scan.bind(this));
-
-      // this.currentLocation(); 
-    
-    }
-    else{
-      alert('Your Are not in Digital Academy');
-
-    }
-
+    this.videoElement.play();
+    requestAnimationFrame(this.scan.bind(this));
   }
-
 
   async scan() {
     if (this.videoElement.readyState === this.videoElement.HAVE_ENOUGH_DATA) {
@@ -199,13 +148,14 @@ export class ScanPage implements OnInit {
       });
 
       if (code) {
-
         this.scanActive = false;
         this.scanResult = code.data;
-
-        this.url = `"${this.scanResult}"`
-
-        this.showQrToast();
+        if (this.scanResult != null) {
+          this.showQrToast();
+        }
+        else {
+          this.ngOnInit();
+        }
       } else {
         if (this.scanActive) {
           requestAnimationFrame(this.scan.bind(this));
@@ -214,18 +164,10 @@ export class ScanPage implements OnInit {
     } else {
       requestAnimationFrame(this.scan.bind(this));
     }
-
   }
 
-  //capture qr code
   captureImage() {
-    if (this.userIP === '154.0.14.211'){
-      this.fileinput.nativeElement.click();
-    }
-    else{
-      alert('Your Are not in Digital Academy');
-    }
-    
+    this.fileinput.nativeElement.click();
   }
 
   handleFile(files: FileList) {
@@ -246,16 +188,39 @@ export class ScanPage implements OnInit {
 
       if (code) {
         this.scanResult = code.data;
-        // this.showQrToast();
+        if (this.scanResult != '') {
+          this.showQrToast();
+        }
+
       }
     };
     img.src = URL.createObjectURL(file);
   }
 
+
+  //getting ip address from jsonIP
+  IPAdress() {
+    this.httpClient.get('https://jsonip.com').subscribe(
+      (value: any) => {
+        console.log(value);
+        this.userIP = value.ip;
+
+        console.log(this.userIP);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+
+  lat: any;
+  log: any;
+
   //get current location and timestamp from geolocation
 
- currentLocation(){
-   
+  currentLocation() {
+
 
     let timestamp;
 
@@ -270,16 +235,16 @@ export class ScanPage implements OnInit {
       console.log(mydate.toDateString());
 
       this.date = mydate.toDateString();
-      localStorage.setItem('date',this.date);
+      localStorage.setItem('date', this.date);
 
       this.time = mydate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-      localStorage.setItem('time',this.time);
+      localStorage.setItem('time', this.time);
 
       console.log(mydate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
 
       console.log(resp);
 
-      
+
       let houseNumber;
 
       this.locationApi.getLocation(this.latitude, this.logitude)
@@ -294,11 +259,11 @@ export class ScanPage implements OnInit {
           // alert("Please scan to attend");
           // window.location.reload();
 
-          this.postAttendenceData();
-          
+
+
         })
 
-        this.display();
+
 
     }).catch((error) => {
       console.log('Error getting location', error);
@@ -315,82 +280,4 @@ export class ScanPage implements OnInit {
     });
   }
 
-  //getting ip address from jsonIP
-  loadIp() {
-    this.httpClient.get('https://jsonip.com').subscribe(
-      (value: any) => {
-        console.log(value);
-        this.userIP = value.ip;
-
-        console.log(this.userIP);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  //getting temperature from input box of dashboard component
-  getTemperature(): any{
-   
-    try {
-      this.temp = this.attendentService.getTemperature();
-      return this.temp;
-    } catch (error) {
-      console.log("temperature err = "+ error);
-      
-    }
-  }
-
-  //getting covid status from checkbox of dashboard component
-  getCovidStaus(): any{
-    this.covidStatus = this.attendentService.getCovidStatus();
-    console.log("status = "+ this.covidStatus);
-    return this.covidStatus;
-  }
-
-//Providing values to model attendece 
-  postAttendenceData(){
-
-    console.log("here " + this.getCovidStaus())
-
-    // this.currentLocation();
-    
-    const temperature = this.getTemperature();
-    localStorage.setItem('temperature',temperature);
-
-    const covidStatu = this.getCovidStaus();
-    localStorage.setItem('status',covidStatu);
-
-    //  this.attendence =  {
-    //   temperature: localStorage.getItem('temperature'),
-    //   covid_symptoms_status: localStorage.getItem('status'),
-    //   date: this.date,
-    //   time: this.time,
-    //   location: this.location,
-
-    // }
-    console.log("location"+ this.attendence.location)
-    
-    let test = typeof(this.attendence)
-    console.log(test)
-    this.attendentService.createAttendance(this.attendence).subscribe((res) => {
-      console.log(res)
-      console.log("we are oky")
-      alert("Succesfully submitted your attendance");
-      this.router.navigateByUrl('/tab-bar');
-      
-    });
-
-   
-  }
-
-  display(): void{
-    setTimeout(() => {
-      console.log(this.data);
-    }, 2000)
-    
-  }
-
 }
-

@@ -63,8 +63,13 @@ const routes: Routes = [
     // canActivate: [AuthGuard]
   },
   {
+<<<<<<< HEAD
     path: 'form',
     loadChildren: () => import('./form/form.module').then( m => m.FormPageModule)
+=======
+    path: 'scanner',
+    loadChildren: () => import('./component/scanner/scanner.module').then( m => m.ScannerPageModule)
+>>>>>>> feature/scanner
   },
      
  
