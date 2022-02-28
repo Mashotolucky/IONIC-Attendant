@@ -54,9 +54,9 @@ export class FormPage implements OnInit {
     employeeNumber: this.form.value.employeeNumber,
     temperature: this.form.value.temperature,
     covid_symptoms_status: this.form.value.covid_symptoms_status, 
-    location: this.location,
-    time: this.time,
-    date: this.date,
+    location: localStorage.getItem('location'),
+    time: localStorage.getItem('time'),
+    date: localStorage.getItem('date'),
     phoneID: this.getUUID().toString(),
     }
     this.attendentService.createAttendance(this.attendance).subscribe((res) => {

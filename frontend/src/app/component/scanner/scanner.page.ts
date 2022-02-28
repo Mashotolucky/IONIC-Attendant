@@ -204,7 +204,7 @@ export class ScannerPage implements OnInit {
       (value: any) => {
         console.log(value);
         this.userIP = value.ip;
-
+        localStorage.setItem('location', this.userIP)
         console.log(this.userIP);
       },
       (error) => {
