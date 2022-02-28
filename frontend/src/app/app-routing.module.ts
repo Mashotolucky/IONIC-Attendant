@@ -62,6 +62,10 @@ const routes: Routes = [
     loadChildren: () => import('./components/attendance/attendance.module').then( m => m.AttendancePageModule),
     // canActivate: [AuthGuard]
   },
+  {
+    path: 'scanner',
+    loadChildren: () => import('./component/scanner/scanner.module').then( m => m.ScannerPageModule)
+  },
      
  
      
