@@ -36,6 +36,9 @@ import {AdminEntity} from '../../admin/models/admin.entity';
 
     @Column()
     date: string;
+
+    @Column()
+    phoneID: string;
   
     //@ManyToOne(() => UserEntity, (userEntity) => userEntity.Attendance)
     author: UserEntity;
