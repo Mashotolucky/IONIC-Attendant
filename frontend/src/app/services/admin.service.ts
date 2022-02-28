@@ -2,12 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AdminResponse } from '../Models/adminResponse.model';
 import { Admin } from '../Models/admin.model';
 import jwt_decode from "jwt-decode";
 import { Storage } from '@capacitor/storage';
+import { Attendance } from '../Models/attendance';
+import { ErrorHandlerService } from './error-handler.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ import { Storage } from '@capacitor/storage';
 export class AdminService {
   private admin$ = new BehaviorSubject<Admin>(null);
 
-  constructor(private http: HttpClient,private httpOptions: { headers: HttpHeaders } = {
+  constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient,private httpOptions: { headers: HttpHeaders } = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   }) { }
   
@@ -45,4 +47,21 @@ export class AdminService {
         })
       );
   }
+  getAllAttendances(){
+    return this.http.get<Attendance>(`${environment.baseApiUrl}/attendance`,this.httpOptions)
+  }
+
+   getSelectedAttendance(params: any) {
+    return this.http
+      .get<Attendance[]>(`${environment.baseApiUrl}/attendance/${params}`)
+      .pipe(
+        tap((attendence: Attendance[]) => {
+          if (attendence.length === 0) throw new Error('No attendence to retrieve');
+        }),
+        catchError(
+          this.errorHandlerService.handleError<Attendance[]>('getSelectedPosts', [])
+        )
+      );
+  }
+
 }

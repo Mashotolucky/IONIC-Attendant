@@ -28,56 +28,66 @@ export class ControllersController {
   
     // @Roles(Role.ADMIN, Role.PREMIUM)
     // @UseGuards(JwtGuard, RolesGuard)
-    @UseGuards(JwtGuard)
-    @Post()
-    create(@Body() attendance: Attendance, @Request() req): Observable<Attendance> {
-      console.log(attendance.location);
-      console.log();
+    // @UseGuards(JwtGuard)
+    // @Post()
+    // create(@Body() attendance: Attendance, @Request() req): Observable<Attendance> {
+    //   console.log(attendance.location);
+    //   console.log();
       
-      return this.attendanceService.createAttendance(req.user, attendance['data']);
+    //   return this.attendanceService.createAttendance(req.user, attendance['data']);
+    // }
+    
+    @Post()
+    create(@Body() attendance: Attendance): Observable<Attendance> {
+      return this.attendanceService.create(attendance);
     }
 
-
-    // @UseGuards(JwtGuard)
+    @UseGuards(JwtGuard)
     @Get()
     findAll(): Observable<Attendance[]> {
       return this.attendanceService.findAllAttendance();
     }
-    @Get('userAttendance')
-    findAttendanceUser(@Param('id') id: number): Observable<Attendance> {
-      return this.attendanceService.findAttendanceByuserId();
+
+    @Get(':employeenumber')
+    find(@Param('employeenumber') employeenumber:any ): Promise<Attendance[]> {
+      return this.attendanceService.getMany(employeenumber)
     }
 
+    // @Get('userAttendance')
+    // findAttendanceUser(@Param('id') id: number): Observable<Attendance> {
+    //   return this.attendanceService.findAttendanceByuserId();
+    // }
 
-      @Get(':author')
-      findOne(@Param('author') author: any): Observable<Attendance[]> {
-        return this.attendanceService.findAttendanceById(author);
-      }
 
-    @UseGuards(JwtGuard)
-    @Get()
-    findSelected(
-      @Query('take') take: number = 1,
-      @Query('skip') skip: number = 1,
-    ): Observable<Attendance[]> {
-      take = take > 20 ? 20 : take;
-      return this.attendanceService.findAttendance(take, skip);
-    }
+      // @Get(':employeenumber')
+      // findOne(@Param('employeenumber') employeenumber:any): Observable<Attendance[]> {
+      //   return this.attendanceService.findAttendanceById(employeenumber);
+      // }
+
+    // @UseGuards(JwtGuard)
+    // @Get()
+    // findSelected(
+    //   @Query('take') take: number = 1,
+    //   @Query('skip') skip: number = 1,
+    // ): Observable<Attendance[]> {
+    //   take = take > 20 ? 20 : take;
+    //   return this.attendanceService.findAttendance(take, skip);
+    // }
   
-    @UseGuards(JwtGuard, IsCreatorGuard)
-    @Put(':id')
-    update(
-      @Param('id') id: number,
-      @Body() attendance: Attendance,
-    ): Observable<UpdateResult> {
-      return this.attendanceService.updateAttendance(id, attendance);
-    }
+    // @UseGuards(JwtGuard, IsCreatorGuard)
+    // @Put(':id')
+    // update(
+    //   @Param('id') id: number,
+    //   @Body() attendance: Attendance,
+    // ): Observable<UpdateResult> {
+    //   return this.attendanceService.updateAttendance(id, attendance);
+    // }
   
-    @UseGuards(JwtGuard, IsCreatorGuard)
-    @Delete(':id')
-    delete(@Param('id') id: number): Observable<DeleteResult> {
-      return this.attendanceService.deleteAttendance(id);
-    }
+    // @UseGuards(JwtGuard, IsCreatorGuard)
+    // @Delete(':id')
+    // delete(@Param('id') id: number): Observable<DeleteResult> {
+    //   return this.attendanceService.deleteAttendance(id);
+    // }
   
   
 }

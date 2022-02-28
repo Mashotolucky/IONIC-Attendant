@@ -4,6 +4,10 @@ import { User } from '../../auth/models/user.class';
 
 export class Admin {
   id?: number;
+  @IsString()
+  fullName?: string;
+  @IsString()
+  employeeNumber?: string;
   @IsEmail()
   email?: string;
   @IsString()

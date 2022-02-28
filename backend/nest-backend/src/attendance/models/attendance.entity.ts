@@ -23,6 +23,9 @@ import {AdminEntity} from '../../admin/models/admin.entity';
     lastName: string;
 
     @Column()
+    employeeNumber: string;
+
+    @Column()
     temperature: string;
 
     @Column()
@@ -39,7 +42,5 @@ import {AdminEntity} from '../../admin/models/admin.entity';
 
     @Column()
     phoneID: string;
-  
-    //@ManyToOne(() => UserEntity, (userEntity) => userEntity.Attendance)
-    author: UserEntity;
+ 
   }

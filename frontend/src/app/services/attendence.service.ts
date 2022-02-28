@@ -25,10 +25,11 @@ export class AttendenceService {
   private httpOptions: { headers: HttpHeaders } = {
 
     headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
-    'Authorization': `Bearer ${localStorage.getItem('CapacitorStorage.token')}`}),
+    // 'Authorization': `Bearer ${localStorage.getItem('CapacitorStorage.token')}`}
+  })
   };
   ngOnInit() {
-    this.getToken();
+    // this.getToken();
   }
 
   setTemperature(temperature: any): void{
@@ -48,36 +49,39 @@ export class AttendenceService {
     return this.covidStatus;
   }
 
-
-  getSelectedAttendance(params: any) {
-    return this.http
-      .get<Attendance[]>(`${environment.baseApiUrl}/attendance/${params}`)
-      .pipe(
-        tap((attendence: Attendance[]) => {
-          if (attendence.length === 0) throw new Error('No attendence to retrieve');
-        }),
-        catchError(
-          this.errorHandlerService.handleError<Attendance[]>('getSelectedPosts', [])
-        )
-      );
-  }
-
-  createAttendance(data: Object) {
-    console.log("m here")
+   createAttendance(data: Object) {
     console.log(data);
     return this.http
       .post<Attendance>(`${environment.baseApiUrl}/attendance`, { data }, this.httpOptions)
   }
-  getToken(){
-    const Token = Storage.get({
-      key: 'token',
-    })
-    this.authToken = Token;
+
+  // getSelectedAttendance(params: any) {
+  //   return this.http
+  //     .get<Attendance[]>(`${environment.baseApiUrl}/attendance/${params}`)
+  //     .pipe(
+  //       tap((attendence: Attendance[]) => {
+  //         if (attendence.length === 0) throw new Error('No attendence to retrieve');
+  //       }),
+  //       catchError(
+  //         this.errorHandlerService.handleError<Attendance[]>('getSelectedPosts', [])
+  //       )
+  //     );
+  // }
+
+  // createAttendance(data: Object) {
+  //   console.log("m here")
+  //   console.log(data);
+  //   return this.http
+  //     .post<Attendance>(`${environment.baseApiUrl}/attendance`, { data }, this.httpOptions)
+  // }
+  // getToken(){
+  //   const Token = Storage.get({
+  //     key: 'token',
+  //   })
+  //   this.authToken = Token;
     
-  }
-  getAllAttendances(){
-    return this.http.get<Attendance>(`${environment.baseApiUrl}/attendance`,this.httpOptions)
-  }
+  // }
+  
   // updateAttendance(attendanceId: number, body: string) {
   //   return this.http
   //     .put(
