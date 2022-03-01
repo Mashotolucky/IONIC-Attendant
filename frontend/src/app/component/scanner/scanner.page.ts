@@ -65,7 +65,6 @@ export class ScannerPage implements OnInit {
   ngOnInit() {
     this.startScan();
     this.IPAdress();
-    this.currentLocation();
   }
 
   ngAfterViewInit() {
@@ -213,71 +212,8 @@ export class ScannerPage implements OnInit {
   }
 
 
-  lat: any;
-  log: any;
-
-  //get current location and timestamp from geolocation
-
-  currentLocation() {
+ 
 
 
-    let timestamp;
-
-    this.geolocation.getCurrentPosition().then(async (resp) => {
-      //logitude and latitude
-      this.latitude = resp.coords.latitude;
-      this.logitude = resp.coords.longitude;
-
-      timestamp = resp.timestamp;
-
-      let mydate = new Date(timestamp); //Getting date from geolocation
-      console.log(mydate.toDateString());
-
-      this.date = mydate.toDateString();
-      localStorage.setItem('date', this.date);
-
-      this.time = mydate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-      localStorage.setItem('time', this.time);
-
-      console.log(mydate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
-
-      console.log(resp);
-
-
-      let houseNumber;
-
-      this.locationApi.getLocation(this.latitude, this.logitude)
-        .subscribe(res => {
-          console.log(res);
-
-          this.location = res.features[0].properties.formatted;
-          localStorage.setItem('location', this.location)
-          houseNumber = res.features[0].properties.housenumber,
-
-            console.log(this.location);
-          console.log("House number " + houseNumber + " Media Mill");
-          // alert("Please scan to attend");
-          // window.location.reload();
-
-
-
-        })
-
-
-
-    }).catch((error) => {
-      console.log('Error getting location', error);
-    });
-
-    let watch = this.geolocation.watchPosition();
-
-    console.log(watch);
-
-    watch.subscribe((data) => {
-      // data can be a set of coordinates, or an error (if an error occurred).
-      // this.lat = data.coords.latitude
-      // this.log = data.coords.longitude
-    });
-  }
 
 }

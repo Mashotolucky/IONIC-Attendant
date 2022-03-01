@@ -13,6 +13,7 @@ import { Storage } from '@capacitor/storage';
 })
 export class AttendenceService {
   temperature: any;
+  location: any;
 
   covidStatus: any;
   authToken: any;
@@ -43,6 +44,14 @@ export class AttendenceService {
 
   getTemperature(): any{
     return this.temperature;
+  }
+
+  setLocation(location: any): any{
+    return this.location = location;
+  }
+
+  getLocation(): any{
+    return this.location;
   }
 
   getCovidStatus(): any{

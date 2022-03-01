@@ -6,6 +6,10 @@ import { Attendance } from '../models/attendance';
 
 import { AttendenceService } from '../services/attendence.service';
 
+import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
+import { HttpClient } from '@angular/common/http';
+import { LocationService } from '../services/location.service';
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.page.html',
@@ -14,6 +18,15 @@ import { AttendenceService } from '../services/attendence.service';
 export class FormPage implements OnInit {
   
   attendance: Attendance;
+
+  latitude: any;
+  logitude: any;
+
+  date: any;
+  time: any;
+  location: any;
+
+  userIP: any;
 
    form = new FormGroup({
     firstName:  new FormControl('', [Validators.required]),
@@ -29,7 +42,10 @@ export class FormPage implements OnInit {
 
   constructor(private formBuilder:FormBuilder,
     private router:Router,
-    private attendentService:AttendenceService) {
+    private attendentService:AttendenceService, 
+    private httpClient: HttpClient,
+    private geolocation: Geolocation,
+    private locationApi: LocationService,) {
     // console.log(this.form)
   }
   
@@ -40,7 +56,8 @@ export class FormPage implements OnInit {
 
   console.log(this.getUUID());
    
-  
+    this.currentLocation();
+    this.IPAdress();
   }
 
   setCovidStatus(){
@@ -49,8 +66,110 @@ export class FormPage implements OnInit {
   }
   var : any = this.getUUID();
 
+
+  lat: any;
+  log: any;
+
+  //get current location and timestamp from geolocation
+
+  currentLocation() {
+
+
+    let timestamp;
+
+    this.geolocation.getCurrentPosition().then(async (resp) => {
+      //logitude and latitude
+      this.latitude = resp.coords.latitude;
+      this.logitude = resp.coords.longitude;
+
+      timestamp = resp.timestamp;
+
+      let mydate = new Date(timestamp); //Getting date from geolocation
+      console.log(mydate.toDateString());
+
+      this.date = mydate.toDateString();
+     
+
+      this.time = mydate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+     
+
+      console.log(mydate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
+
+      console.log(resp);
+
+
+      let houseNumber;
+
+      this.locationApi.getLocation(this.latitude, this.logitude)
+        .subscribe(res => {
+          console.log(res);
+
+          this.location = res.features[0].properties.formatted;
+         
+      
+          houseNumber = res.features[0].properties.housenumber,
+
+            console.log(this.location);
+          console.log("House number " + houseNumber + " Media Mill");
+          // alert("Please scan to attend");
+          // window.location.reload();
+
+        })
+
+
+
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
+
+    let watch = this.geolocation.watchPosition();
+
+    console.log(watch);
+
+    watch.subscribe((data) => {
+      // data can be a set of coordinates, or an error (if an error occurred).
+      // this.lat = data.coords.latitude
+      // this.log = data.coords.longitude
+    });
+  }
+
+  setLocation(){
+    this.attendentService.setLocation(this.location)
+    console.log(this.location);
+  }
+
+    //getting ip address from jsonIP
+    IPAdress() {
+      this.httpClient.get('https://jsonip.com').subscribe(
+        (value: any) => {
+          console.log(value);
+          this.userIP = value.ip;
+          console.log(this.userIP);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+
+  varr: any;
+
+  getUUID(): any {
+    const info = Device.getId();
+    // console.log()
+
+    info.then((deviceid) => {
+      //   console.log(deviceid.uuid);
+      this.varr = (deviceid.uuid);
+      console.log(this.varr);
+      return this.varr;
+    })
+  }
+
+
+
+
   post(){
-   
     // console.log(this.form.value);
     this.attendance = {
 
@@ -59,10 +178,10 @@ export class FormPage implements OnInit {
     employeeNumber: this.form.value.employeeNo,
     temperature: this.form.value.temperature,
     covid_symptoms_status: this.form.value.checked, 
-    location: localStorage.getItem('location'),
-    time: localStorage.getItem('time'),
-    date: localStorage.getItem('date'),
-    phoneID: localStorage.getItem('_capuid'),
+    location: this.location,
+    time: this.time,
+    date: this.date,
+    phoneID: this.varr,
     }
    
     console.log(this.attendance)
@@ -70,6 +189,7 @@ export class FormPage implements OnInit {
       console.log(res)
       console.log("we are oky")
       alert("Succesfully submitted your attendance");
+     
       this.router.navigateByUrl('/success');
       
     });
@@ -87,21 +207,7 @@ get employeeNo() {
 get temperature() {
   return this.form.get('temperature');
 }
-varr: String;
 
-getUUID(): any {
-  const info = Device.getId();
-  // console.log()
-
-  info.then((deviceid)=>
-  {
-  //   console.log(deviceid.uuid);
-    this.varr = (deviceid.uuid);
-    console.log(this.varr);
-     return this.varr;
-  })
-}
- 
  
 
 }
