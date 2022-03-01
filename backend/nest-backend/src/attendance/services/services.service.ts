@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { from, Observable } from 'rxjs';
+import { from, Observable, of, switchMap } from 'rxjs';
 import { createQueryBuilder, DeleteResult, Repository, UpdateResult } from 'typeorm';
 
 import { User } from '../../auth/models/user.class';
@@ -29,6 +29,17 @@ export class ServicesService {
   findAllAttendance(): Observable<Attendance[]> {
     return from(this.attendanceRepository.find());
   }
+    //Function to check if phone ID exist
+  doesPhoneIDExist(phoneID: string): Observable<boolean> {
+    return from(this.attendanceRepository.findOne({ phoneID})).pipe(
+      switchMap((attendance: Attendance) => {
+        return of(!!attendance);
+      }),
+    );
+  }
+
+
+
 
 
   // findAttendance(take: number = 10, skip: number = 0): Observable<Attendance[]> {
