@@ -204,7 +204,6 @@ export class ScannerPage implements OnInit {
       (value: any) => {
         console.log(value);
         this.userIP = value.ip;
-        localStorage.setItem('location', this.userIP)
         console.log(this.userIP);
       },
       (error) => {
@@ -252,6 +251,7 @@ export class ScannerPage implements OnInit {
           console.log(res);
 
           this.location = res.features[0].properties.formatted;
+          localStorage.setItem('location', this.location)
           houseNumber = res.features[0].properties.housenumber,
 
             console.log(this.location);

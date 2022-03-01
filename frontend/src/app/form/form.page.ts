@@ -30,12 +30,16 @@ export class FormPage implements OnInit {
   constructor(private formBuilder:FormBuilder,
     private router:Router,
     private attendentService:AttendenceService) {
-    console.log(this.form)
+    // console.log(this.form)
   }
   
 
   ngOnInit(): void {
-   this.getUUID();
+  //  console.log(this.getUUID());
+  //  console.log(this.varr)
+
+  console.log(this.getUUID());
+   
   
   }
 
@@ -43,22 +47,25 @@ export class FormPage implements OnInit {
     this.attendentService.setCovidStatus(this.form.value.checked);
     console.log("checked = "+this.form.value.checked);
   }
+  var : any = this.getUUID();
 
   post(){
    
-    console.log(this.form.value);
+    // console.log(this.form.value);
     this.attendance = {
 
     firstName: this.form.value.firstName,
     lastName: this.form.value.lastName,
-    employeeNumber: this.form.value.employeeNumber,
+    employeeNumber: this.form.value.employeeNo,
     temperature: this.form.value.temperature,
-    covid_symptoms_status: this.form.value.covid_symptoms_status, 
+    covid_symptoms_status: this.form.value.checked, 
     location: localStorage.getItem('location'),
     time: localStorage.getItem('time'),
     date: localStorage.getItem('date'),
-    phoneID: this.getUUID().toString(),
+    phoneID: localStorage.getItem('_capuid'),
     }
+   
+    console.log(this.attendance)
     this.attendentService.createAttendance(this.attendance).subscribe((res) => {
       console.log(res)
       console.log("we are oky")
@@ -80,15 +87,21 @@ get employeeNo() {
 get temperature() {
   return this.form.get('temperature');
 }
+varr: String;
 
-getUUID(){
+getUUID(): any {
   const info = Device.getId();
+  // console.log()
 
   info.then((deviceid)=>
   {
-    console.log(deviceid.uuid);
-  }
-  );
-  return info;
+  //   console.log(deviceid.uuid);
+    this.varr = (deviceid.uuid);
+    console.log(this.varr);
+     return this.varr;
+  })
 }
+ 
+ 
+
 }

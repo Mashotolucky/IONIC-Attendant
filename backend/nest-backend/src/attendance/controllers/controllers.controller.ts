@@ -39,7 +39,7 @@ export class ControllersController {
     
     @Post()
     create(@Body() attendance: Attendance): Observable<Attendance> {
-      return this.attendanceService.create(attendance);
+      return this.attendanceService.create(attendance['data']);
     }
 
     @UseGuards(JwtGuard)
