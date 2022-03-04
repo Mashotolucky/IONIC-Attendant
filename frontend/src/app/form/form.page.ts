@@ -171,8 +171,8 @@ export class FormPage implements OnInit {
 
   post(){
     // console.log(this.form.value);
+    
     this.attendance = {
-
     firstName: this.form.value.firstName,
     lastName: this.form.value.lastName,
     employeeNumber: this.form.value.employeeNo,

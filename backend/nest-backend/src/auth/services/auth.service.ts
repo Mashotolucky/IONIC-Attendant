@@ -30,7 +30,7 @@ export class AuthService {
     return from(bcrypt.hash(password, 12));
   }
 
-  //function to chech if the user email already exists in the repository
+  //function to check if the user email already exists in the repository
   //pipe allows to perform rxjs async operations
   doesUserExist(email: string): Observable<boolean> {
     return from(this.userRepository.findOne({ email })).pipe(
