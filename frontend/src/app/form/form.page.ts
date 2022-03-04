@@ -10,6 +10,8 @@ import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { HttpClient } from '@angular/common/http';
 import { LocationService } from '../services/location.service';
 
+import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.page.html',
@@ -84,11 +86,12 @@ export class FormPage implements OnInit {
 
       timestamp = resp.timestamp;
 
+      const datepipe: DatePipe = new DatePipe('en-US')
       let mydate = new Date(timestamp); //Getting date from geolocation
-      console.log(mydate.toDateString());
+      console.log(mydate);
 
-      this.date = mydate.toDateString();
-     
+      this.date = datepipe.transform(mydate, 'dd-MM-YYYY');
+      console.log(this.date);
 
       this.time = mydate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
      
